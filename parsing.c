@@ -25,16 +25,12 @@ t_node	*append_node(t_node **head, int value, int index)
 
 int	is_number(char *argv)
 {
-	int	i;
-
-	i = 0;
-	if (argv[i] == '-')
-		i++;
-	while (argv[i])
+	if (*argv == '-')
+		argv++;
+	while (*argv)
 	{
-		if (argv[i] < '0' || argv[i] > '9')
+		if (argv++ < '0' || argv++ > '9')
 			return (0);
-		i++;
 	}
 	return (1);
 }
