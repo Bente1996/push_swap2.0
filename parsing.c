@@ -1,3 +1,5 @@
+#include <stdbool.h>
+
 t_node	*append_node(t_node **head, int value, int index)
 {
 	t_node	*new;
@@ -23,30 +25,30 @@ t_node	*append_node(t_node **head, int value, int index)
 	return (new);
 }
 
-int	is_number(char *argv)
+bool	is_number(char *argv)
 {
 	if (*argv == '-')
 		argv++;
 	while (*argv)
 	{
 		if (argv++ < '0' || argv++ > '9')
-			return (0);
+			return (false);
 	}
-	return (1);
+	return (true);
 }
 
-int	overflow(char *argv, int value, int sign)
+bool	is_overflow(char *argv, int value, int sign)
 {
 	if (value < 214748364)
-		return (0);
+		return (false);
 	else 
-		return (1);
+		return (true);
 	if (*argv > '8')
-		return (1);
+		return (true);
 	if (*argv == '8' && sign == 0)
-		return (1);
+		return (true);
 	else
-		return (0);
+		return (false);
 }
 
 int	convert(char *argv, int *valid)
@@ -71,7 +73,7 @@ int	convert(char *argv, int *valid)
 		i++;
 		if (digits == 9)
 		{
-			if (overflow(argv, value, sign))
+			if (is_overflow(argv, value, sign))
 			{
 				*valid = 0;
 				return (0);
@@ -111,13 +113,13 @@ t_node	*make_list(int argc, char **argv)
 			if (!list)
 			{
 				free_list(list);
-				return (NULL);
+				return (NULL); // return (free_list(list));
 			}
 		}
 		else
 		{
 			free_list(list);
-			return (NULL);
+			return (NULL); // return (free_list(list)); (is NULL)
 		}
 	}
 	return (list);
