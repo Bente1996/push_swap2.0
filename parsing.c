@@ -86,7 +86,7 @@ int	make_number(char *argv, int *valid)
 {
 	int	value;
 
-	valid = 0;
+	*valid = 0;
 	if (!is_number(argv))
 		return (NULL);
 	*valid = 1;
