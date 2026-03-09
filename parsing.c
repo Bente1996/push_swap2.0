@@ -58,18 +58,21 @@ int	convert(char *argv, int *valid)
 	int	value;
 	int	sign;
 	int	digits;
+	int	i;
 
 	sign = 0;
 	overflow = 1;
+	i = 0;
 	if (*argv == '-')
 	{
 		sign = -1;
 		argv++;
 	}
-	while (*argv)
+	while (argv[i])
 	{
-		value = (*argv++ - 48 ) + value * 10;
-		digits+;
+		value = (*argv - 48 ) + value * 10;
+		digits++;
+		i++;
 		if (digits == 9)
 		{
 			if (overflow(argv, value, sign))
