@@ -77,23 +77,20 @@ bool	is_number(char *argv)
 	return (true);
 }
 
-bool	is_overflow(char *argv, int value, int sign) // komt binnen met 9 of 10
+bool	is_overflow(char *argv, int value, int sign)
 {
-	if (value < 214748364) // 9, kan sowieso een 10e bij, 2147483647
-		return (false); // false, nog een rondje
+	if (value < 214748364)
+		return (false);
 	else if (value == 214748364)
 	{
-		if (*argv > '8') // 10, check 10e digit
-			return (true); // voorkom bouw
-		if (*argv == '8' && sign == 1) // overflow, voorkom value toename
-		{
-			printf("testje\n");
+		if (*argv > '8')
 			return (true);
-		}
-		return (false); // 10e digit was priem, nog een rondje, mag toegevoegd
+		if (*argv == '8' && sign == 1)
+			return (true);
+		return (false);
 	}	
 	else
-		return (true);	// eerste 9 digit waren groot, 10e mag niet
+		return (true);
 }
 
 int	convert(char *argv, int *valid)
@@ -110,7 +107,7 @@ int	convert(char *argv, int *valid)
 		sign = -1;
 		argv++;
 	}
-	while (argv[i] && i < 10) // alleen bouwen tm 10 digit
+	while (argv[i] && i < 10)
 	{
 		value = (argv[i] - 48) + value * 10;
 		i++;
@@ -118,8 +115,6 @@ int	convert(char *argv, int *valid)
 		{
 			if ((i == 9 && is_overflow(&argv[i], value, sign)) || (i == 10 && argv[i]))
 			{
-				printf("%d\n", value);
-				printf("%s\n", &argv[i]);
 				*valid = 0;
 				return (0);
 			}
