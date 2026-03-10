@@ -87,6 +87,7 @@ bool	is_overflow(char *argv, int value, int sign) // komt binnen met 9 of 10
 			return (true); // voorkom bouw
 		if (*argv == '8' && sign == 1) // overflow, voorkom value toename
 		{
+			printf("testje\n");
 			return (true);
 		}
 		return (false); // 10e digit was priem, nog een rondje, mag toegevoegd
@@ -117,6 +118,8 @@ int	convert(char *argv, int *valid)
 		{
 			if ((i == 9 && is_overflow(&argv[i], value, sign)) || (i == 10 && argv[i]))
 			{
+				printf("%d\n", value);
+				printf("%s\n", &argv[i]);
 				*valid = 0;
 				return (0);
 			}
