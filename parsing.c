@@ -71,53 +71,51 @@ bool	is_number(char *argv)
 		argv++;
 	while (*argv)
 	{
-		printf("number?: %c\n", *argv);
 		if (*argv++ < '0' || *argv > '9')
 			return (false);
 	}
 	return (true);
 }
 
-bool	is_overflow(char *argv, int value, int sign)
+bool	is_overflow(char *argv, int value, int sign) // komt binnen met 9 of 10
 {
-	if (value < 214748364)
-		return (false);
-	else 
-		return (true);
-	if (*argv > '8')
-		return (true);
-	if (*argv == '8' && sign == 0)
-		return (true);
+	if (value < 214748364) // 9, kan sowieso een 10e bij, 2147483647
+		return (false); // false, nog een rondje
+	else if (value == 214748364)
+	{
+		if (*argv > '8') // 10, check 10e digit
+			return (true); // voorkom bouw
+		if (*argv == '8' && sign == 1) // overflow, voorkom value toename
+		{
+			return (true);
+		}
+		return (false); // 10e digit was priem, nog een rondje, mag toegevoegd
+	}	
 	else
-		return (false);
+		return (true);	// eerste 9 digit waren groot, 10e mag niet
 }
 
 int	convert(char *argv, int *valid)
 {
 	int	value;
 	int	sign;
-	int	digits;
 	int	i;
 
 	sign = 1;
-	digits = 1;
 	i = 0;
 	value = 0;
-	printf("%s\n", argv);
 	if (*argv == '-')
 	{
 		sign = -1;
 		argv++;
 	}
-	printf("char: %c\n", argv[i]);
-	while (argv[i])
+	while (argv[i] && i < 10) // alleen bouwen tm 10 digit
 	{
 		value = (argv[i] - 48) + value * 10;
-		digits++;
 		i++;
-		if (digits == 9)
+		if (i >= 9)
 		{
-			if (is_overflow(argv, value, sign))
+			if ((i == 9 && is_overflow(&argv[i], value, sign)) || (i == 10 && argv[i]))
 			{
 				*valid = 0;
 				return (0);
@@ -131,10 +129,8 @@ int	make_number(char *argv, int *valid)
 {
 	int	value;
 
-	*valid = 0;
 	if (!is_number(argv))
 		return (-1);
-	*valid = 1;
 	value = convert(argv, valid);
 	return (value);
 }
@@ -153,38 +149,22 @@ t_node	*make_list(int argc, char **argv)
 	valid = malloc(sizeof(int));
 	if (!valid)
 		return (NULL);
-	//printf("%d\n", i);
-	//printf("%d\n", argc);
-	//printf("%s\n", argv[i]);
-	//printf("%d\n", *valid);
+	*valid = 1;
 	while (i < argc)
 	{
-		printf("value: %d\n", value);
-		printf("valid: %d\n", *valid);
+		if (!*valid)
+			return (NULL);
 		value = make_number(argv[i], valid);
-		if (valid)
+		if (!*valid)
+			return (NULL); // + free
+		list = append_node(&list, value, i);
+		if (!list )
 		{
-			list = append_node(&list, value, i);
-			if (!list)
-			{
-				//free_list(&list); // "invalid pointer"
-				return (NULL); // return (free_list(list));
-			}
+			//free_list(&list); // "invalid pointer"
+			return (NULL); // return (free_list(list));
 		}
-		else
-		{
-			//free_list(&list);
-			return (NULL); // return (free_list(list)); (is NULL)
-		}
-		printf("value2: %d\n", value); 
-		printf("list->value: %d\n", list->value);
-		printf("valid2: %d\n\n", *valid);
 		i++;
-		printf("i: %d\n", i);
-		printf("argc: %d\n", argc);
-
 	}
 	//list->value = value; //test
-	printf("%d\n", value);
 	return (list);
 }
