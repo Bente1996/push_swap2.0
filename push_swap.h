@@ -8,7 +8,8 @@ typedef struct s_node
 	struct s_node	*next;
 }	t_node;
 
-int	*parse_input(char *argv, int *valid);
 t_node	*append_node(t_node **head, int value, int index);
+t_node	*make_list(int argc, char **argv);
+void	free_list(t_node **head);
 
 #endif

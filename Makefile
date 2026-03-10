@@ -6,15 +6,16 @@ SRCFILES := main.c \
 OBJFILES := $(SRCFILES:.c=.o)
 CFLAGS ?= -Wall -Wextra -Werror
 
-all: $(EXEC_NAME)
+all : $(EXEC_NAME)
 
 run: $(EXEC_NAME)
-	./(EXEC_NAME)
+	./$(EXEC_NAME) "1 2 3"
 
 $(EXEC_NAME): $(OBJFILES)
 	$(CC) $(OBJFILES) $(CFLAGS) -o $(EXEC_NAME)
 
 %.o: %.c $(HEADERFILES)
+	$(CC) $(CFLAGS) -c $<
 
 clean:
 	rm -f $(OBJFILES)
