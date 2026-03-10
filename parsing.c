@@ -1,6 +1,7 @@
 #include <stdbool.h>
 #include "push_swap.h"
 #include "stdlib.h"
+#include <stdio.h>
 
 t_node	*new_node(int value, int index)
 {
@@ -70,7 +71,8 @@ bool	is_number(char *argv)
 		argv++;
 	while (*argv)
 	{
-		if (*argv++ < '0' || *argv++ > '9')
+		printf("number?: %c\n", *argv);
+		if (*argv++ < '0' || *argv > '9')
 			return (false);
 	}
 	return (true);
@@ -97,17 +99,20 @@ int	convert(char *argv, int *valid)
 	int	digits;
 	int	i;
 
-	sign = 0;
+	sign = 1;
 	digits = 1;
 	i = 0;
+	value = 0;
+	printf("%s\n", argv);
 	if (*argv == '-')
 	{
 		sign = -1;
 		argv++;
 	}
+	printf("char: %c\n", argv[i]);
 	while (argv[i])
 	{
-		value = (*argv - 48 ) + value * 10;
+		value = (argv[i] - 48) + value * 10;
 		digits++;
 		i++;
 		if (digits == 9)
@@ -119,7 +124,7 @@ int	convert(char *argv, int *valid)
 			}
 		}
 	}
-	return (value);
+	return (value * sign);
 }
 
 int	make_number(char *argv, int *valid)
@@ -143,27 +148,43 @@ t_node	*make_list(int argc, char **argv)
 	int	*valid;
 	int	i;
 
-	i = 0;
+	i = 1;
 	list = NULL;
-	valid = 0;
-	printf("%s\n", *argv);
+	valid = malloc(sizeof(int));
+	if (!valid)
+		return (NULL);
+	//printf("%d\n", i);
+	//printf("%d\n", argc);
+	//printf("%s\n", argv[i]);
+	//printf("%d\n", *valid);
 	while (i < argc)
 	{
-		value = make_number(argv[i++], valid);
+		printf("value: %d\n", value);
+		printf("valid: %d\n", *valid);
+		value = make_number(argv[i], valid);
 		if (valid)
 		{
 			list = append_node(&list, value, i);
 			if (!list)
 			{
-				free_list(&list);
+				//free_list(&list); // "invalid pointer"
 				return (NULL); // return (free_list(list));
 			}
 		}
 		else
 		{
-			free_list(&list);
+			//free_list(&list);
 			return (NULL); // return (free_list(list)); (is NULL)
 		}
+		printf("value2: %d\n", value); 
+		printf("list->value: %d\n", list->value);
+		printf("valid2: %d\n\n", *valid);
+		i++;
+		printf("i: %d\n", i);
+		printf("argc: %d\n", argc);
+
 	}
+	//list->value = value; //test
+	printf("%d\n", value);
 	return (list);
 }

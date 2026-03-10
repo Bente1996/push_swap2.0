@@ -13,6 +13,7 @@ int	main(int argc, char **argv)
 	list = make_list(argc, argv);
 	if (!list)
 		return (1);
-	free_list(&list);
+	printf("main");
+	//free_list(list);
 	return (0);
 }
