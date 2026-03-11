@@ -1,7 +1,9 @@
 EXEC_NAME := push_swap
 HEADERFILES := push_swap.h
 SRCFILES := main.c \
-	    parsing.c
+	    parsing.c \
+	    utils.c \
+	    nodes.c
 
 OBJFILES := $(SRCFILES:.c=.o)
 CFLAGS ?= -Wall -Wextra -Werror
