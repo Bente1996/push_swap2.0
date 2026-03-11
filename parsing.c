@@ -2,46 +2,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int	convert(char *argv, int *valid)
-{
-	int	value;
-	int	sign;
-	int	i;
-
-	sign = 1;
-	i = 0;
-	value = 0;
-	if (*argv == '-')
-	{
-		sign = -1;
-		argv++;
-	}
-	while (argv[i] && i < 10)
-	{
-		value = (argv[i] - 48) + value * 10;
-		i++;
-		if (i >= 9)
-		{
-			if ((i == 9 && is_overflow(&argv[i], value, sign)) || (i == 10 && argv[i]))
-			{
-				*valid = 0;
-				return (0);
-			}
-		}
-	}
-	return (value * sign);
-}
-
-int	make_number(char *argv, int *valid)
-{
-	int	value;
-
-	if (!is_number(argv))
-		return (-1);
-	value = convert(argv, valid);
-	return (value);
-}
-
 t_node	*make_list(int argc, char **argv)
 {
 	t_node	*list;
@@ -73,4 +33,44 @@ t_node	*make_list(int argc, char **argv)
 	}
 	//list->value = value; //test
 	return (list);
+}
+
+int	make_number(char *argv, int *valid)
+{
+	int	value;
+
+	if (!is_number(argv))
+		return (-1);
+	value = convert(argv, valid);
+	return (value);
+}
+
+int	convert(char *argv, int *valid)
+{
+	int	value;
+	int	sign;
+	int	i;
+
+	sign = 1;
+	i = 0;
+	value = 0;
+	if (*argv == '-')
+	{
+		sign = -1;
+		argv++;
+	}
+	while (argv[i] && i < 10)
+	{
+		value = (argv[i] - 48) + value * 10;
+		i++;
+		if (i >= 9)
+		{
+			if ((i == 9 && is_overflow(&argv[i], value, sign)) || (i == 10 && argv[i]))
+			{
+				*valid = 0;
+				return (0);
+			}
+		}
+	}
+	return (value * sign);
 }
