@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                            ::::::::        */
+/*   parsing.c                                               :+:    :+:       */
+/*                                                          +:+               */
+/*   By: bede-kon <bede-kon@student.codam.nl>              +#+                */
+/*                                                        +#+                 */
+/*   Created: 2026/03/12 18:21:32 by bede-kon            #+#    #+#           */
+/*   Updated: 2026/03/12 18:31:12 by bede-kon            ########   odam.nl   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -5,33 +17,28 @@
 t_node	*make_list(int argc, char **argv)
 {
 	t_node	*list;
-	int	value;
-	int	*valid;
-	int	i;
+	int		value;
+	int		*valid;
+	int		i;
 
 	i = 1;
 	list = NULL;
 	valid = malloc(sizeof(int));
 	if (!valid)
 		return (NULL);
-	*valid = 1;
+	*valid = 0;
 	while (i < argc)
 	{
-		if (!*valid)
-			return (NULL);
 		value = make_number(argv[i], valid);
 		printf("list: %d\n", value);
 		if (!*valid)
-			return (NULL); // + free
+			break ;
 		list = append_node(&list, value, i);
-		if (!list )
-		{
-			//free_list(&list); // "invalid pointer"
-			return (NULL); // return (free_list(list));
-		}
+		if (!list)
+			break ;
 		i++;
 	}
-	//list->value = value; //test
+	free (valid);
 	return (list);
 }
 
@@ -40,7 +47,7 @@ int	make_number(char *argv, int *valid)
 	int	value;
 
 	if (!is_number(argv))
-		return (-1);
+		return (0);
 	value = convert(argv, valid);
 	return (value);
 }
@@ -61,16 +68,14 @@ int	convert(char *argv, int *valid)
 	}
 	while (argv[i] && i < 10)
 	{
-		value = (argv[i] - 48) + value * 10;
-		i++;
+		value = (argv[i++] - 48) + value * 10;
 		if (i >= 9)
 		{
-			if ((i == 9 && is_overflow(&argv[i], value, sign)) || (i == 10 && argv[i]))
-			{
-				*valid = 0;
+			if ((i == 9 && is_overflow(&argv[i], value, sign)) \
+|| (i == 10 && argv[i]))
 				return (0);
-			}
 		}
 	}
+	*valid = 1;
 	return (value * sign);
 }

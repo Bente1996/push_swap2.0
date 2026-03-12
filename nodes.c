@@ -35,5 +35,6 @@ t_node	*append_node(t_node **head, int value, int index)
 			tmp = tmp->next;
 		tmp->next = new;
 	}
+	free (tmp);
 	return (new);
 }

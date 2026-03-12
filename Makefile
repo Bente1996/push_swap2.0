@@ -11,7 +11,7 @@ CFLAGS ?= -Wall -Wextra -Werror
 all: $(EXEC_NAME)
 
 run: $(EXEC_NAME)
-	./$(EXEC_NAME)
+	./$(EXEC_NAME) 1 2 3 4
 
 $(EXEC_NAME): $(OBJFILES)
 	$(CC) $(OBJFILES) $(CFLAGS) -o $(EXEC_NAME)
