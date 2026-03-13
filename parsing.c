@@ -14,9 +14,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-t_node	*make_list(int argc, char **argv)
+t_node	**make_list(int argc, char **argv)
 {
-	t_node	*list;
+	t_node	**list;
 	int		value;
 	int		*valid;
 	int		i;
@@ -33,11 +33,12 @@ t_node	*make_list(int argc, char **argv)
 		printf("list: %d\n", value);
 		if (!*valid)
 			break ;
-		list = append_node(&list, value, i);
-		if (!list)
+		append_node(list, value, i);
+		if (!(*list))
 			break ;
 		i++;
 	}
+	list = sort_indices(list);
 	free (valid);
 	return (list);
 }
@@ -72,7 +73,7 @@ int	convert(char *argv, int *valid)
 		if (i >= 9)
 		{
 			if ((i == 9 && is_overflow(&argv[i], value, sign)) \
-|| (i == 10 && argv[i]))
+ || (i == 10 && argv[i]))
 				return (0);
 		}
 	}

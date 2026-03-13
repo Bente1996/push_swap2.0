@@ -3,7 +3,8 @@ HEADERFILES := push_swap.h
 SRCFILES := main.c \
 	    parsing.c \
 	    utils.c \
-	    nodes.c
+	    nodes.c \
+		sorting.c
 
 OBJFILES := $(SRCFILES:.c=.o)
 CFLAGS ?= -Wall -Wextra -Werror

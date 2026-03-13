@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                            ::::::::        */
+/*   main.c                                                  :+:    :+:       */
+/*                                                          +:+               */
+/*   By: bede-kon <bede-kon@student.codam.nl>              +#+                */
+/*                                                        +#+                 */
+/*   Created: 2026/03/12 20:16:17 by bede-kon            #+#    #+#           */
+/*   Updated: 2026/03/12 20:16:20 by bede-kon            ########   odam.nl   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 #include <stdlib.h>
 #include <stdio.h>
@@ -10,15 +22,12 @@ int	main(int argc, char **argv)
 	//stack_b = NULL;
 	if (argc < 3)
 		return (1);
-	list = malloc(sizeof(t_node));
+	list = malloc(sizeof(t_node *));
 	if (!list)
 		return (1);
-	*list = make_list(argc, argv);
-	if (!*list)
-	{
-	//	free_list(list);
+	list = make_list(argc, argv);
+	if (!list)
 		return (1);
-	}
 	printf("main");
 	free_list(list);
 	return (0);
