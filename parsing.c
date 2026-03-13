@@ -14,33 +14,34 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-t_node	**make_list(int argc, char **argv)
+t_node	*make_list(int argc, char **argv)
 {
-	t_node	**list;
+	t_node	*list;
+	t_node	*head; // aaa
 	int		value;
-	int		*valid;
+	int		valid;
 	int		i;
 
 	i = 1;
-	list = NULL;
-	valid = malloc(sizeof(int));
-	if (!valid)
+	head = NULL;
+	list = malloc(sizeof(t_node));
+	if (!list)
 		return (NULL);
-	*valid = 0;
+	valid = 0;
 	while (i < argc)
 	{
-		value = make_number(argv[i], valid);
+		value = make_number(argv[i], &valid);
 		printf("list: %d\n", value);
-		if (!*valid)
+		if (!valid)
 			break ;
-		append_node(list, value, i);
-		if (!(*list))
+		printf("test\n");
+		list = append_node(&head, value, i - 1);
+		if (!list)
 			break ;
 		i++;
 	}
-	list = sort_indices(list);
-	free (valid);
-	return (list);
+	head = sort_indices(&head);
+	return (head);
 }
 
 int	make_number(char *argv, int *valid)

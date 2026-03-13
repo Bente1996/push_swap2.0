@@ -28,14 +28,15 @@ t_node	*new_node(int value, int index)
 	return (new);
 }
 
+#include <stdio.h>
+
 t_node	*append_node(t_node **head, int value, int index)
 {
 	t_node	*new;
 	t_node	*tmp;
 
-	tmp = NULL;
-	if (is_duplicate(*head, value))
-		return (NULL);
+	//if (is_duplicate(*head, value))
+	//	return (NULL);
 	new = new_node(value, index);
 	if (!new)
 		return (NULL);
@@ -48,6 +49,5 @@ t_node	*append_node(t_node **head, int value, int index)
 			tmp = tmp->next;
 		tmp->next = new;
 	}
-	free (tmp);
 	return (new);
 }
