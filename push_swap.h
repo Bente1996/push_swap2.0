@@ -24,7 +24,7 @@ typedef struct s_node
 }	t_node;
 
 t_node	*append_node(t_node **head, int value, int index);
-t_node	*make_list(int argc, char **argv);
+t_node	*make_list(int argc, char **argv, int *i);
 int	make_number(char *argv, int *valid);
 int	convert(char *argv, int *valid);
 bool	is_overflow(char *argv, int value, int sign);
@@ -32,6 +32,9 @@ bool	is_number(char *argv);
 bool	is_duplicate(t_node *head, int value);
 void	free_list(t_node *head);
 t_node	*sort_indices(t_node **list);
-void	pb(t_node **stack_a, t_node **stack_b);
+int	sorting(t_node **stack_a, t_node **stack_b, int size);
+int	pb(t_node **stack_a, t_node **stack_b);
+void	print_list(t_node *list); // naar ft_printf doen
+int	count_operations();
 
 #endif

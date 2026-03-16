@@ -31,8 +31,21 @@ t_node	*sort_indices(t_node **list)
 			*list = (*list)->next;
 		}
 		*list = head;	
-		printf("sorted index:%d\n", tmp->sorted_index);
 		tmp = tmp->next;
 	}
 	return (head);
+}
+
+int	sorting(t_node **stack_a, t_node **stack_b, int size)
+{
+	int	operations = 0;
+	int	half;
+
+	half = size / 2;
+	while (size > half)
+	{
+		operations = pb(stack_a, stack_b);
+		size--;
+	}
+	return (operations);
 }

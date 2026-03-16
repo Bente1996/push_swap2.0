@@ -14,27 +14,25 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-t_node	*make_list(int argc, char **argv)
+t_node	*make_list(int argc, char **argv, int *i)
 {
 	t_node		*list;
 	t_node		*head;
 	int		value;
 	int		valid;
-	int		i;
 
-	i = 1;
 	list = NULL;
 	head = NULL;
 	valid = 0;
-	while (i < argc)
+	while (*i < argc - 1)
 	{
-		value = make_number(argv[i], &valid);
+		value = make_number(argv[*i + 1], &valid);
 		if (!valid)
 			return (head);
-		list = append_node(&head, value, i - 1);	
+		list = append_node(&head, value, *i);	
 		if (!list)
 			return (head);
-		i++;
+		*i += 1;
 	}
 	head = sort_indices(&head);
 	return (head);

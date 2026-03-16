@@ -65,3 +65,23 @@ void	free_list(t_node *head)
 	}
 }
 
+#include <stdio.h>
+
+void	print_list(t_node *list)
+{
+	while (list)
+	{
+		printf("\nValue:%d\n", list->value);
+		printf("Index:%d\n", list->index);
+		printf("Sorted index:%d\n", list->sorted_index);
+		list = list->next;
+	}
+}
+
+int	count_operations()
+{
+	static int	operation_count;
+
+	operation_count++;
+	return (operation_count);
+}
