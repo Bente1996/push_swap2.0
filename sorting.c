@@ -31,6 +31,7 @@ t_node	*sort_indices(t_node **list)
 			*list = (*list)->next;
 		}
 		*list = head;	
+		printf("sorted index:%d\n", tmp->sorted_index);
 		tmp = tmp->next;
 	}
 	return (head);

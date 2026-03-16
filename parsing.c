@@ -16,17 +16,13 @@
 
 t_node	*make_list(int argc, char **argv)
 {
-	t_node	*list;
-	t_node	*head; // aaa
+	t_node		*list;
+	t_node		*head;
 	int		value;
 	int		valid;
 	int		i;
 
 	i = 1;
-	//head = NULL;
-//	list = malloc(sizeof(t_node));
-//	if (!list)
-//		return (NULL);
 	list = NULL;
 	head = NULL;
 	valid = 0;
@@ -34,10 +30,10 @@ t_node	*make_list(int argc, char **argv)
 	{
 		value = make_number(argv[i], &valid);
 		if (!valid)
-			break ;
+			return (head);
 		list = append_node(&head, value, i - 1);	
 		if (!list)
-			return (NULL) ;
+			return (head);
 		i++;
 	}
 	head = sort_indices(&head);
