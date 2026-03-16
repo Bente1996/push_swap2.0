@@ -15,18 +15,20 @@
 
 int	main(int argc, char **argv)
 {
-	t_node	**head = NULL; // Gekkigeit
-	t_node	*list;
+	t_node	*head; // Gekkigeit
 	//t_node *stack_b;
 
 	//stack_b = NULL;
+	head = NULL;
 	if (argc < 3)
 		return (1);
-	list = make_list(argc, argv);
-	if (!list)
+	head = make_list(argc, argv);
+	if (!head)
+	{
+		free_list(head);
 		return (1);
+	}
 	printf("main");
-	head = &list;
 	free_list(head);
 	return (0);
 }

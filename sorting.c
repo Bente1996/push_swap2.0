@@ -20,18 +20,17 @@ t_node	*sort_indices(t_node **list)
 
 	head = *list;
 	tmp = *list;
-	printf("%d\n", tmp->next->value);
 	while (tmp)
 	{
-		printf("test\n");
-		while ((*list)->next)
+		while (*list)
 		{
-			if (tmp->value > (*list)->next->value)
+			if (tmp->value > (*list)->value)
 				tmp->sorted_index += 1;
+			if (!(*list)->next)
+				break ;
 			*list = (*list)->next;
 		}
-		*list = head;
-		printf("%d\n", tmp->sorted_index);
+		*list = head;	
 		tmp = tmp->next;
 	}
 	return (head);

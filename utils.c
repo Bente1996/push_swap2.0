@@ -52,17 +52,16 @@ bool	is_duplicate(t_node *head, int value)
 	return (false);
 }
 
-void	free_list(t_node **head)
+void	free_list(t_node *head)
 {
 	t_node	*tmp;
 
 
-	while (*head)
+	while (head)
 	{
-		tmp = *head;
-		(*head) = (*head)->next;
+		tmp = head;
+		head = head->next;
 		free (tmp);
 	}
-	free (head);
 }
 

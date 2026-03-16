@@ -14,6 +14,12 @@ all: $(EXEC_NAME)
 run: $(EXEC_NAME)
 	./$(EXEC_NAME) 1 2 3 4
 
+valgrind: $(EXEC_NAME)
+	valgrind ./$(EXEC_NAME) 1 2 3 4
+
+valgrind full: $(EXEC_NAME)
+	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes -s ./$(EXEC_NAME) 1 2 3 4
+
 $(EXEC_NAME): $(OBJFILES)
 	$(CC) $(OBJFILES) $(CFLAGS) -o $(EXEC_NAME)
 

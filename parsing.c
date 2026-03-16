@@ -23,21 +23,21 @@ t_node	*make_list(int argc, char **argv)
 	int		i;
 
 	i = 1;
+	//head = NULL;
+//	list = malloc(sizeof(t_node));
+//	if (!list)
+//		return (NULL);
+	list = NULL;
 	head = NULL;
-	list = malloc(sizeof(t_node));
-	if (!list)
-		return (NULL);
 	valid = 0;
 	while (i < argc)
 	{
 		value = make_number(argv[i], &valid);
-		printf("list: %d\n", value);
 		if (!valid)
 			break ;
-		printf("test\n");
-		list = append_node(&head, value, i - 1);
+		list = append_node(&head, value, i - 1);	
 		if (!list)
-			break ;
+			return (NULL) ;
 		i++;
 	}
 	head = sort_indices(&head);
