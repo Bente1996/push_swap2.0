@@ -16,9 +16,9 @@
 int	main(int argc, char **argv)
 {
 	t_node	*head; // Gekkigeit
-	//t_node *stack_b;
+	t_node *stack_b;
 
-	//stack_b = NULL;
+	stack_b = NULL;
 	head = NULL;
 	if (argc < 3)
 		return (1);
@@ -28,7 +28,10 @@ int	main(int argc, char **argv)
 		free_list(head);
 		return (1);
 	}
-	printf("main");
+	printf("main\n");
+	pb(&head, &stack_b);	
+	printf("%d\n", stack_b->value);
+	printf("%d\n", head->value);
 	free_list(head);
 	return (0);
 }

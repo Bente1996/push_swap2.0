@@ -32,5 +32,6 @@ bool	is_number(char *argv);
 bool	is_duplicate(t_node *head, int value);
 void	free_list(t_node *head);
 t_node	*sort_indices(t_node **list);
+void	pb(t_node **stack_a, t_node **stack_b);
 
 #endif
