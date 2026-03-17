@@ -67,21 +67,26 @@ void	free_list(t_node *head)
 
 #include <stdio.h>
 
-void	print_list(t_node *list)
+void	print_list(t_node *list, char stack)
 {
+	if (stack == 'A')
+		printf("\nStack A:\n");
+	if (stack == 'B')
+		printf("\nStack B:\n");
 	while (list)
 	{
-		printf("\nValue:%d\n", list->value);
-		printf("Index:%d\n", list->index);
-		printf("Sorted index:%d\n", list->sorted_index);
+		printf("Value:%d\n", list->value);
+		//printf("Index:%d\n", list->index);
+		//printf("Sorted index:%d\n", list->sorted_index);
 		list = list->next;
 	}
 }
 
-int	count_operations()
+int	count_operations(char *operation)
 {
 	static int	operation_count;
 
 	operation_count++;
+	printf("%s\n", operation); // vervang door ft_printf
 	return (operation_count);
 }

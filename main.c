@@ -32,9 +32,9 @@ int	main(int argc, char **argv)
 		return (1);
 	}
 	operations = sorting(&head, &stack_b, index);
-	//print_list(head);
-	//print_list(stack_b);
-	printf("%d\n", operations);
+	printf("Operations:%d\n", operations);
+	print_list(head, 'A');
+	print_list(stack_b, 'B');
 	free_list(head);
 	free_list(stack_b); // later weg 
 	return (0);

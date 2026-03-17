@@ -33,8 +33,11 @@ bool	is_duplicate(t_node *head, int value);
 void	free_list(t_node *head);
 t_node	*sort_indices(t_node **list);
 int	sorting(t_node **stack_a, t_node **stack_b, int size);
-int	pb(t_node **stack_a, t_node **stack_b);
-void	print_list(t_node *list); // naar ft_printf doen
-int	count_operations();
+void	pb(t_node **stack_a, t_node **stack_b);
+void	pa(t_node **stack_a, t_node **stack_b);
+void	ra(t_node **stack_a);
+void	rb(t_node **stack_b);
+void	print_list(t_node *list, char stack); // naar ft_printf doen
+int	count_operations(char *operation);
 
 #endif

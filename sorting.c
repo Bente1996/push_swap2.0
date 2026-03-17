@@ -38,14 +38,15 @@ t_node	*sort_indices(t_node **list)
 
 int	sorting(t_node **stack_a, t_node **stack_b, int size)
 {
-	int	operations = 0;
 	int	half;
+	int	operations;
 
 	half = size / 2;
 	while (size > half)
 	{
-		operations = pb(stack_a, stack_b);
+		pb(stack_a, stack_b);
 		size--;
 	}
+	operations = count_operations("");
 	return (operations);
 }
