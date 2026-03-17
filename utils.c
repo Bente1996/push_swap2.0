@@ -90,3 +90,17 @@ int	count_operations(char *operation)
 	printf("%s\n", operation); // vervang door ft_printf
 	return (operation_count);
 }
+
+bool	sorted(t_node *stack, int half, char stack)
+{
+	while (stack)
+	{
+		if (stack == 'A' && stack->sorted_index <= half)
+			stack = stack->next;
+		else if (stack == 'B' && stack->sorted_index > half)
+			stack = stack->next;
+		else
+			return (false);
+	}
+	return (true);
+}

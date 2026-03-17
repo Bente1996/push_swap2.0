@@ -73,3 +73,10 @@ void	rb(t_node **stack_b)
 	first->next = NULL;
 	count_operations("rb");
 }
+
+void	rr(t_node **stack_a, t_node **stack_b)
+{
+	ra(stack_a);
+	rb(stack_b);
+	count_operations("rr");
+}

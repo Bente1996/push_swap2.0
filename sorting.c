@@ -36,17 +36,54 @@ t_node	*sort_indices(t_node **list)
 	return (head);
 }
 
+void	rotating(t_node **stack_a, t_node **stack_b, int half)
+{
+	int	check;
+
+	check = 0;
+	while (!sorted(*stack_a, half, 'A') || !sorted(*stack_b, half, 'B')) // zoveel mogelijk r zolang niet twee verdeelde stacks
+	{
+		while (check) // rr
+		{
+			while ((*stack_a)->sorted_index <= half && (*stack_b)->sorted_index > half)
+			{
+				rr(stack_a, stack_b);
+				check++;
+			}
+			if ((*stack_a)->next->sorted_index <= half && (*stack_b)->sorted_index > half)
+			{
+				ra(stack_a);
+				rr(stack_a, stack_b);
+			}
+			else if ((*stack_b)->next->sorted_index > half && (*stack_a)->sorted_index <= half)
+			{
+				rb(stack_b);
+				rr(stack_a, stack_b);
+			}
+		} // verlaat wanneer geen rr mogelijkheid
+		if ((*stack_a)->sorted_index <= half) 
+		{
+			ra(stack_a);
+		}
+		else if((*stack_b)->sorted_index > half)
+		{
+			rb(stack_b);
+		}
+	}	
+}
+
 int	sorting(t_node **stack_a, t_node **stack_b, int size)
 {
 	int	half;
 	int	operations;
 
 	half = size / 2;
-	while (size > half)
+	while (size > half) // twee random stacks
 	{
 		pb(stack_a, stack_b);
 		size--;
 	}
+	rotating(stack_a, stack_b, half); // voeg push toe
 	operations = count_operations("");
 	return (operations);
 }
