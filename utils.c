@@ -91,16 +91,29 @@ int	count_operations(char *operation)
 	return (operation_count);
 }
 
-bool	sorted(t_node *stack, int half, char stack)
+bool	sorted(t_node *stack, int half, char A_or_B)
 {
 	while (stack)
 	{
-		if (stack == 'A' && stack->sorted_index <= half)
+		if (A_or_B == 'A' && stack->sorted_index <= half)
 			stack = stack->next;
-		else if (stack == 'B' && stack->sorted_index > half)
+		else if (A_or_B == 'B' && stack->sorted_index > half)
 			stack = stack->next;
 		else
 			return (false);
 	}
 	return (true);
+}
+
+int	stack_size(t_node *stack)
+{
+	int	size;
+
+	size = 0;
+	while (stack)
+	{
+		stack = stack->next;
+		size++;
+	}
+	return (size);
 }
