@@ -44,7 +44,7 @@ void	intentional_split(t_node **stack_a, t_node **stack_b, int half)
 	//print_list(*stack_b, 'B');
 	check = 1;
 
-	while (!sorted(*stack_a, half, 'A') && !sorted(*stack_b, half, 'B')) // zolang geen goed verdeelde stacks, HOEZO MAG || niet ???
+	while (!sorted(*stack_a, half, 'A') || !sorted(*stack_b, half, 'B')) // zolang geen goed verdeelde stacks
 	{
 		while (check && *stack_a && *stack_b && (*stack_a)->next && (*stack_b)->next) // rr
 		{
@@ -67,14 +67,14 @@ void	intentional_split(t_node **stack_a, t_node **stack_b, int half)
 				check++;
 			}
 		} // verlaat wanneer geen rr mogelijkheid
-		if (!sorted(*stack_a, half, 'A') && !sorted(*stack_b, half, 'B')) // wanneer beide nog niet gesorteerd zijn: ik dacht dat hier de edge case zat, vandaar
+		if (!sorted(*stack_a, half, 'A') && !sorted(*stack_b, half, 'B')) // wanneer beide nog niet gesorteerd zijn
 		{
-			if ((*stack_a)->sorted_index <= half)  // alleen A goed (optimalisatie: doe alleen wanneer nog niet volledig gesorteerd)
+			if ((*stack_a)->sorted_index <= half)  // alleen A goed 
 			{
 				ra(stack_a);
 				check++;
 			}
-			else if ((*stack_b)->sorted_index > half) // alleen B goed (kan optimaler ^)
+			else if ((*stack_b)->sorted_index > half) // alleen B goed
 			{
 				rb(stack_b);
 				check++;
@@ -82,12 +82,12 @@ void	intentional_split(t_node **stack_a, t_node **stack_b, int half)
 			else if (!check && stack_size(*stack_a) > stack_size(*stack_b)) // beide fout, push op basis van stack grootte
 			{
 				pb(stack_a, stack_b);
-				check++;
+				check = 0;
 			}
 			else if (!check && stack_size(*stack_a) <= stack_size(*stack_b))
 			{
 				pa(stack_a, stack_b);
-				check++;
+				check = 0;
 			}
 		}
 		else if (sorted(*stack_a, half, 'A')) // als alleen a gesorteerd: elementen van a in b
