@@ -44,7 +44,9 @@ void	intentional_split(t_node **stack_a, t_node **stack_b, int half)
 	//print_list(*stack_b, 'B');
 	check = 1;
 
-	while (!sorted(*stack_a, half, 'A') || !sorted(*stack_b, half, 'B')) // zolang geen goed verdeelde stacks
+	if (one_element(stack_a,stack_b, half)) // alleen bij 2 of 3 elementen, maak aparte functies daarvoor
+		return ;
+	while (!sorted(*stack_a, half, 'A') || !sorted(*stack_b, half, 'B')) // zolang geen goed verdeelde stacks, gaat foutt wanneer b gesorteerd en a niet
 	{
 		while (check && *stack_a && *stack_b && (*stack_a)->next && (*stack_b)->next) // rr
 		{
@@ -90,10 +92,14 @@ void	intentional_split(t_node **stack_a, t_node **stack_b, int half)
 				check = 0;
 			}
 		}
+		else if (one_element(stack_a,stack_b, half))
+				return ;
 		else if (sorted(*stack_a, half, 'A')) // als alleen a gesorteerd: elementen van a in b
 		{
 			while (!sorted(*stack_b, half, 'B'))
-			{	
+			{				
+				if (one_element(stack_a,stack_b, half))
+					return ;
 				if ((*stack_b)->sorted_index > half)
 					rb(stack_b);
 				else 
@@ -104,15 +110,46 @@ void	intentional_split(t_node **stack_a, t_node **stack_b, int half)
 		{
 			while (!sorted(*stack_a, half, 'A'))
 			{	
+				if (one_element(stack_a,stack_b, half))
+					return ;
 				if ((*stack_a)->sorted_index <= half)
 					ra(stack_a);
 				else 
 					pb(stack_a, stack_b);
 			}
 		}
-
 	}
+}
 
+void	big_list(t_node **stack_a, t_node **stack_b, int half)
+{
+	int	quarter;
+	int	n = 1;
+
+	quarter = half / 2;
+	printf("Halve:%d\n", half);
+	printf("Kwartje:%d\n", quarter);
+	print_list(*stack_a, 'A');
+	print_list(*stack_b, 'B');
+	while (*stack_a && n) // alles naar b: 25_49 50-99(random) 24_0
+	{
+		if ((*stack_a)->value  == quarter) // 24->0
+		{
+			pb(stack_a, stack_b);
+			rb(stack_b);
+			quarter++;
+		}
+		else if ((*stack_a)->value == half) // 49 -> 25
+		{
+			pb(stack_a, stack_b);
+			half--;
+		}
+		else
+		{
+			ra(stack_a);
+		}
+		n--;
+	}
 }
 
 int	random_split(t_node **stack_a, t_node **stack_b, int size)
@@ -121,15 +158,16 @@ int	random_split(t_node **stack_a, t_node **stack_b, int size)
 	int	operations;
 
 	half = size / 2;
-	//print_list(*stack_a, 'A');
 	while (size > half) // twee random stacks (kan optimaler door al r te doen)
 	{
 		pb(stack_a, stack_b);
 		size--;
 	}
-	//print_list(*stack_a, 'A');
-	//print_list(*stack_b, 'B');
+	half--; // naar juiste index
+	print_list(*stack_a, 'A');
+	print_list(*stack_b, 'B');
 	intentional_split(stack_a, stack_b, half);
+	big_list(stack_a, stack_b, half); 
 	operations = count_operations("");
 	return (operations);
 }

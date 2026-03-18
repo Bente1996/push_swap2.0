@@ -105,6 +105,17 @@ bool	sorted(t_node *stack, int half, char A_or_B)
 	return (true);
 }
 
+bool	one_element(t_node **stack_a, t_node **stack_b, int half) // stop in sorted()
+{
+	if (stack_size(*stack_a) != 1 && stack_size(*stack_b) != 1)
+		return (false);
+	if (stack_size(*stack_a) == 1 && (*stack_a)->sorted_index > half)
+		pb(stack_a, stack_b);
+	else if (stack_size(*stack_b) == 1 && (*stack_b)->sorted_index <= half)
+		pa(stack_a, stack_b);
+	return (true);
+}
+
 int	stack_size(t_node *stack)
 {
 	int	size;
