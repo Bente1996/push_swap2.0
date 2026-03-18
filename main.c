@@ -32,9 +32,9 @@ int	main(int argc, char **argv)
 		return (1);
 	}
 	operations = random_split(&head, &stack_b, index);
-	printf("Operations:%d\n", operations);
-	//print_list(head, 'A');
-	//print_list(stack_b, 'B');
+	printf("Operations:%d\n", operations - 1);
+	print_list(head, 'A');
+	print_list(stack_b, 'B');
 	free_list(head);
 	free_list(stack_b); // later weg 
 	return (0);

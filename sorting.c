@@ -38,53 +38,81 @@ t_node	*sort_indices(t_node **list)
 
 void	intentional_split(t_node **stack_a, t_node **stack_b, int half)
 {
-	int	check;
+	int	check; // maak check return van operations
 
+	//print_list(*stack_a, 'A');
+	//print_list(*stack_b, 'B');
 	check = 1;
-	while (!sorted(*stack_a, half, 'A') || !sorted(*stack_b, half, 'B')) // zoveel mogelijk r zolang niet twee goed verdeelde stacks
+
+	while (!sorted(*stack_a, half, 'A') && !sorted(*stack_b, half, 'B')) // zolang geen goed verdeelde stacks, HOEZO MAG || niet ???
 	{
-		while (check) // rr
+		while (check && *stack_a && *stack_b && (*stack_a)->next && (*stack_b)->next) // rr
 		{
 			check = 0;
-			while ((*stack_a)->sorted_index <= half && (*stack_b)->sorted_index > half)
+			while ((*stack_a)->sorted_index <= half && (*stack_b)->sorted_index > half) // check bij while loop hierboven = afdoende
 			{
 				rr(stack_a, stack_b);
 				check++;
 			}
-			if ((*stack_a)->next && (*stack_b)->next && (*stack_a)->next->sorted_index <= half && (*stack_b)->sorted_index > half)
+			if ((*stack_a)->next->sorted_index <= half && (*stack_b)->sorted_index > half)
 			{
-				ra(stack_a);
+				sa(stack_a);
 				rr(stack_a, stack_b);
 				check++;
 			}
-			else if ((*stack_a)->next && (*stack_b)->next && (*stack_b)->next->sorted_index > half && (*stack_a)->sorted_index <= half)
+			else if ((*stack_b)->next->sorted_index > half && (*stack_a)->sorted_index <= half)
 			{
-				rb(stack_b);
+				sb(stack_b);
 				rr(stack_a, stack_b);
 				check++;
 			}
 		} // verlaat wanneer geen rr mogelijkheid
-		if ((*stack_a)->sorted_index <= half)  // alleen A goed
+		if (!sorted(*stack_a, half, 'A') && !sorted(*stack_b, half, 'B')) // wanneer beide nog niet gesorteerd zijn: ik dacht dat hier de edge case zat, vandaar
 		{
-			ra(stack_a);
-			check++;
+			if ((*stack_a)->sorted_index <= half)  // alleen A goed (optimalisatie: doe alleen wanneer nog niet volledig gesorteerd)
+			{
+				ra(stack_a);
+				check++;
+			}
+			else if ((*stack_b)->sorted_index > half) // alleen B goed (kan optimaler ^)
+			{
+				rb(stack_b);
+				check++;
+			}
+			else if (!check && stack_size(*stack_a) > stack_size(*stack_b)) // beide fout, push op basis van stack grootte
+			{
+				pb(stack_a, stack_b);
+				check++;
+			}
+			else if (!check && stack_size(*stack_a) <= stack_size(*stack_b))
+			{
+				pa(stack_a, stack_b);
+				check++;
+			}
 		}
-		else if ((*stack_b)->sorted_index > half) // alleen B goed
+		else if (sorted(*stack_a, half, 'A')) // als alleen a gesorteerd: elementen van a in b
 		{
-			rb(stack_b);
-			check++;
+			while (!sorted(*stack_b, half, 'B'))
+			{	
+				if ((*stack_b)->sorted_index > half)
+					rb(stack_b);
+				else 
+					pa(stack_a, stack_b);
+			}
 		}
-		else if (!check && stack_size(*stack_a) >= stack_size(*stack_b)) // beide fout, push op basis van stack grootte
+		else
 		{
-			pb(stack_a, stack_b);
-			check++;
+			while (!sorted(*stack_a, half, 'A'))
+			{	
+				if ((*stack_a)->sorted_index <= half)
+					ra(stack_a);
+				else 
+					pb(stack_a, stack_b);
+			}
 		}
-		else if (!check && stack_size(*stack_a) < stack_size(*stack_b))
-		{
-			pa(stack_a, stack_b);
-			check++;
-		}
-	}	
+
+	}
+
 }
 
 int	random_split(t_node **stack_a, t_node **stack_b, int size)
@@ -93,13 +121,14 @@ int	random_split(t_node **stack_a, t_node **stack_b, int size)
 	int	operations;
 
 	half = size / 2;
-	while (size > half) // twee random stacks
+	//print_list(*stack_a, 'A');
+	while (size > half) // twee random stacks (kan optimaler door al r te doen)
 	{
 		pb(stack_a, stack_b);
 		size--;
 	}
-	print_list(*stack_a, 'A');
-	print_list(*stack_b, 'B');
+	//print_list(*stack_a, 'A');
+	//print_list(*stack_b, 'B');
 	intentional_split(stack_a, stack_b, half);
 	operations = count_operations("");
 	return (operations);

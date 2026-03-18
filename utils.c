@@ -77,7 +77,7 @@ void	print_list(t_node *list, char stack)
 	{
 		printf("Value:%d\n", list->value);
 		//printf("Index:%d\n", list->index);
-		//printf("Sorted index:%d\n", list->sorted_index);
+		printf("Sorted index:%d\n", list->sorted_index);
 		list = list->next;
 	}
 }

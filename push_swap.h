@@ -40,6 +40,8 @@ void	pa(t_node **stack_a, t_node **stack_b);
 void	ra(t_node **stack_a);
 void	rb(t_node **stack_b);
 void	rr(t_node **stack_a, t_node **stack_b);
+void	sa(t_node **stack_a);
+void	sb(t_node **stack_b);
 int	stack_size(t_node *stack);
 void	print_list(t_node *list, char stack); // naar ft_printf doen
 int	count_operations(char *operation);
