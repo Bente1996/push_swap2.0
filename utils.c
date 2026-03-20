@@ -128,3 +128,14 @@ int	stack_size(t_node *stack)
 	}
 	return (size);
 }
+
+bool	already_sorted(t_node *stack)
+{
+	while (stack->next)
+	{
+		if (stack->value > stack->next->value)
+			return (false);
+		stack = stack->next;
+	}
+	return (true);
+}

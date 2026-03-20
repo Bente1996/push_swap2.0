@@ -31,7 +31,13 @@ int	main(int argc, char **argv)
 		free_list(head);
 		return (1);
 	}
+	if (already_sorted(head))
+	{
+		free_list(head);
+		return (1);
+	}
 	operations = random_split(&head, &stack_b, index);
+	printf("Afscheid:\n");
 	printf("Operations:%d\n", operations - 1);
 	print_list(head, 'A');
 	print_list(stack_b, 'B');

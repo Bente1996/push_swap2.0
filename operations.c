@@ -81,6 +81,40 @@ void	rr(t_node **stack_a, t_node **stack_b)
 	count_operations("rr");
 }
 
+//void	rrb(t_node **stack_b)
+//{
+//	t_node	*tmp;
+//	t_node *head;
+//
+//	head = *stack_b;
+//	if (!(*stack_b)->next || !(*stack_b)->next->next) // voor hele kleine stacks
+//		return ; // maak aparte functies voor de kleintjes
+//	while ((*stack_b)->next->next)
+//		*stack_b = (*stack_b)->next;
+//	tmp = (*stack_b)->next->next;
+//	(*stack_b)->next = NULL;
+//	tmp->next = head;
+//}
+void	rrb(t_node **stack_b)
+{
+	t_node	*second_last;
+	t_node	*last;
+
+	if (!*stack_b || !(*stack_b)->next)
+		return ;
+	second_last = *stack_b;
+	last = *stack_b;
+	while (last->next)
+	{
+		second_last = last;
+		last = last->next;
+	}
+	second_last->next = NULL;
+	last->next = *stack_b;
+	*stack_b = last;
+	//ft_printf("rra\n");
+	//count_operations();
+}
 void	sa(t_node **stack_a)
 {
 	t_node *first;

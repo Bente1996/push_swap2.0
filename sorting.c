@@ -44,10 +44,12 @@ void	intentional_split(t_node **stack_a, t_node **stack_b, int half)
 	//print_list(*stack_b, 'B');
 	check = 1;
 
-	if (one_element(stack_a,stack_b, half)) // alleen bij 2 of 3 elementen, maak aparte functies daarvoor
+	if (one_element(stack_a, stack_b, half)) // alleen bij 2 of 3 elementen, maak aparte functies daarvoor
 		return ;
 	while (!sorted(*stack_a, half, 'A') || !sorted(*stack_b, half, 'B')) // zolang geen goed verdeelde stacks, gaat foutt wanneer b gesorteerd en a niet
 	{
+		if (one_element(stack_a, stack_b, half)) // toegevoegd bij "1 2 3 4", misschien niet nodig: voeg already_sorted() toe aan begin en ook weer bv bij big_list()
+			return ;
 		while (check && *stack_a && *stack_b && (*stack_a)->next && (*stack_b)->next) // rr
 		{
 			check = 0;
@@ -124,31 +126,65 @@ void	intentional_split(t_node **stack_a, t_node **stack_b, int half)
 void	big_list(t_node **stack_a, t_node **stack_b, int half)
 {
 	int	quarter;
-	int	n = 1;
+	int	q;
+	int	h;
 
 	quarter = half / 2;
+	q = quarter;
+	h = half;
+	printf("Tussenstand:\n");
 	printf("Halve:%d\n", half);
 	printf("Kwartje:%d\n", quarter);
 	print_list(*stack_a, 'A');
 	print_list(*stack_b, 'B');
-	while (*stack_a && n) // alles naar b: 25_49 50-99(random) 24_0
+	while (*stack_a) // alles naar b: 25_49 50-99(random) 24_0 (kan misschien optimaler door 0_24 (gelijk pb hierna), 25-74(random)(dit wordt moeilijker), 75_99 (alleen pb dus)
 	{
-		if ((*stack_a)->value  == quarter) // 24->0
+		if ((*stack_a)->sorted_index  == q && ((*stack_a)->sorted_index <= quarter)) // 24->0
 		{
 			pb(stack_a, stack_b);
 			rb(stack_b);
-			quarter++;
+			q--;
 		}
-		else if ((*stack_a)->value == half) // 49 -> 25
+		else if ((*stack_a)->sorted_index == h && ((*stack_a)->sorted_index <= half)) // 49 -> 25
 		{
 			pb(stack_a, stack_b);
-			half--;
+			h--;
 		}
 		else
-		{
 			ra(stack_a);
+	}
+	final_list(stack_a, stack_b, half, quarter);
+}
+
+void	final_list(t_node **stack_a, t_node **stack_b, int half, int quarter) // 100 nummers 1200 operations
+{
+	int	higher;
+
+	higher = half + 1;
+	while (*stack_b)
+	{
+		while (half > quarter) // kan in 1 loop: alleen half en kijk naar index voor rrb of niet
+		{
+			rrb(stack_b);
+			pa(stack_a, stack_b);
+			half--; // 23 /24
 		}
-		n--;
+		half++;
+		while (half)
+		{
+			pa(stack_a, stack_b);
+			half--;
+		}
+		while (*stack_b) // kan optimaler
+		{
+			if ((*stack_b)->sorted_index == higher)
+			{
+				pa(stack_a, stack_b);
+				higher++;
+			}
+			else
+				rb(stack_b);
+		}
 	}
 }
 
@@ -164,10 +200,11 @@ int	random_split(t_node **stack_a, t_node **stack_b, int size)
 		size--;
 	}
 	half--; // naar juiste index
+	printf("Binnenkomst:\n");
 	print_list(*stack_a, 'A');
 	print_list(*stack_b, 'B');
 	intentional_split(stack_a, stack_b, half);
-	big_list(stack_a, stack_b, half); 
+	big_list(stack_a, stack_b, half); // 100 nummers 600 operations (700 = 100% 1100 = 80%)
 	operations = count_operations("");
 	return (operations);
 }
