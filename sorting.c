@@ -53,18 +53,18 @@ void	intentional_split(t_node **stack_a, t_node **stack_b, int half)
 		while (check && *stack_a && *stack_b && (*stack_a)->next && (*stack_b)->next) // rr
 		{
 			check = 0;
-			while ((*stack_a)->sorted_index <= half && (*stack_b)->sorted_index > half) // check bij while loop hierboven = afdoende
+			while ((*stack_a)->sorted_index >= half && (*stack_b)->sorted_index < half) // check bij while loop hierboven = afdoende
 			{
 				rr(stack_a, stack_b);
 				check++;
 			}
-			if ((*stack_a)->next->sorted_index <= half && (*stack_b)->sorted_index > half)
+			if ((*stack_a)->next->sorted_index >= half && (*stack_b)->sorted_index < half)
 			{
 				sa(stack_a);
 				rr(stack_a, stack_b);
 				check++;
 			}
-			else if ((*stack_b)->next->sorted_index > half && (*stack_a)->sorted_index <= half)
+			else if ((*stack_b)->next->sorted_index < half && (*stack_a)->sorted_index >= half)
 			{
 				sb(stack_b);
 				rr(stack_a, stack_b);
@@ -73,12 +73,12 @@ void	intentional_split(t_node **stack_a, t_node **stack_b, int half)
 		} // verlaat wanneer geen rr mogelijkheid
 		if (!sorted(*stack_a, half, 'A') && !sorted(*stack_b, half, 'B')) // wanneer beide nog niet gesorteerd zijn
 		{
-			if ((*stack_a)->sorted_index <= half)  // alleen A goed 
+			if ((*stack_a)->sorted_index >= half)  // alleen A goed 
 			{
 				ra(stack_a);
 				check++;
 			}
-			else if ((*stack_b)->sorted_index > half) // alleen B goed
+			else if ((*stack_b)->sorted_index < half) // alleen B goed
 			{
 				rb(stack_b);
 				check++;
@@ -102,7 +102,7 @@ void	intentional_split(t_node **stack_a, t_node **stack_b, int half)
 			{				
 				if (one_element(stack_a,stack_b, half))
 					return ;
-				if ((*stack_b)->sorted_index > half)
+				if ((*stack_b)->sorted_index < half)
 					rb(stack_b);
 				else 
 					pa(stack_a, stack_b);
@@ -114,7 +114,7 @@ void	intentional_split(t_node **stack_a, t_node **stack_b, int half)
 			{	
 				if (one_element(stack_a,stack_b, half))
 					return ;
-				if ((*stack_a)->sorted_index <= half)
+				if ((*stack_a)->sorted_index >= half)
 					ra(stack_a);
 				else 
 					pb(stack_a, stack_b);
@@ -125,30 +125,35 @@ void	intentional_split(t_node **stack_a, t_node **stack_b, int half)
 
 void	big_list(t_node **stack_a, t_node **stack_b, int half)
 {
+	int	whole;
 	int	quarter;
-	int	q;
+	int	three_quarter;
+	int	t_q;
 	int	h;
 
+	whole = half * 2;
 	quarter = half / 2;
-	q = quarter;
+	three_quarter = whole - quarter;
+	t_q = three_quarter;
 	h = half;
 	printf("Tussenstand:\n");
 	printf("Halve:%d\n", half);
 	printf("Kwartje:%d\n", quarter);
+	printf("TQ:%d\n", three_quarter);
 	print_list(*stack_a, 'A');
 	print_list(*stack_b, 'B');
-	while (*stack_a) // alles naar b: 25_49 50-99(random) 24_0 (kan misschien optimaler door 0_24 (gelijk pb hierna), 25-74(random)(dit wordt moeilijker), 75_99 (alleen pb dus)
+	while (*stack_a) // alles naar b: 25_49 50-99(random) 24_0 (kan misschien optimaler door 0_24 (gelijk pb hierna), 25-74(random)(dit wordt moeilijker), 75_99 (alleen pb dus) LOL NEE
 	{
-		if ((*stack_a)->sorted_index  == q && ((*stack_a)->sorted_index <= quarter)) // 24->0
+		if ((*stack_a)->sorted_index  == t_q && ((*stack_a)->sorted_index >= three_quarter)) // 24->0 NEE: 74->99
 		{
 			pb(stack_a, stack_b);
 			rb(stack_b);
-			q--;
+			t_q++;
 		}
-		else if ((*stack_a)->sorted_index == h && ((*stack_a)->sorted_index <= half)) // 49 -> 25
+		else if ((*stack_a)->sorted_index == h && ((*stack_a)->sorted_index < three_quarter)) // 49 -> 25 NEE: 49->73
 		{
 			pb(stack_a, stack_b);
-			h--;
+			h++;
 		}
 		else
 			ra(stack_a);
@@ -158,18 +163,19 @@ void	big_list(t_node **stack_a, t_node **stack_b, int half)
 
 void	final_list(t_node **stack_a, t_node **stack_b, int half, int quarter) // 100 nummers 1200 operations
 {
-	int	higher;
+	int	lower;
 
-	higher = half + 1;
-	while (*stack_b)
+	lower = half - 1;
+	printf("LOWER:%d\n", lower);
+	while (*stack_b && half)
 	{
-		while (half > quarter) // kan in 1 loop: alleen half en kijk naar index voor rrb of niet
+		while (half >= quarter) // kan in 1 loop: alleen half en kijk naar index voor rrb of niet, quarter = 24 lower = 49
 		{
 			rrb(stack_b);
 			pa(stack_a, stack_b);
-			half--; // 23 /24
+			half--;
 		}
-		half++;
+		half += 2; // kan dit  optimaler? maakt wss heel weinig uit
 		while (half)
 		{
 			pa(stack_a, stack_b);
@@ -177,10 +183,10 @@ void	final_list(t_node **stack_a, t_node **stack_b, int half, int quarter) // 10
 		}
 		while (*stack_b) // kan optimaler
 		{
-			if ((*stack_b)->sorted_index == higher)
+			if ((*stack_b)->sorted_index == lower)
 			{
 				pa(stack_a, stack_b);
-				higher++;
+				lower--;
 			}
 			else
 				rb(stack_b);
