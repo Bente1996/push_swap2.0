@@ -265,7 +265,7 @@ int	random_split(t_node **stack_a, t_node **stack_b, int size)
 	printf("%d\n", half);
 	while (h)
 	{
-		if ((*stack_a)->sorted_index < half) // voeg s toe
+		if ((*stack_a)->sorted_index < half) // voeg s toe: NEE geprobeerd
 		{
 			pb(stack_a, stack_b);
 			h--;
