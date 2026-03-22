@@ -41,6 +41,8 @@ int	main(int argc, char **argv)
 	printf("Operations:%d\n", operations - 1);
 	print_list(head, 'A');
 	print_list(stack_b, 'B');
+	if (already_sorted(head))
+		printf("GOED GESORTEERD :)");
 	free_list(head);
 	free_list(stack_b); // later weg 
 	return (0);
