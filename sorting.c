@@ -201,12 +201,13 @@ void	big_list(t_node **stack_a, t_node **stack_b, int half)
 }
 
 //void	final_list(t_node **stack_a, t_node **stack_b, int half, int quarter) // 100 nummers 1200 operations
-//{
-//	int	lower;
-//	int	swap;
+//{ int	lower; int	swap;
+//	int	bottom;
+//	t_node	*bottom_stack = NULL;
 //
 //	lower = half;
 //	swap = 0;
+//	bottom = 0;
 //	printf("LOWER:%d\n", lower);
 //	while (*stack_b && half)
 //	{
@@ -226,22 +227,45 @@ void	big_list(t_node **stack_a, t_node **stack_b, int half)
 //		{
 //			if ((*stack_b)->sorted_index == lower || (*stack_b)->sorted_index == lower - 1)
 //			{
-//				if ((*stack_b)->sorted_index == lower - 1)
+//				if ((*stack_b)->sorted_index == lower - 1) // verkeerde bovenaan
 //				{
 //					pa(stack_a, stack_b);
 //					swap++;
 //					lower++;
 //				}
-//				else if (swap)
+//				else if (swap) // goede gevonden, zet eronder, lijst klopt, als bottom: zet boven
 //				{
 //					pa(stack_a, stack_b);
 //					sa(stack_a);
 //					swap = 0;
+//					if (bottom)
+//					{
+//						rra(stack_a);
+//						bottom_stack = NULL;
+//						bottom = 0;
+//						lower--;
+//					}
 //					lower--;
 //				}
-//				else
+//				else // lijst klopt, gewoon 1 erbij, check of bottom aansluit
+//				{
 //					pa(stack_a, stack_b);
+//					if (bottom && bottom_stack->sorted_index == lower - 1)
+//					{
+//						rra(stack_a);
+//						bottom_stack = NULL;
+//						bottom = 0;
+//						lower--;
+//					}
+//				}
 //				lower--;
+//			}
+//			else if ((*stack_b)->sorted_index == lower - 2 && !bottom)
+//			{
+//				pa(stack_a, stack_b);
+//				ra(stack_a); // zet onderaan A tot ie boven kan aansluiten
+//				bottom_stack = find_bottom(*stack_a);
+//				bottom = 1;
 //			}
 //			else
 //				rb(stack_b);
@@ -282,41 +306,121 @@ void	final_list(t_node **stack_a, t_node **stack_b, int half, int quarter) // 10
 				{
 					pa(stack_a, stack_b);
 					swap++;
-					lower++;
 				}
 				else if (swap) // goede gevonden, zet eronder, lijst klopt, als bottom: zet boven
 				{
 					pa(stack_a, stack_b);
 					sa(stack_a);
 					swap = 0;
+					lower--;
 					if (bottom)
 					{
-						rra(stack_a);
-						bottom_stack = NULL;
-						bottom = 0;
-						lower--;
-					}
-					lower--;
+						if ((bottom  == 1) && (bottom_stack->sorted_index == (*stack_a)->sorted_index - 1))
+						{
+							rra(stack_a);
+							bottom_stack = NULL;
+							bottom = 0;
+							lower--;
+						}
+						else if (bottom == 2)
+						{
+							if (bottom_stack->sorted_index == (*stack_a)->sorted_index - 1) // verwijder dubbele operaties ff
+							{
+								rra(stack_a);
+								rra(stack_a);
+								sa(stack_a);
+								bottom_stack = NULL;
+								bottom = 0;
+								lower -= 2;
+							}
+							else
+							{
+								rra(stack_a);
+								rra(stack_a);
+								bottom_stack = NULL;
+								bottom = 0;
+								lower -= 2;
+							}
+						}
+//						if (bottom_stack->next) // als 2 onderaan, zet beide boven en swap
+//						{
+//							swap = 1;
+//							rra(stack_a);
+//							lower--;
+//						}
+//						rra(stack_a);
+//						if (swap)
+//							sa(stack_a);
+//						swap = 0;
+//						bottom_stack = NULL;
+//						bottom = 0;
+//						lower--;
+						}
 				}
 				else // lijst klopt, gewoon 1 erbij, check of bottom aansluit
 				{
 					pa(stack_a, stack_b);
-					if (bottom && bottom_stack->sorted_index == lower - 1)
+					if ((bottom  == 1) && (bottom_stack->sorted_index == (*stack_a)->sorted_index - 1)) // eentje onder, zet boven wanneer goed
 					{
 						rra(stack_a);
 						bottom_stack = NULL;
 						bottom = 0;
 						lower--;
 					}
+					else if (bottom == 2)
+					{
+						if (bottom_stack->sorted_index == (*stack_a)->sorted_index - 1) // verwijder dubbele operaties ff
+						{
+							rra(stack_a);
+							rra(stack_a);
+							sa(stack_a);
+							bottom_stack = NULL;
+							bottom = 0;
+							lower -= 2;
+						}
+						else
+						{
+							rra(stack_a);
+							rra(stack_a);
+							bottom_stack = NULL;
+							bottom = 0;
+							lower -= 2;
+						}
+					}
+					lower--;
 				}
-				lower--;
 			}
-			else if ((*stack_b)->sorted_index == lower - 2 && !bottom)
+			else if ((*stack_b)->sorted_index == lower - 2 && bottom < 2)
 			{
-				pa(stack_a, stack_b);
-				ra(stack_a); // zet onderaan A tot ie boven kan aansluiten
-				bottom_stack = find_bottom(*stack_a);
-				bottom = 1;
+				if (bottom == 1 && (*stack_b)->sorted_index == bottom_stack->sorted_index - 1)
+				{
+					pa(stack_a, stack_b);
+					ra(stack_a); // zet onderaan A tot ie boven kan aansluiten
+					bottom++;
+				}
+				else if (!bottom)
+				{
+					pa(stack_a, stack_b);
+					ra(stack_a);
+					bottom_stack = find_bottom(*stack_a);
+					bottom++;
+				}
+			}
+			else if ((*stack_b)->sorted_index == lower - 3 && bottom < 2)
+			{
+				if (bottom == 1 && (*stack_b)->sorted_index == bottom_stack->sorted_index + 1)
+				{
+					pa(stack_a, stack_b);
+					ra(stack_a);
+					bottom++;
+				}
+				else if (!bottom)
+				{
+					pa(stack_a, stack_b);
+					ra(stack_a);
+					bottom_stack = find_bottom(*stack_a);
+					bottom++;
+				}
 			}
 			else
 				rb(stack_b);
