@@ -146,22 +146,6 @@ void	big_list(t_node **stack_a, t_node **stack_b, int half)
 	printf("TQ:%d\n", three_quarter); //74
 	print_list(*stack_a, 'A');
 	print_list(*stack_b, 'B');	
-//	while (*stack_a) // alles naar b: 25_49 50-99(random) 24_0 (kan misschien optimaler door 0_24 (gelijk pb hierna), 25-74(random)(dit wordt moeilijker), 75_99 (alleen pb dus) LOL NEE
-//	{
-//		if ((*stack_a)->sorted_index  == t_q && ((*stack_a)->sorted_index >= three_quarter))
-//		{
-//			pb(stack_a, stack_b);
-//			rb(stack_b);
-//			t_q++;
-//		}
-//		else if ((*stack_a)->sorted_index == h && ((*stack_a)->sorted_index < three_quarter))
-//		{
-//			pb(stack_a, stack_b);
-//			h++;
-//		}
-//		else
-//			ra(stack_a);
-//	}
 	while (*stack_a) // alles naar b: 73_50 0-49(random) 74_99
 	{
 		printf("t_q: %d\n", t_q);
@@ -219,8 +203,10 @@ void	big_list(t_node **stack_a, t_node **stack_b, int half)
 void	final_list(t_node **stack_a, t_node **stack_b, int half, int quarter) // 100 nummers 1200 operations
 {
 	int	lower;
+	int	swap;
 
 	lower = half;
+	swap = 0;
 	printf("LOWER:%d\n", lower);
 	while (*stack_b && half)
 	{
@@ -238,9 +224,23 @@ void	final_list(t_node **stack_a, t_node **stack_b, int half, int quarter) // 10
 		}
 		while (*stack_b) // kan optimaler
 		{
-			if ((*stack_b)->sorted_index == lower)
+			if ((*stack_b)->sorted_index == lower || (*stack_b)->sorted_index == lower - 1)
 			{
-				pa(stack_a, stack_b);
+				if ((*stack_b)->sorted_index == lower - 1)
+				{
+					pa(stack_a, stack_b);
+					swap++;
+					lower++;
+				}
+				else if (swap)
+				{
+					pa(stack_a, stack_b);
+					sa(stack_a);
+					swap = 0;
+					lower--;
+				}
+				else
+					pa(stack_a, stack_b);
 				lower--;
 			}
 			else
