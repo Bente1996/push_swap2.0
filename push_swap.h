@@ -25,14 +25,14 @@ typedef struct s_node
 
 t_node	*append_node(t_node **head, int value, int index);
 t_node	*make_list(int argc, char **argv, int *i);
-int	make_number(char *argv, int *valid);
-int	convert(char *argv, int *valid);
+int		make_number(char *argv, int *valid);
+int		convert(char *argv, int *valid);
 bool	is_overflow(char *argv, int value, int sign);
 bool	is_number(char *argv);
 bool	is_duplicate(t_node *head, int value);
 void	free_list(t_node *head);
 t_node	*sort_indices(t_node **list);
-int	random_split(t_node **stack_a, t_node **stack_b, int size);
+int		random_split(t_node **stack_a, t_node **stack_b, int size);
 void	intentional_split(t_node **stack_a, t_node **stack_b, int half);
 void	big_list(t_node **stack_a, t_node **stack_b, int half);
 void	final_list(t_node **stack_a, t_node **stack_b, int half, int quarter);
@@ -44,11 +44,13 @@ void	ra(t_node **stack_a);
 void	rb(t_node **stack_b);
 void	rr(t_node **stack_a, t_node **stack_b);
 void	rrb(t_node **stack_b);
+void	rra(t_node **stack_a);
 void	sa(t_node **stack_a);
 void	sb(t_node **stack_b);
 bool	one_element(t_node **stack_a, t_node **stack_b, int half);
-int	stack_size(t_node *stack);
+int		stack_size(t_node *stack);
 void	print_list(t_node *list, char stack); // naar ft_printf doen
-int	count_operations(char *operation);
+int		count_operations(char *operation);
+t_node *find_bottom(t_node *stack);
 
 #endif

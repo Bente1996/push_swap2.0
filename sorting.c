@@ -200,13 +200,65 @@ void	big_list(t_node **stack_a, t_node **stack_b, int half)
 	final_list(stack_a, stack_b, half, quarter);
 }
 
+//void	final_list(t_node **stack_a, t_node **stack_b, int half, int quarter) // 100 nummers 1200 operations
+//{
+//	int	lower;
+//	int	swap;
+//
+//	lower = half;
+//	swap = 0;
+//	printf("LOWER:%d\n", lower);
+//	while (*stack_b && half)
+//	{
+//		while (half > quarter) // kan in 1 loop: alleen half en kijk naar index voor rrb of niet, quarter = 24 lower = 49
+//		{
+//			rrb(stack_b);
+//			pa(stack_a, stack_b);
+//			half--;
+//		}
+//		half++; // kan dit  optimaler? maakt wss heel weinig uit
+//		while (half)
+//		{
+//			pa(stack_a, stack_b);
+//			half--;
+//		}
+//		while (*stack_b) // kan optimaler
+//		{
+//			if ((*stack_b)->sorted_index == lower || (*stack_b)->sorted_index == lower - 1)
+//			{
+//				if ((*stack_b)->sorted_index == lower - 1)
+//				{
+//					pa(stack_a, stack_b);
+//					swap++;
+//					lower++;
+//				}
+//				else if (swap)
+//				{
+//					pa(stack_a, stack_b);
+//					sa(stack_a);
+//					swap = 0;
+//					lower--;
+//				}
+//				else
+//					pa(stack_a, stack_b);
+//				lower--;
+//			}
+//			else
+//				rb(stack_b);
+//		}
+//	}
+//}
+
 void	final_list(t_node **stack_a, t_node **stack_b, int half, int quarter) // 100 nummers 1200 operations
 {
 	int	lower;
 	int	swap;
+	int	bottom;
+	t_node	*bottom_stack = NULL;
 
 	lower = half;
 	swap = 0;
+	bottom = 0;
 	printf("LOWER:%d\n", lower);
 	while (*stack_b && half)
 	{
@@ -226,22 +278,45 @@ void	final_list(t_node **stack_a, t_node **stack_b, int half, int quarter) // 10
 		{
 			if ((*stack_b)->sorted_index == lower || (*stack_b)->sorted_index == lower - 1)
 			{
-				if ((*stack_b)->sorted_index == lower - 1)
+				if ((*stack_b)->sorted_index == lower - 1) // verkeerde bovenaan
 				{
 					pa(stack_a, stack_b);
 					swap++;
 					lower++;
 				}
-				else if (swap)
+				else if (swap) // goede gevonden, zet eronder, lijst klopt, als bottom: zet boven
 				{
 					pa(stack_a, stack_b);
 					sa(stack_a);
 					swap = 0;
+					if (bottom)
+					{
+						rra(stack_a);
+						bottom_stack = NULL;
+						bottom = 0;
+						lower--;
+					}
 					lower--;
 				}
-				else
+				else // lijst klopt, gewoon 1 erbij, check of bottom aansluit
+				{
 					pa(stack_a, stack_b);
+					if (bottom && bottom_stack->sorted_index == lower - 1)
+					{
+						rra(stack_a);
+						bottom_stack = NULL;
+						bottom = 0;
+						lower--;
+					}
+				}
 				lower--;
+			}
+			else if ((*stack_b)->sorted_index == lower - 2 && !bottom)
+			{
+				pa(stack_a, stack_b);
+				ra(stack_a); // zet onderaan A tot ie boven kan aansluiten
+				bottom_stack = find_bottom(*stack_a);
+				bottom = 1;
 			}
 			else
 				rb(stack_b);

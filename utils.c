@@ -139,3 +139,15 @@ bool	already_sorted(t_node *stack)
 	}
 	return (true);
 }
+
+t_node	*find_bottom(t_node *stack)
+{
+	t_node	*bottom;
+
+	while (stack->next)
+	{
+		bottom = stack->next;
+		stack = stack->next;
+	}
+	return (bottom);
+}

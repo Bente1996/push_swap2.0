@@ -115,6 +115,28 @@ void	rrb(t_node **stack_b)
 	//ft_printf("rra\n");
 	//count_operations();
 }
+
+void	rra(t_node **stack_a)
+{
+	t_node	*second_last;
+	t_node	*last;
+
+	if (!*stack_a || !(*stack_a)->next)
+		return ;
+	second_last = *stack_a;
+	last = *stack_a;
+	while (last->next)
+	{
+		second_last = last;
+		last = last->next;
+	}
+	second_last->next = NULL;
+	last->next = *stack_a;
+	*stack_a = last;
+	//ft_printf("rra\n");
+	//count_operations();
+}
+
 void	sa(t_node **stack_a)
 {
 	t_node *first;
