@@ -78,7 +78,7 @@ void	rr(t_node **stack_a, t_node **stack_b)
 {
 	ra(stack_a);
 	rb(stack_b);
-	count_operations("rr");
+//	count_operations("rr");
 }
 
 //void	rrb(t_node **stack_b)
@@ -112,8 +112,7 @@ void	rrb(t_node **stack_b)
 	second_last->next = NULL;
 	last->next = *stack_b;
 	*stack_b = last;
-	//ft_printf("rra\n");
-	//count_operations();
+	count_operations("rrb");
 }
 
 void	rra(t_node **stack_a)
@@ -133,8 +132,7 @@ void	rra(t_node **stack_a)
 	second_last->next = NULL;
 	last->next = *stack_a;
 	*stack_a = last;
-	//ft_printf("rra\n");
-	//count_operations();
+	count_operations("rra");
 }
 
 void	sa(t_node **stack_a)
