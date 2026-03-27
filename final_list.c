@@ -8,7 +8,7 @@ void	final_list(t_node **stack_a, t_node **stack_b, int half, int quarter)
 	int	swap;
 	int	bottom;
 
-	lower = half;
+	lower = half + 1;
 	swap = 0;
 	bottom = 0;
 	bottom_stack = NULL;
@@ -23,7 +23,7 @@ void	final_list(t_node **stack_a, t_node **stack_b, int half, int quarter)
 		pa(stack_a, stack_b);
 		half--;
 	}
-	int n = 15000;
+	int n = 1000;
 	while (*stack_b && n)
 	{
 		printf("stack_B: %d\n", (*stack_b)->sorted_index);
