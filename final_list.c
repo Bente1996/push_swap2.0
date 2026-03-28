@@ -23,7 +23,7 @@ void	final_list(t_node **stack_a, t_node **stack_b, int half, int quarter)
 		pa(stack_a, stack_b);
 		half--;
 	}
-	int n = 5000;
+	int n = 11000;
 	while (*stack_b && n)
 	{
 		printf("stack_A: %d\n", (*stack_a)->sorted_index);
@@ -137,11 +137,11 @@ void	final_list(t_node **stack_a, t_node **stack_b, int half, int quarter)
 											bottom--; // bottom naar 0
 											bottom_stack = NULL;
 										}
-									//	else // fout rijtje [CASE: 5 fout]
-									//	{
-									//		ra(stack_a);
-									//		bottom_stack = find_bottom(*stack_a); // eentje over op bodem
-									//	}
+										else // fout rijtje [CASE: 5 fout]
+										{
+											ra(stack_a);
+											bottom_stack = find_bottom(*stack_a); // eentje over op bodem
+										}
 									}
 									else // 2e was niet goed
 										ra(stack_a);
@@ -297,11 +297,11 @@ void	final_list(t_node **stack_a, t_node **stack_b, int half, int quarter)
 											bottom--; // bottom naar 0
 											bottom_stack = NULL;
 										}
-									//	else // fout rijtje [CASE: 5 fout]
-									//	{
-									//		ra(stack_a);
-									//		bottom_stack = find_bottom(*stack_a); // eentje over op bodem
-									//	}
+										else // fout rijtje [CASE: 5 fout]
+										{
+											ra(stack_a);
+											bottom_stack = find_bottom(*stack_a); // eentje over op bodem
+										}
 									}
 									else // er waren er maar twee
 									     ra(stack_a);
