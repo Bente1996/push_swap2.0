@@ -52,5 +52,6 @@ int		stack_size(t_node *stack);
 void	print_list(t_node *list, char stack); // naar ft_printf doen
 int		count_operations(char *operation);
 t_node *find_bottom(t_node *stack);
+t_node	*check_bottom(t_node *stack);
 
 #endif
