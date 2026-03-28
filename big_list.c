@@ -25,10 +25,8 @@ void	big_list(t_node **stack_a, t_node **stack_b, int half) // werkt met + 1
 //	print_list(*stack_a, 'A');
 //	print_list(*stack_b, 'B');	
 	t_node	*bottom_stack = NULL;
-	int	n = 80000;
-	while (*stack_a && n) // alles naar b: 73_50 0-49(random) 74_99
+	while (*stack_a) // alles naar b: 73_50 0-49(random) 74_99
 	{
-		n--;
 		if (((*stack_a)->sorted_index  == tq || ((*stack_a)->sorted_index == tq + 1) || ((*stack_a)->sorted_index == tq + 2)) && (*stack_a)->sorted_index > three_quarter) // 75->99
 		{
 
@@ -78,12 +76,8 @@ void	big_list(t_node **stack_a, t_node **stack_b, int half) // werkt met + 1
 				tq++;
 			}
 		}
-		if (((*stack_a)->sorted_index == h || ((*stack_a)->sorted_index == h + 1 ) || ((*stack_a)->sorted_index == h + 2)) && (*stack_a)->sorted_index <= three_quarter) // 50->74	
+		else if (((*stack_a)->sorted_index == h || ((*stack_a)->sorted_index == h + 1 ) || ((*stack_a)->sorted_index == h + 2)) && (*stack_a)->sorted_index <= three_quarter) // 50->74	
 		{
-			printf("stack_a: %d\n", (*stack_a)->sorted_index);
-			printf("stack_b: %d\n", (*stack_b)->sorted_index);
-			printf("h: %d\n", h);
-			printf("swap:%d\n", swap);
 			if ((((*stack_a)->sorted_index == h + 1) || ((*stack_a)->sorted_index == h + 2)) && swap < 2)
 			{
 				pb(stack_a, stack_b);
@@ -148,6 +142,6 @@ void	big_list(t_node **stack_a, t_node **stack_b, int half) // werkt met + 1
 		else // was niet de goeie
 			ra(stack_a);
 	}
-	//final_list(stack_a, stack_b, half, quarter);
+	final_list(stack_a, stack_b, half, quarter);
 }
 
