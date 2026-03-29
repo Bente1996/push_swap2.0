@@ -110,36 +110,36 @@ t_node	*sort_indices(t_node **list)
 //}
 
 
-int	random_split(t_node **stack_a, t_node **stack_b, int size)
-{
-	int	half;
-	int	h;
-	int	operations;
-
-	half = size / 2;
-	h = half;
-	//while (size > half) // twee random stacks (kan optimaler door al r te doen)
-	//{
-	//	pb(stack_a, stack_b);
-	//	size--;
-	//}
-	printf("%d\n", half);
-	while (h)
-	{
-		if ((*stack_a)->sorted_index < half) // voeg s toe: NEE geprobeerd
-		{
-			pb(stack_a, stack_b);
-			h--;
-		}
-		else
-			ra(stack_a);
-	}
-	half--; // naar juiste index
-	printf("Binnenkomst:\n");
-	print_list(*stack_a, 'A');
-	print_list(*stack_b, 'B');
-//	intentional_split(stack_a, stack_b, half);
-	big_list(stack_a, stack_b, half); // 100 nummers 600 operations (700 = 100% 1100 = 80%)
-	operations = count_operations("");
-	return (operations);
-}
+//int	random_split(t_node **stack_a, t_node **stack_b, int size)
+//{
+//	int	half; // werkt gewoon ;p
+//	int	h;
+//	int	operations;
+//
+//	half = size / 2;
+//	h = half;
+//	//while (size > half) // twee random stacks (kan optimaler door al r te doen)
+//	//{
+//	//	pb(stack_a, stack_b);
+//	//	size--;
+//	//}
+//	printf("%d\n", half);
+//	while (h)
+//	{
+//		if ((*stack_a)->sorted_index < half) // voeg s toe: NEE geprobeerd
+//		{
+//			pb(stack_a, stack_b);
+//			h--;
+//		}
+//		else
+//			ra(stack_a);
+//	}
+//	half--; // naar juiste index
+//	printf("Binnenkomst:\n");
+//	print_list(*stack_a, 'A');
+//	print_list(*stack_b, 'B');
+////	intentional_split(stack_a, stack_b, half);
+//	big_list(stack_a, stack_b, half); // 100 nummers 600 operations (700 = 100% 1100 = 80%)
+//	operations = count_operations("");
+//	return (operations);
+//}

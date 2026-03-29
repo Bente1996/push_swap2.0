@@ -23,15 +23,8 @@ void	final_list(t_node **stack_a, t_node **stack_b, int half, int quarter)
 		pa(stack_a, stack_b);
 		half--;
 	}
-	int n = 11000;
-	while (*stack_b && n)
+	while (*stack_b)
 	{
-		printf("stack_A: %d\n", (*stack_a)->sorted_index);
-		if (bottom_stack)
-			printf("bottom:%d  %d\n", bottom_stack->sorted_index, bottom);
-		printf("stack_B: %d\n", (*stack_b)->sorted_index);
-		printf("lower: %d\n", lower);
-		printf("swap:%d\n\n", swap);
 		if ((*stack_b)->sorted_index == lower || (*stack_b)->sorted_index == lower - 1)
 		{
 			if ((*stack_b)->sorted_index == lower - 1)
@@ -412,7 +405,6 @@ void	final_list(t_node **stack_a, t_node **stack_b, int half, int quarter)
 		}
 		else
 			rb(stack_b);
-		n--;
 	}
 }
 

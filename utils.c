@@ -87,7 +87,8 @@ int	count_operations(char *operation)
 	static int	operation_count;
 
 	operation_count++;
-	printf("%s\n", operation); // vervang door ft_printf
+	//printf("%s\n", operation); // vervang door ft_printf
+	operation++; // alleen zodat printen niet hoeft
 	return (operation_count);
 }
 
@@ -152,4 +153,92 @@ t_node	*find_bottom(t_node *stack)
 	while (stack->next)
 		stack = stack->next;
 	return (stack);
+}
+
+bool	in_group(int sorted_index)
+{
+	static int	arr[5] = {0};
+
+	if (sorted_index == highest - 1)
+		arr[0] = 1;
+	else if (sorted_index == highest - 2)
+		arr[1] = 10;
+	else if (sorted_index == higest - 3)
+		arr[2] = 100;
+	else if (sorted_index == highest - 4)
+		arr[3] = 1000;
+	else if (sorted_index == highest - 5)
+		arr[4] = 10000;
+	else
+		return (false);
+}
+
+int	shift_group(int	*arr, int highest)
+{
+	int	i;
+	int	sum;
+
+	i = 0;
+	while (i < 5)
+		sum += arr[i];
+	if (sum == 1)
+		highest--;
+	else if (sum == 11)
+		highest -= 2;
+	else if (sum == 111)
+		highest -= 3;
+	else if (sum == 1111)
+		highest -= 4;
+	else if (sum == 11111)
+		highest -= 5;
+	else
+		return (highest);
+	adapt_group(arr, sum); // give right values based on shift 5->4 for sum == 1
+	return(highest);
+}
+
+void	adapt_group(int *arr, int sum)
+{
+	int	i;
+
+	i = 0;
+	if (sum == 1) // dan was de tweede dus sowieso niet gevonden, 3e mss wel
+	{
+		while (i + 1 < 5) // check 2, 3, 4
+		{
+			arr[i] == arr[i + 1]; // inhoud array 2 gaat naar array 1
+			i++;
+		}
+	}
+	else if (sum == 11)
+	{
+		while (i + 2 < 5) //  sla eerste twee over
+		{
+			arr[i] == arr[i + 2];
+			i++;
+		}
+	}
+	else if (sum == 111)
+	{
+		while (i + 3 < 5)
+		{
+			arr[i] == arr[i + 3];
+			i++;
+		}
+	}
+	else if (sum == 1111)
+	{
+		while (i + 4 < 5)
+		{
+			arr[i] == arr[i + 4];
+			i++;
+		}
+	}
+	i = 4;
+	while (sum >= 1) // zet nodige arrays op 0
+	{
+		arr[i] = 0;
+		i--;
+		sum /= 10;
+	}
 }

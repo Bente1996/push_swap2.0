@@ -1,7 +1,7 @@
 #include "push_swap.h"
 #include <stdio.h>
 
-void	big_list(t_node **stack_a, t_node **stack_b, int half) // werkt met + 1
+void	big_list(t_node **stack_a, t_node **stack_b, int half) // werkt met + 2
 {
 	int	whole;
 	int	quarter;

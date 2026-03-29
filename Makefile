@@ -7,7 +7,8 @@ SRCFILES := main.c \
 		sorting.c \
 		operations.c \
 		final_list.c \
-		big_list.c
+		big_list.c \
+		random_split.c
 
 OBJFILES := $(SRCFILES:.c=.o)
 CFLAGS ?= -Wall -Wextra -Werror

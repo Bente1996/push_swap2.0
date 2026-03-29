@@ -39,8 +39,8 @@ int	main(int argc, char **argv)
 	operations = random_split(&head, &stack_b, index);
 	printf("Afscheid:\n");
 	printf("Operations:%d\n", operations - 1);
-	print_list(head, 'A');
-	print_list(stack_b, 'B');
+//	print_list(head, 'A');
+//	print_list(stack_b, 'B');
 	if (already_sorted(head))
 		printf("GOED GESORTEERD :)");
 	free_list(head);
