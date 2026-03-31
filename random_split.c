@@ -26,7 +26,7 @@ int	random_split(t_node **stack_a, t_node **stack_b, int size)
 			ra(stack_a);
 		if (*stack_b && in_group((*stack_b)->sorted_index, arr, highest)) // als getal in de groep zit
 		{
-			highest = shift_group(arr, highest); // verander zoekcriteria op basis van group shift
+			highest = move_highest(arr, highest); // verander zoekcriteria op basis van group shift
 			if ((*stack_b)->next)
 				rb(stack_b);
 			count++;

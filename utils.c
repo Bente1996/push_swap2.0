@@ -172,7 +172,7 @@ bool	in_group(int sorted_index, int *arr, int highest)
 	return (true);
 }
 
-int	shift_group(int	*arr, int highest)
+int	move_highest(int *arr, int highest)
 {
 	int	i;
 	int	sum;
@@ -193,73 +193,111 @@ int	shift_group(int	*arr, int highest)
 		highest -= 5;
 	else
 		return (highest);
-	adapt_group(arr, sum); // give right values based on shift 5->4 for sum == 1
+	check_shift(arr, sum); // give right values based on shift 5->4 for sum == 1
 	return(highest);
 }
 
-void	adapt_group(int *arr, int sum)
+void	shift_group(int *arr, int n)
 {
-	int	i;
 	int	shrink;
+	int	i;
 
 	i = 0;
 	shrink = 1;
-	if (sum == 1) // dan was de tweede dus sowieso niet gevonden, 3e mss wel
+	while (i + n < 5)
 	{
-		while (i + 1 < 5) // check 2, 3, 4
-		{
-			if (arr[i + 1])
-				arr[i] = arr[i + 1] - (shrink * 9); // inhoud array 2 gaat naar array 1 100->10 bv
-			else
-				arr[i] = 0;
-			i++;
-			shrink *= 10;
-		}
+		if (arr[i + n])
+			arr[i] = arr[i + n] - (shrink * 9);
+		else
+			arr[i] = 0;
+		i++;
+		shrink *= 10;
 	}
-	else if (sum == 11)
-	{
-		shrink = 1;
-		while (i + 2 < 5) //  sla eerste twee over
-		{
-			if (arr[i + 2])
-				arr[i] = arr[i + 2] - (shrink * 9);
-			else
-				arr[i] = 0;
-			i++;
-			shrink *= 10;
-		}
-	}
-	else if (sum == 111)
-	{
-		shrink = 1;
-		while (i + 3 < 5)
-		{
-			if (arr[i + 3])
-				arr[i] = arr[i + 3] - (shrink * 9);
-			else
-				arr[i] = 0;
-			i++;
-			shrink *= 10;
-		}
-	}
-	else if (sum == 1111)
-	{
-		shrink = 1;
-		while (i + 4 < 5)
-		{
-			if (arr[i + 4])
-				arr[i] = arr[i + 4] - (shrink * 9);
-			else
-				arr[i] = 0;
-			i++;
-			shrink *= 10;
-		}
-	}
+}
+
+void	check_shift(int *arr, int sum)
+{
+	int	i;
+
 	i = 4;
+	if (sum == 1) // dan was de tweede dus sowieso niet gevonden, 3e mss wel
+		shift_group(arr, 1);
+	else if (sum == 11)
+		shift_group(arr, 2); 
+	else if (sum == 111)
+		shift_group(arr, 3);
+	else if (sum == 1111)
+		shift_group(arr, 4);
 	while (sum >= 1) // zet nodige arrays op 0
 	{
-		arr[i] = 0;
-		i--;
+		arr[i--] = 0;
 		sum /= 10;
 	}
 }
+
+//void	shift_group(int *arr, int sum) // WerKT
+//{
+//	int	i;
+//	int	shrink;
+//
+//	i = 0;
+//	shrink = 1;
+//	if (sum == 1) // dan was de tweede dus sowieso niet gevonden, 3e mss wel
+//	{
+//		while (i + 1 < 5) // check 2, 3, 4
+//		{
+//			if (arr[i + 1])
+//				arr[i] = arr[i + 1] - (shrink * 9); // inhoud array 2 gaat naar array 1 100->10 bv
+//			else
+//				arr[i] = 0;
+//			i++;
+//			shrink *= 10;
+//		}
+//	}
+//	else if (sum == 11)
+//	{
+//		shrink = 1;
+//		while (i + 2 < 5) //  sla eerste twee over
+//		{
+//			if (arr[i + 2])
+//				arr[i] = arr[i + 2] - (shrink * 9);
+//			else
+//				arr[i] = 0;
+//			i++;
+//			shrink *= 10;
+//		}
+//	}
+//	else if (sum == 111)
+//	{
+//		shrink = 1;
+//		while (i + 3 < 5)
+//		{
+//			if (arr[i + 3])
+//				arr[i] = arr[i + 3] - (shrink * 9);
+//			else
+//				arr[i] = 0;
+//			i++;
+//			shrink *= 10;
+//		}
+//	}
+//	else if (sum == 1111)
+//	{
+//		shrink = 1;
+//		while (i + 4 < 5)
+//		{
+//			if (arr[i + 4])
+//				arr[i] = arr[i + 4] - (shrink * 9);
+//			else
+//				arr[i] = 0;
+//			i++;
+//			shrink *= 10;
+//		}
+//	}
+//	i = 4;
+//	while (sum >= 1) // zet nodige arrays op 0
+//	{
+//		arr[i] = 0;
+//		i--;
+//		sum /= 10;
+//	}
+//}
