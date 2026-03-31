@@ -1,4 +1,4 @@
-void	intentional_split(t_node **stack_a, t_node **stack_b, int half)
+void	intentional_split(t_node **stack_a, t_node **stack_b, int half) // werkt
 {
 	int	check; // maak check return van operations
 
@@ -85,307 +85,176 @@ void	intentional_split(t_node **stack_a, t_node **stack_b, int half)
 	}
 }
 
-void	final_list(t_node **stack_a, t_node **stack_b, int half, int quarter) // 100 nummers 1200 operations
-{ 
-	int	lower; 
-	int	swap;
-	int	bottom;
-	t_node	*bottom_stack = NULL;
+int	random_split(t_node **stack_a, t_node **stack_b, int size) // werkt
+{
+	int	half; // werkt gewoon ;p
+	int	h;
+	int	operations;
 
-	lower = half;
-	swap = 0;
-	bottom = 0;
-
-	while (half > quarter) // kan in 1 loop: alleen half en kijk naar index voor rrb of niet, quarter = 24 lower = 49
-	{
-		rrb(stack_b);
-		pa(stack_a, stack_b);
-		half--;
-	}
-	half++; // kan dit  optimaler? maakt wss heel weinig uit
-	while (half)
-	{
-		pa(stack_a, stack_b);
-		half--;
-	}
-	while (*stack_b) // kan optimaler
-	{
-		if ((*stack_b)->sorted_index == lower || (*stack_b)->sorted_index == lower - 1) // als 48 of 49 gevonden
-		{
-			if ((*stack_b)->sorted_index == lower - 1) // verkeerde bovenaan
-			{
-				pa(stack_a, stack_b);
-				swap++;
-				lower++; // houdt originele getal aan
-			}
-			else if (swap) // goede gevonden, zet eronder, lijst klopt, als bottom: zet boven
-			{
-				pa(stack_a, stack_b);
-				sa(stack_a);
-				swap = 0;
-				lower--; // 49 -> 47
-			}
-			else // lijst klopt, gewoon 1 erbij, check of bottom aansluit
-				pa(stack_a, stack_b);
-			lower--;
-			if (bottom && (bottom_stack->sorted_index == (*stack_a)->sorted_index - 1))
-			{
-				while (bottom)
-				{
-					rra(stack_a);
-					lower--;
-					bottom--;
-				}
-				if ((*stack_a)->sorted_index > (*stack_a)->next->sorted_index) // 49, 48, 46 ,47: sa
-					sa(stack_a);
-				bottom_stack = NULL;
-				bottom = 0;
-			}
-		}
-		else if (((*stack_b)->sorted_index == (*stack_a)->sorted_index - 2 || (*stack_b)->sorted_index == (*stack_a)->sorted_index - 3) && bottom < 2)
-		{
-			pa(stack_a, stack_b);
-			if (!bottom || (*stack_a)->sorted_index > bottom_stack->sorted_index) // bottom_stack == grootste index
-				bottom_stack = find_bottom(*stack_a);
-			ra(stack_a); // zet onderaan A tot ie boven kan aansluiten
-			bottom++;
-		}
-		else// niks interessants gevonden
-		{
-			printf("LOWER: %d\n", lower);
-			printf("stack_b: %d\n", (*stack_b)->sorted_index);
-			rb(stack_b);
-		}
-		if (bottom && (bottom_stack->sorted_index == (*stack_a)->sorted_index - 1))
-		{
-			while (bottom)
-			{
-				rra(stack_a);
-				lower--;
-				bottom--;
-			}
-			if ((*stack_a)->sorted_index > (*stack_a)->next->sorted_index) // 49, 48, 46 ,47: sa
-				sa(stack_a);
-			bottom_stack = NULL;
-			bottom = 0;
-		}
-	}
-	//while (*stack_b && half)
+	half = size / 2;
+	h = half;
+	//while (size > half) // twee random stacks (kan optimaler door al r te doen)
 	//{
-	//	while (half > quarter) // kan in 1 loop: alleen half en kijk naar index voor rrb of niet, quarter = 24 lower = 49
-	//	{
-	//		rrb(stack_b);
-	//		pa(stack_a, stack_b);
-	//		half--;
-	//	}
-	//	half++; // kan dit  optimaler? maakt wss heel weinig uit
-	//	while (half)
-	//	{
-	//		pa(stack_a, stack_b);
-	//		half--;
-	//	}
-	//	while (*stack_b) // kan optimaler
-	//	{
-	//		if ((*stack_b)->sorted_index == lower || (*stack_b)->sorted_index == lower - 1)
-	//		{
-	//			if ((*stack_b)->sorted_index == lower - 1) // verkeerde bovenaan
-	//			{
-	//				pa(stack_a, stack_b);
-	//				swap++;
-	//				lower++;
-	//			}
-	//			else if (swap) // goede gevonden, zet eronder, lijst klopt, als bottom: zet boven
-	//			{
-	//				pa(stack_a, stack_b);
-	//				sa(stack_a);
-	//				swap = 0;
-	//				if (bottom)
-	//				{
-	//					rra(stack_a);
-	//					bottom_stack = NULL;
-	//					bottom = 0;
-	//					lower--;
-	//				}
-	//				lower--;
-	//			}
-	//			else // lijst klopt, gewoon 1 erbij, check of bottom aansluit
-	//			{
-	//				pa(stack_a, stack_b);
-	//				if (bottom && bottom_stack->sorted_index == lower - 1)
-	//				{
-	//					rra(stack_a);
-	//					bottom_stack = NULL;
-	//					bottom = 0;
-	//					lower--;
-	//				}
-	//			}
-	//			lower--;
-	//		}
-	//		else if ((*stack_b)->sorted_index == lower - 2 && !bottom)
-	//		{
-	//			pa(stack_a, stack_b);
-	//			ra(stack_a); // zet onderaan A tot ie boven kan aansluiten
-	//			bottom_stack = find_bottom(*stack_a);
-	//			bottom = 1;
-	//		}
-	//		else
-	//			rb(stack_b);
-	//	}
+	//	pb(stack_a, stack_b);
+	//	size--;
 	//}
+	printf("%d\n", half);
+	while (h)
+	{
+		if ((*stack_a)->sorted_index < half) // voeg s toe: NEE geprobeerd
+		{
+			pb(stack_a, stack_b);
+			h--;
+		}
+		else
+			ra(stack_a);
+	}
+	half--; // naar juiste index
+	printf("Binnenkomst:\n");
+	print_list(*stack_a, 'A');
+	print_list(*stack_b, 'B');
+//	intentional_split(stack_a, stack_b, half);
+	big_list(stack_a, stack_b, half); // 100 nummers 600 operations (700 = 100% 1100 = 80%)
+	operations = count_operations("");
+	return (operations);
 }
 
-//void	final_list(t_node **stack_a, t_node **stack_b, int half, int quarter) // 100 nummers 1200 operations
-//{
-//	int	lower;
-//	int	swap;
-//	int	bottom;
-//	t_node	*bottom_stack = NULL;
-//
-//	lower = half;
-//	swap = 0;
-//	bottom = 0;
-//	printf("LOWER:%d\n", lower);
-//	while (*stack_b && half)
-//	{
-//		while (half > quarter) // kan in 1 loop: alleen half en kijk naar index voor rrb of niet, quarter = 24 lower = 49
-//		{
-//			rrb(stack_b);
-//			pa(stack_a, stack_b);
-//			half--;
-//		}
-//		half++; // kan dit  optimaler? maakt wss heel weinig uit
-//		while (half)
-//		{
-//			pa(stack_a, stack_b);
-//			half--;
-//		}
-//		while (*stack_b) // kan optimaler
-//		{
-//			if ((*stack_b)->sorted_index == lower || (*stack_b)->sorted_index == lower - 1)
-//			{
-//				if ((*stack_b)->sorted_index == lower - 1) // verkeerde bovenaan
-//				{
-//					pa(stack_a, stack_b);
-//					swap++;
-//				}
-//				else if (swap) // goede gevonden, zet eronder, lijst klopt, als bottom: zet boven
-//				{
-//					pa(stack_a, stack_b);
-//					sa(stack_a);
-//					swap = 0;
-//					lower--;
-//					if (bottom)
-//					{
-//						if ((bottom  == 1) && (bottom_stack->sorted_index == (*stack_a)->sorted_index - 1))
-//						{
-//							rra(stack_a);
-//							bottom_stack = NULL;
-//							bottom = 0;
-//							lower--;
-//						}
-//						else if (bottom == 2)
-//						{
-//							if (bottom_stack->sorted_index == (*stack_a)->sorted_index - 1) // verwijder dubbele operaties ff
-//							{
-//								rra(stack_a);
-//								rra(stack_a);
-//								sa(stack_a);
-//								bottom_stack = NULL;
-//								bottom = 0;
-//								lower -= 2;
-//							}
-//							else
-//							{
-//								rra(stack_a);
-//								rra(stack_a);
-//								bottom_stack = NULL;
-//								bottom = 0;
-//								lower -= 2;
-//							}
-//						}
-////						if (bottom_stack->next) // als 2 onderaan, zet beide boven en swap
-////						{
-////							swap = 1;
-////							rra(stack_a);
-////							lower--;
-////						}
-////						rra(stack_a);
-////						if (swap)
-////							sa(stack_a);
-////						swap = 0;
-////						bottom_stack = NULL;
-////						bottom = 0;
-////						lower--;
-//						}
-//				}
-//				else // lijst klopt, gewoon 1 erbij, check of bottom aansluit
-//				{
-//					pa(stack_a, stack_b);
-//					if ((bottom  == 1) && (bottom_stack->sorted_index == (*stack_a)->sorted_index - 1)) // eentje onder, zet boven wanneer goed
-//					{
-//						rra(stack_a);
-//						bottom_stack = NULL;
-//						bottom = 0;
-//						lower--;
-//					}
-//					else if (bottom == 2)
-//					{
-//						if (bottom_stack->sorted_index == (*stack_a)->sorted_index - 1) // verwijder dubbele operaties ff
-//						{
-//							rra(stack_a);
-//							rra(stack_a);
-//							sa(stack_a);
-//							bottom_stack = NULL;
-//							bottom = 0;
-//							lower -= 2;
-//						}
-//						else
-//						{
-//							rra(stack_a);
-//							rra(stack_a);
-//							bottom_stack = NULL;
-//							bottom = 0;
-//							lower -= 2;
-//						}
-//					}
-//					lower--;
-//				}
-//			}
-//			else if ((*stack_b)->sorted_index == lower - 2 && bottom < 2)
-//			{
-//				if (bottom == 1 && (*stack_b)->sorted_index == bottom_stack->sorted_index - 1)
-//				{
-//					pa(stack_a, stack_b);
-//					ra(stack_a); // zet onderaan A tot ie boven kan aansluiten
-//					bottom++;
-//				}
-//				else if (!bottom)
-//				{
-//					pa(stack_a, stack_b);
-//					ra(stack_a);
-//					bottom_stack = find_bottom(*stack_a);
-//					bottom++;
-//				}
-//			}
-//			else if ((*stack_b)->sorted_index == lower - 3 && bottom < 2)
-//			{
-//				if (bottom == 1 && (*stack_b)->sorted_index == bottom_stack->sorted_index + 1)
-//				{
-//					pa(stack_a, stack_b);
-//					ra(stack_a);
-//					bottom++;
-//				}
-//				else if (!bottom)
-//				{
-//					pa(stack_a, stack_b);
-//					ra(stack_a);
-//					bottom_stack = find_bottom(*stack_a);
-//					bottom++;
-//				}
-//			}
-//			else
-//				rb(stack_b);
-//		}
-//	}
-//}
+void	big_list(t_node **stack_a, t_node **stack_b, int half) // werkt met + 1
+{
+	int	whole;
+	int	quarter;
+	int	three_quarter;
+	int	t_q;
+	int	h;
+	int	swap;
+	int	swap_rot;
 
+	whole = half * 2;
+	quarter = half / 2;
+	three_quarter = whole - quarter;
+	t_q = three_quarter + 1;
+	h = half + 1;
+	swap = 0;
+	swap_rot = 0;
+	printf("Tussenstand:\n");
+	printf("Halve:%d\n", half); // 49
+	printf("Kwartje:%d\n", quarter); //24
+	printf("TQ:%d\n", three_quarter); //74
+	print_list(*stack_a, 'A');
+	print_list(*stack_b, 'B');	
+	while (*stack_a) // alles naar b: 73_50 0-49(random) 74_99
+	{
+		printf("t_q: %d\n", t_q);
+		printf("h: %d\n", h);
+		if (((*stack_a)->sorted_index  == t_q || ((*stack_a)->sorted_index == t_q + 1)) && (*stack_a)->sorted_index > three_quarter) // 75->99
+		{
+			if ((*stack_a)->sorted_index == t_q + 1)
+			{
+				pb(stack_a, stack_b);
+				swap_rot++;
+				t_q--; // blijf zoeken naar dezelfde
+			}
+			else if (swap_rot)
+			{
+				rrb(stack_b); // haal naar boven
+				pb(stack_a, stack_b);
+				rb(stack_b);
+				swap_rot = 0;
+				t_q++;
+			}
+			else
+				pb(stack_a, stack_b);
+			rb(stack_b);
+			t_q++;
+		}
+		else if (((*stack_a)->sorted_index == h || ((*stack_a)->sorted_index == h + 1)) && (*stack_a)->sorted_index <= three_quarter) // 50->74
+		{
+			if ((*stack_a)->sorted_index == h + 1)
+			{
+				pb(stack_a, stack_b);
+				swap++;
+				h--; // h + 1 is al gevonden dus zal niet hierna gevonden worden
+			}
+			else if (swap)
+			{
+				pb(stack_a, stack_b);
+				sb(stack_b);
+				swap = 0;
+				h++;
+			}
+			else
+				pb(stack_a, stack_b);
+			h++;
+		}
+		else
+			ra(stack_a);
+	}
+	final_list(stack_a, stack_b, half, quarter);
+}
+
+void	shift_group(int *arr, int sum) // WerKT
+{
+	int	i;
+	int	shrink;
+
+	i = 0;
+	shrink = 1;
+	if (sum == 1) // dan was de tweede dus sowieso niet gevonden, 3e mss wel
+	{
+		while (i + 1 < 5) // check 2, 3, 4
+		{
+			if (arr[i + 1])
+				arr[i] = arr[i + 1] - (shrink * 9); // inhoud array 2 gaat naar array 1 100->10 bv
+			else
+				arr[i] = 0;
+			i++;
+			shrink *= 10;
+		}
+	}
+	else if (sum == 11)
+	{
+		shrink = 1;
+		while (i + 2 < 5) //  sla eerste twee over
+		{
+			if (arr[i + 2])
+				arr[i] = arr[i + 2] - (shrink * 9);
+			else
+				arr[i] = 0;
+			i++;
+			shrink *= 10;
+		}
+	}
+	else if (sum == 111)
+	{
+		shrink = 1;
+		while (i + 3 < 5)
+		{
+			if (arr[i + 3])
+				arr[i] = arr[i + 3] - (shrink * 9);
+			else
+				arr[i] = 0;
+			i++;
+			shrink *= 10;
+		}
+	}
+	else if (sum == 1111)
+	{
+		shrink = 1;
+		while (i + 4 < 5)
+		{
+			if (arr[i + 4])
+				arr[i] = arr[i + 4] - (shrink * 9);
+			else
+				arr[i] = 0;
+			i++;
+			shrink *= 10;
+		}
+	}
+	i = 4;
+	while (sum >= 1) // zet nodige arrays op 0
+	{
+		arr[i] = 0;
+		i--;
+		sum /= 10;
+	}
+}

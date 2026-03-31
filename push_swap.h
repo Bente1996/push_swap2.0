@@ -33,7 +33,7 @@ bool	is_duplicate(t_node *head, int value);
 void	free_list(t_node *head);
 t_node	*sort_indices(t_node **list);
 int	random_split(t_node **stack_a, t_node **stack_b, int size);
-bool	in_group(int sorted_index, int *arr, int highest);
+bool	in_group(t_node *stack_b, int *arr, int highest);
 int	move_highest(int *arr, int highest);
 void	check_shift(int *arr, int sum);
 void	shift_group(int *arr, int n);
