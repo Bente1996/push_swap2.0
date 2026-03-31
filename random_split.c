@@ -3,21 +3,17 @@
 
 int	random_split(t_node **stack_a, t_node **stack_b, int size)
 {
-	int	half;
-	int	highest;
-	int	h;
-	int	operations;
-	int	count;
+	static 	int	arr[5] = {0};
+	int		half;
+	int		highest;
+	int		h;
+	int		operations;
+	int		count;
 
 	half = size / 2;
 	h = half;
 	highest = half;
 	count = 0;
-	//while (size > half) // twee random stacks (kan optimaler door al r te doen)
-	//{
-	//	pb(stack_a, stack_b);
-	//	size--;
-	//}
 	printf("%d\n", half);
 	while (h)
 	{
@@ -28,18 +24,10 @@ int	random_split(t_node **stack_a, t_node **stack_b, int size)
 		}
 		else
 			ra(stack_a);
-		if ((*stack_b) && ((*stack_b)->sorted_index < highest && (*stack_b)->sorted_index > highest - 6))
+		if (*stack_b && in_group((*stack_b)->sorted_index, arr, highest)) // als getal in de groep zit
 		{
-			blabla && in_group()
-			highest = shift_group(
-
-
-
-////
-
-			if ((*stack_b)->sorted_index == highest - 1)
-				highest--;
-			if (*stack_b)
+			highest = shift_group(arr, highest); // verander zoekcriteria op basis van group shift
+			if ((*stack_b)->next)
 				rb(stack_b);
 			count++;
 			printf("count:%d\n", count);
@@ -55,7 +43,6 @@ int	random_split(t_node **stack_a, t_node **stack_b, int size)
 	printf("Binnenkomst:\n");
 //	print_list(*stack_a, 'A');
 	print_list(*stack_b, 'B');
-//	intentional_split(stack_a, stack_b, half);
 	big_list(stack_a, stack_b, half); // 100 nummers 600 operations (700 = 100% 1100 = 80%)
 	operations = count_operations("");
 	return (operations);

@@ -32,7 +32,10 @@ bool	is_number(char *argv);
 bool	is_duplicate(t_node *head, int value);
 void	free_list(t_node *head);
 t_node	*sort_indices(t_node **list);
-int		random_split(t_node **stack_a, t_node **stack_b, int size);
+int	random_split(t_node **stack_a, t_node **stack_b, int size);
+bool	in_group(int sorted_index, int *arr, int highest);
+int	shift_group(int *arr, int highest);
+void	adapt_group(int *arr, int sum);
 void	intentional_split(t_node **stack_a, t_node **stack_b, int half);
 void	big_list(t_node **stack_a, t_node **stack_b, int half);
 void	final_list(t_node **stack_a, t_node **stack_b, int half, int quarter);
@@ -48,9 +51,9 @@ void	rra(t_node **stack_a);
 void	sa(t_node **stack_a);
 void	sb(t_node **stack_b);
 bool	one_element(t_node **stack_a, t_node **stack_b, int half);
-int		stack_size(t_node *stack);
+int	stack_size(t_node *stack);
 void	print_list(t_node *list, char stack); // naar ft_printf doen
-int		count_operations(char *operation);
+int	count_operations(char *operation);
 t_node *find_bottom(t_node *stack);
 t_node	*check_bottom(t_node *stack);
 

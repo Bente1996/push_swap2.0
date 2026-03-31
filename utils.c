@@ -155,15 +155,13 @@ t_node	*find_bottom(t_node *stack)
 	return (stack);
 }
 
-bool	in_group(int sorted_index)
+bool	in_group(int sorted_index, int *arr, int highest)
 {
-	static int	arr[5] = {0};
-
 	if (sorted_index == highest - 1)
 		arr[0] = 1;
 	else if (sorted_index == highest - 2)
 		arr[1] = 10;
-	else if (sorted_index == higest - 3)
+	else if (sorted_index == highest - 3)
 		arr[2] = 100;
 	else if (sorted_index == highest - 4)
 		arr[3] = 1000;
@@ -171,6 +169,7 @@ bool	in_group(int sorted_index)
 		arr[4] = 10000;
 	else
 		return (false);
+	return (true);
 }
 
 int	shift_group(int	*arr, int highest)
@@ -179,8 +178,9 @@ int	shift_group(int	*arr, int highest)
 	int	sum;
 
 	i = 0;
-	while (i < 5)
-		sum += arr[i];
+	sum = 0;
+	while (i < 5 && arr[i] != 0)
+		sum += arr[i++];
 	if (sum == 1)
 		highest--;
 	else if (sum == 11)
@@ -200,38 +200,59 @@ int	shift_group(int	*arr, int highest)
 void	adapt_group(int *arr, int sum)
 {
 	int	i;
+	int	shrink;
 
 	i = 0;
+	shrink = 1;
 	if (sum == 1) // dan was de tweede dus sowieso niet gevonden, 3e mss wel
 	{
 		while (i + 1 < 5) // check 2, 3, 4
 		{
-			arr[i] == arr[i + 1]; // inhoud array 2 gaat naar array 1
+			if (arr[i + 1])
+				arr[i] = arr[i + 1] - (shrink * 9); // inhoud array 2 gaat naar array 1 100->10 bv
+			else
+				arr[i] = 0;
 			i++;
+			shrink *= 10;
 		}
 	}
 	else if (sum == 11)
 	{
+		shrink = 1;
 		while (i + 2 < 5) //  sla eerste twee over
 		{
-			arr[i] == arr[i + 2];
+			if (arr[i + 2])
+				arr[i] = arr[i + 2] - (shrink * 9);
+			else
+				arr[i] = 0;
 			i++;
+			shrink *= 10;
 		}
 	}
 	else if (sum == 111)
 	{
+		shrink = 1;
 		while (i + 3 < 5)
 		{
-			arr[i] == arr[i + 3];
+			if (arr[i + 3])
+				arr[i] = arr[i + 3] - (shrink * 9);
+			else
+				arr[i] = 0;
 			i++;
+			shrink *= 10;
 		}
 	}
 	else if (sum == 1111)
 	{
+		shrink = 1;
 		while (i + 4 < 5)
 		{
-			arr[i] == arr[i + 4];
+			if (arr[i + 4])
+				arr[i] = arr[i + 4] - (shrink * 9);
+			else
+				arr[i] = 0;
 			i++;
+			shrink *= 10;
 		}
 	}
 	i = 4;
