@@ -1,9 +1,8 @@
 #include "push_swap.h"
 #include <stdio.h>
 
-int	random_split(t_node **stack_a, t_node **stack_b, int size) // bij 500 onder 9000, 100 some boven 100, dus beter zonder optimalisatie
+int	random_split(t_node **stack_a, t_node **stack_b, int size) // goed bij 500, bij 100 aanpassen (niet 45x rrb aan begin, maar 5x rb) 
 {
-	//static 	int	arr[5] = {0};
 	int		half;
 	int		highest;
 	int		h;
@@ -20,19 +19,12 @@ int	random_split(t_node **stack_a, t_node **stack_b, int size) // bij 500 onder 
 		{
 			pb(stack_a, stack_b);
 			h--;	
-			if ((*stack_b)->sorted_index < highest && (*stack_b)->sorted_index > highest - 31) // kleiner dan 49 en groter dan 34 (49 - 35)
+			if ((*stack_b)->sorted_index < highest && (*stack_b)->sorted_index > highest - 46) // kleiner dan 49 en groter dan 24 (49 - 25)
 			{
-				rb(stack_b);
+				if ((*stack_b)->next)
+					rb(stack_b);
 				count++;
 			}
-			//if (in_group(*stack_b, arr, highest)) // als getal in de groep zit
-			//{
-			//	highest = move_highest(arr, highest); // verander zoekcriteria op basis van group shift
-			//	printf("naar B: %d\n", (*stack_b)->sorted_index);
-			//	if ((*stack_b)->next)
-			//		rb(stack_b);
-			//	count++;
-			//}
 		}
 		else
 			ra(stack_a);
@@ -41,72 +33,106 @@ int	random_split(t_node **stack_a, t_node **stack_b, int size) // bij 500 onder 
 	int two = 0; // 10
 	printf("count:%d\n", count);
 	printf("%d\n", highest);
-//	print_list(*stack_b, 'B');
+	//print_list(*stack_b, 'B');
 	while (count)
 	{
-		rrb(stack_b);
+		rrb(stack_b); // -31 tot -45 blijft in B
 		count--;
-		if ((*stack_b)->sorted_index > highest - 11) // als ie wel aan het begin te pakken is onderaan A, -1 tot -10
+		if ((*stack_b)->sorted_index > highest - 16) // begin: -1 tot -15
 		{
 			pa(stack_a, stack_b);
 			ra(stack_a);
 			one++;
 		}
-		else if ((*stack_b)->sorted_index < highest - 10 && (*stack_b)->sorted_index > highest - 21) // -11 tot -20
+		else if ((*stack_b)->sorted_index < highest - 15 && (*stack_b)->sorted_index > highest - 31) // -16 tot -30
 		{
 			pa(stack_a, stack_b);
 			two++;
 		}
 	}
-	print_list(*stack_a, 'A');
-	print_list(*stack_b, 'B');
-	int three = 10;
-	while (three) // begint bovenaan B
+	//print_list(*stack_a, 'A');
+	//print_list(*stack_b, 'B');
+	int three = 15;
+	while (three)
 	{
-		if ((*stack_b)->sorted_index >= highest - 25) //onderste naar onder
+		if ((*stack_b)->sorted_index >= highest - 35) // -31 tot -35
+		{
+			pa(stack_a, stack_b);
+			ra(stack_a);
+		}
+		else if ((*stack_b)->sorted_index >=highest - 40) // -36 tot -40
 			rb(stack_b);
-		else
-			pa(stack_a, stack_b); // bovenste naar a
+		else // -41 tot -45
+		     pa(stack_a, stack_b);
 		three--;
 	}
 	three = 5;
 	while (three)
 	{
-		pb(stack_a, stack_b); // onderste naar boven
+		pb(stack_a, stack_b); // -41 tot -45 goed
 		three--;
 	}
 	three = 5;
 	while (three)
 	{
-		rrb(stack_b); // bovenste naar A: three compleet
+		rrb(stack_b); // -36 tot -40 goed
 		three--;
 	}
+	three = 5;
+	while (three)
+	{
+		rra(stack_a);
+		pb(stack_a, stack_b); // -30 tot -35 goed
+		three--;
+	}
+//	print_list(*stack_b, 'B');
 	while (two)
 	{
-		if ((*stack_a)->sorted_index >= highest - 15) // staat goed
+		if ((*stack_a)->sorted_index >= highest - 20)  // -16 tot -20
 			ra(stack_a);
-		else
+		else if ((*stack_a)->sorted_index >= highest - 25) // -21 tot -25
+		{
 			pb(stack_a, stack_b);
+			rb(stack_b);
+		}
+		else // -26 tot -30
+		     pb(stack_a, stack_b); // staat nu al goed
 		two--;
 	}
 	two = 5;
-	while (two) // two compleet
+	while (two)
+	{
+		rrb(stack_b); // -21 tot -25 goed
+		two--;
+	}
+	two = 5;
+	while (two)
 	{
 		rra(stack_a);
-		pb(stack_a, stack_b);
+		pb(stack_a, stack_b); // -16 tot -20 goed
 		two--;
 	}
 	while (one)
 	{
-		rra(stack_a);
-		if ((*stack_a)->sorted_index < highest - 5)
+		rra(stack_a); // -1 tot -5
+		if ((*stack_a)->sorted_index < highest - 5) // -11 tot -15 gelijk goed
+		{
 			pb(stack_a, stack_b);
+			if ((*stack_b)->sorted_index >= highest - 10) // -6 tot -10
+				rb(stack_b);
+		}
 		one--;
 	}
 	one = 5;
 	while (one)
 	{
-		pb(stack_a, stack_b);
+		rrb(stack_b); // -6 tot -10 goed
+		one--;
+	}
+	one = 5;
+	while (one)
+	{
+		pb(stack_a, stack_b); // -1 tot -5 goed
 		one--;
 	}
 	print_list(*stack_a, 'A');
@@ -116,6 +142,113 @@ int	random_split(t_node **stack_a, t_node **stack_b, int size) // bij 500 onder 
 	operations = count_operations("");
 	return (operations);
 }
+
+//int	random_split(t_node **stack_a, t_node **stack_b, int size) // bij 500 onder 9000, 100 some boven 100, dus beter zonder optimalisatie
+//{
+//	int		half;
+//	int		highest;
+//	int		h;
+//	int		operations;
+//	int		count;
+//
+//	half = size / 2;
+//	h = half;
+//	highest = half;
+//	count = 0;
+//	while (h)
+//	{
+//		if ((*stack_a)->sorted_index < half) // voeg s toe: NEE geprobeerd
+//		{
+//			pb(stack_a, stack_b);
+//			h--;	
+//			if ((*stack_b)->sorted_index < highest && (*stack_b)->sorted_index > highest - 31) // kleiner dan 49 en groter dan 34 (49 - 35)
+//			{
+//				rb(stack_b);
+//				count++;
+//			}
+//		}
+//		else
+//			ra(stack_a);
+//	}
+//	int one = 0; // 10
+//	int two = 0; // 10
+//	printf("count:%d\n", count);
+//	printf("%d\n", highest);
+////	print_list(*stack_b, 'B');
+//	while (count)
+//	{
+//		rrb(stack_b);
+//		count--;
+//		if ((*stack_b)->sorted_index > highest - 11) // als ie wel aan het begin te pakken is onderaan A, -1 tot -10
+//		{
+//			pa(stack_a, stack_b);
+//			ra(stack_a);
+//			one++;
+//		}
+//		else if ((*stack_b)->sorted_index < highest - 10 && (*stack_b)->sorted_index > highest - 21) // -11 tot -20
+//		{
+//			pa(stack_a, stack_b);
+//			two++;
+//		}
+//	}
+//	print_list(*stack_a, 'A');
+//	print_list(*stack_b, 'B');
+//	int three = 10;
+//	while (three) // begint bovenaan B
+//	{
+//		if ((*stack_b)->sorted_index >= highest - 25) //onderste naar onder
+//			rb(stack_b);
+//		else
+//			pa(stack_a, stack_b); // bovenste naar a
+//		three--;
+//	}
+//	three = 5;
+//	while (three)
+//	{
+//		pb(stack_a, stack_b);
+//		three--;
+//	}
+//	three = 5;
+//	while (three)
+//	{
+//		rrb(stack_b);
+//		three--;
+//	}
+//	while (two)
+//	{
+//		if ((*stack_a)->sorted_index >= highest - 15)
+//			ra(stack_a);
+//		else
+//			pb(stack_a, stack_b);
+//		two--;
+//	}
+//	two = 5;
+//	while (two) // two compleet
+//	{
+//		rra(stack_a);
+//		pb(stack_a, stack_b);
+//		two--;
+//	}
+//	while (one)
+//	{
+//		rra(stack_a);
+//		if ((*stack_a)->sorted_index < highest - 5)
+//			pb(stack_a, stack_b);
+//		one--;
+//	}
+//	one = 5;
+//	while (one)
+//	{
+//		pb(stack_a, stack_b);
+//		one--;
+//	}
+//	print_list(*stack_a, 'A');
+//	print_list(*stack_b, 'B');
+//	half--; // naar juiste index
+//	big_list(stack_a, stack_b, half); // 100 nummers 600 operations (700 = 100% 1100 = 80%)
+//	operations = count_operations("");
+//	return (operations);
+//}
 
 //int	random_split(t_node **stack_a, t_node **stack_b, int size) // werkt beter dan die hieronder
 //{
