@@ -20,7 +20,7 @@ int	random_split(t_node **stack_a, t_node **stack_b, int size) // goed bij 500, 
 		{
 			pb(stack_a, stack_b);
 			h--;
-			if ((*stack_b)->sorted_index < highest && (*stack_b)->sorted_index > highest - 181) // -1 tot -181 (was -1 tot -135) // 180 IS GROTER DAN 125 (250/2), IPV NAAR BENEDEN, DOE REST NAAR BENEDEN!!
+			if ((*stack_b)->sorted_index < highest && (*stack_b)->sorted_index > highest - 181) // -1 tot -181 (was -1 tot -135) // 180 IS GROTER DAN 125 (250/2), IPV NAAR BENEDEN, DOE REST NAAR BENEDEN!! /git test
 			{
 				if ((*stack_b)->next)
 					rb(stack_b);
