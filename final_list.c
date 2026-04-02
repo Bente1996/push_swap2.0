@@ -184,10 +184,6 @@ void	final_list(t_node **stack_a, t_node **stack_b, int half, int quarter)
 									}
 								}		
 							}										
-
-                                    // wacht ff
-																	  
-		
 						}
 						else // geen bottom over
 						     bottom_stack = NULL;
@@ -342,19 +338,13 @@ void	final_list(t_node **stack_a, t_node **stack_b, int half, int quarter)
 											bottom_stack = *stack_a;
 										ra(stack_a);
 									}
-
 								}		
 							}										
-
-                                    // wacht ff
-																	  
-		
 						}
 						else // was geen bottom over
 						     bottom_stack = NULL;
 					}
 				}
-
 			}
 			lower--;
 		}
