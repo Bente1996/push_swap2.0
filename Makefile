@@ -11,7 +11,7 @@ SRCFILES := main.c \
 		random_split.c
 
 OBJFILES := $(SRCFILES:.c=.o)
-CFLAGS ?= -Wall -Wextra -Werror
+CFLAGS ?= -Wall -Wextra -Werror -g 
 
 all: $(EXEC_NAME)
 
