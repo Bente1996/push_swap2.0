@@ -1,4 +1,4 @@
-void	intentional_split(t_node **stack_a, t_node **stack_b, int half) // werkt  
+void	intentional_split(t_node **stack_a, t_node **stack_b, int half) // werkt
 {
 	int	check; // maak check return van operations
 
