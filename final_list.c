@@ -3,34 +3,31 @@
 
 void	final_list(t_node **stack_a, t_node **stack_b, int half, int quarter)
 {
-	t_node	*bottom_stack;
+//	t_node	*bottom_stack;
 	t_stats	*stack_info;
-	int	swap;
-	int	bottom;
+//	int	swap;
+//	int	bottom;
 	int	n;
+//
+//	lower = half + 1;
+//	swap = 0;
+//	bottom = 0;
+//	bottom_stack = NULL;
 
-	lower = half + 1;
-	swap = 0;
-	bottom = 0;
-	bottom_stack = NULL;
 	sorted_to_A(stack_a, stack_b, half, quarter); // alles bovenaan en onderaan B wat gesorteerd was naar A pushen
-	stack_info = alloc_stats(stack_a, stack_b, half);
 	while (*stack_b)
 	{
+		stack_info = alloc_stats(stack_a, stack_b, half);
 		n = find_case((*stack_b)->sorted_index, stack_info->lower);
-		switch (n)
+		if (n)
 		{
-			case 1: // for lower and -1
+			if (n == 1) // for lower and -1
 				case_one(stack_info);
-			case 2: // for -2 (bottom <3)
+			else // for -2, -3 en -4 (bottom <3)
 				case_two(stack_info);
-			case 3: // for  -3 (bottom <3)
-				case_three(stack_info);
-			case 4: // for -4 (bottom <3)
-				case_four(stack_info);
-			case 5: // for rest
-				rb(stack_b);
 		}
+		else // rest
+			rb(stack_b);
 	}
 }
 
@@ -41,12 +38,12 @@ void	final_list(t_node **stack_a, t_node **stack_b, int half, int quarter)
 		///////////
 		if ((*stack_b)->sorted_index == lower || (*stack_b)->sorted_index == lower - 1)
 		{
-			if ((*stack_b)->sorted_index == lower - 1)
-			{
-				pa(stack_a, stack_b);
-				swap++;
-				lower++;
-			}
+			//if ((*stack_b)->sorted_index == lower - 1)
+			//{
+			//	pa(stack_a, stack_b);
+			//	swap++;
+			//	lower++;
+			//}
 			else if (swap)
 			{
 				pa(stack_a, stack_b);

@@ -25,8 +25,10 @@ typedef struct s_node
 
 typedef struct s_stats
 {
-	struct s_node	**head_A;
-	struct s_node	**head_B;
+	struct s_node	**head_a;
+	struct s_node	**head_b;
+	struct s_node	*stack_a;
+	struct s_node	*stack_b;
 	int	current_number;
 	int	swap;
 	int	lower;
@@ -71,5 +73,9 @@ t_node	*check_bottom(t_node *stack);
 void	sorted_to_A(t_node **A, t_node **B, int half, int quarter);
 int	find_case(int sorted_index, int lower);
 t_stats	*alloc_stats(t_node **stack_a, t_node **stack_b, int half);
+void	case_one(t_stats *data);
+void	case_two(t_stats *data);
+void	handle_bottom(t_stats *data);
+void	more_bottom();
 
 #endif

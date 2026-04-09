@@ -257,26 +257,153 @@ int	find_case(int sorted_index, int lower)
 {
 	if (sorted_index == lower || sorted_index == lower - 1)
 		return (1);
-	else if (sorted_index == lower - 2)
+	else if (sorted_index == lower - 2 || sorted_index == lower - 3 || sorted_index == lower - 4)
 		return (2);
-	else if (sorted_index == lower - 3)
-		return (3);
-	else if (sorted_index == lower - 4)
-		return (4);
 	else
-		return (5);
+		return (0);
 }
 
-void	case_one(t_node **A, t_node **B, t_stats *stack_info)
+void	case_one(t_stats *data)
 {
-	if (stack_info->current_number == stack_info->lower - 1)
+	if (data->stack_b->sorted_index == data->lower - 1)
 	{
-		pa(A, B);
-		
+		pa(data->head_a, data->head_b);
+		data->swap++;
+		data->lower++;
+	}
+	else if (data->swap) // lower met swap
+	{
+		pa(data->head_a, data->head_b);
+		sa(data->head_a);
+		data->swap = 0;
+		if (data->bottom)
+			handle_bottom(data);
+	}
+	else // lower geen swap
+	{
+		pa(data->head_a, data->head_b);
+		if (data->bottom)
+			handle_bottom(); // zelfde als boven miscchien?
+	}
+	data->lower--;
+}
+
+void	handle_bottom(t_stats *data)
+{
+	if (data->bottom_stack->sorted_index == data->stack_a->sorted_index - 1) // wanneer er iig 1 naar boven moet
+	{
+		rra(data->head_a);
+		data->bottom--;
+		data->lower--;
+		if (data->bottom)
+			more_bottom();
+		else
+			data->bottom_stack = NULL;
 	}
 }
 
+bool	add_second(t_stats *data)
+{
+	if (data->bottom_stack->sorted_index == data->stack_a->sorted_index - 1) // tweede mag ook
+	{
+		rra(data->head_a);
+		data->bottom--;
+		data->lower--;
+		if (data->bottom)
+			data->bottom_stack = find_bottom(data->stack_a);
+		else
+			data->bottom_stack = NULL;
+		if (data->bottom && data->bottom_stack->sorted_index == data->stack_a->sorted_index - 1)
+		{
+			rra(data->head_a);
+			rra(data->head_a);
+			data->lower--;
+			data->bottom--;
+		}
+		return (true);
+	}
+	else
+		return (false);
+}
 
+void	try_three(t_stats *data)
+{
+	data->bottom_stack = check_bottom(data->stack_a);
+	if (data->bottom_stack->sorted_index == data->stack_a->sorted_index - 1)
+	{
+		rra(data->head_a);
+		rra(data->head_a);
+		sa(data->head_a);
+		data->lower--;
+		data->bottom--;
+	}
+	if (data->stack_a->sorted_index != data->stack_a->next->sorted_index - 1)
+	{
+		ra(data->head_a);
+		data->bottom_stack = find_bottom(data->stack_a);
+	}
+	else
+	{
+		data->bottom--;
+		data->bottom_stack = NULL;
+		data->lower--;
+	}
+}
+
+void	try_two(t_stats *data)
+{
+	rra(data->head_a;
+	if (data->bottom == 2)
+		data->bottom_stack = find_bottom(data->stack_a);
+	else
+		data->bottom_stack = data->stack_a->next;
+	if (data->stack_a->sorted_index == data->stack_a->next->next->sorted_index - 1) // als tweede goed is
+	{
+		sa(data->head_a);
+		if (data->stack_a->sorted_index == data->stack_a->sorted_index - 1) // twee op juiste plek
+			check_third();
+		else if (data->bottom_stack->sorted_index == data->stack_a->next->sorted_index - 1) // niet twee juiste volgorde
+
+		else // tweede was niet goed
+
+	}
+	else // tweede was niet goed, dus moet derde wel zijn
+		 get_third();
+}
+
+void	more_bottom(t_stats *data)
+{
+	if (data->stack_a->sorted_index == data->stack_a->next->sorted_index - 1) // eerste was goed
+	{
+		data->bottom_stack = find_bottom(data->stack_a);
+		if (!add_second(data)) // check tweede
+		{
+			if (data->bottom == 2) // tweede mag niet, probeer derde
+				try_three(data);
+		}
+	}
+	else // eerste was niet goed dus probeer tweede
+		 try_two(data);
+}
+
+void	case_two(t_stats *data)
+{
+	if (data->bottom < 3)
+	{
+		if (!data->bottom || data->bottom_stack->sorted_index < data->stack_b->sorted_index)
+		{
+			pa(data->head_a, data->head_b);
+			ra(data->head_a);
+			data->bottom_stack = find_bottom(data->stack_a);
+		}
+		else
+		{
+			pa(data->head_a, data->head_b);
+			ra(data->head_a);
+		}
+		data->bottom++;
+	}
+}
 
 
 

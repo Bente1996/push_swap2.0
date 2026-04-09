@@ -59,11 +59,14 @@ t_stats	*alloc_stats(t_node **stack_a, t_node **stack_b, int half)
 	stack_info = malloc(sizeof(t_stats));
 	if (!stack_info)
 		return (NULL);
-	stack_info->head_A = stack_a;
-	stack_info->head_B = stack_b;
-	stack_info->current_number = (*stack_b)->sorted_index;
+	stack_info->head_a = stack_a;
+	stack_info->head_b = stack_b;
+	stack_info->stack_a = *stack_a; // waarom is niet alleen head voldoende?
+	stack_info->stack_b = *stack_b;
+	//stack_info->current_number = (*stack_b)->sorted_index; niet nodig denk ik
 	stack_info->swap = 0;
 	stack_info->lower = half + 1;
 	stack_info->bottom = 0;
 	stack_info->bottom_stack = NULL;
+	return (stack_info);
 }
