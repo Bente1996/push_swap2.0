@@ -51,3 +51,19 @@ t_node	*append_node(t_node **head, int value, int index)
 	}
 	return (new);
 }
+
+t_stats	*alloc_stats(t_node **stack_a, t_node **stack_b, int half)
+{
+	t_stats	*stack_info;
+
+	stack_info = malloc(sizeof(t_stats));
+	if (!stack_info)
+		return (NULL);
+	stack_info->head_A = stack_a;
+	stack_info->head_B = stack_b;
+	stack_info->current_number = (*stack_b)->sorted_index;
+	stack_info->swap = 0;
+	stack_info->lower = half + 1;
+	stack_info->bottom = 0;
+	stack_info->bottom_stack = NULL;
+}

@@ -236,3 +236,52 @@ void	check_shift(int *arr, int sum)
 		sum /= 10;
 	}
 }
+
+
+void	sorted_to_A(t_node **A, t_node **B, int half, int quarter)
+{
+	while (half > quarter)
+	{
+		rrb(B);
+		pa(A, B);
+		half--;
+	}
+	while (half)
+	{
+		pa(A, B);
+		half--;
+	}
+}
+
+int	find_case(int sorted_index, int lower)
+{
+	if (sorted_index == lower || sorted_index == lower - 1)
+		return (1);
+	else if (sorted_index == lower - 2)
+		return (2);
+	else if (sorted_index == lower - 3)
+		return (3);
+	else if (sorted_index == lower - 4)
+		return (4);
+	else
+		return (5);
+}
+
+void	case_one(t_node **A, t_node **B, t_stats *stack_info)
+{
+	if (stack_info->current_number == stack_info->lower - 1)
+	{
+		pa(A, B);
+		
+	}
+}
+
+
+
+
+
+
+
+
+
+

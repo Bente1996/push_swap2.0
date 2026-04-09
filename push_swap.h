@@ -23,6 +23,17 @@ typedef struct s_node
 	struct s_node *next;
 }	t_node;
 
+typedef struct s_stats
+{
+	struct s_node	**head_A;
+	struct s_node	**head_B;
+	int	current_number;
+	int	swap;
+	int	lower;
+	int	bottom;
+	struct s_node	*bottom_stack;
+}	t_stats;
+
 t_node	*append_node(t_node **head, int value, int index);
 t_node	*make_list(int argc, char **argv, int *i);
 int		make_number(char *argv, int *valid);
@@ -57,5 +68,8 @@ void	print_list(t_node *list, char stack); // naar ft_printf doen
 int	count_operations(char *operation);
 t_node *find_bottom(t_node *stack);
 t_node	*check_bottom(t_node *stack);
+void	sorted_to_A(t_node **A, t_node **B, int half, int quarter);
+int	find_case(int sorted_index, int lower);
+t_stats	*alloc_stats(t_node **stack_a, t_node **stack_b, int half);
 
 #endif
