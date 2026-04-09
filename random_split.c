@@ -1060,4 +1060,4 @@ int	random_split(t_node **stack_a, t_node **stack_b, int size) // goed bij 500, 
 //	big_list(stack_a, stack_b, half); // 100 nummers 600 operations (700 = 100% 1100 = 80%)
 //	operations = count_operations("");
 //	return (operations);
-////}
+//}
