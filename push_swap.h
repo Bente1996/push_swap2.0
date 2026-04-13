@@ -71,11 +71,19 @@ int	count_operations(char *operation);
 t_node *find_bottom(t_node *stack);
 t_node	*check_bottom(t_node *stack);
 void	sorted_to_A(t_node **A, t_node **B, int half, int quarter);
-int	find_case(int sorted_index, int lower);
+int	find_case(int sorted_index, int lower, int bottom);
 t_stats	*alloc_stats(t_node **stack_a, t_node **stack_b, int half);
 void	case_one(t_stats *data);
 void	case_two(t_stats *data);
 void	handle_bottom(t_stats *data);
-void	more_bottom();
+void	more_bottom(t_stats *data);
+void	get_third(t_stats *data);
+void	try_three(t_stats *data);
+void	try_two(t_stats *data);
+void	get_second(t_stats *data);
+void	check_third(t_stats *data);
+void	funk(t_stats *data);
+void	fonk(t_stats *data);
+bool	add_second(t_stats *data);
 
 #endif

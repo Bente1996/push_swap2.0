@@ -253,11 +253,11 @@ void	sorted_to_A(t_node **A, t_node **B, int half, int quarter)
 	}
 }
 
-int	find_case(int sorted_index, int lower)
+int	find_case(int sorted_index, int lower, int bottom)
 {
 	if (sorted_index == lower || sorted_index == lower - 1)
 		return (1);
-	else if (sorted_index == lower - 2 || sorted_index == lower - 3 || sorted_index == lower - 4)
+	else if ((sorted_index == lower - 2 || sorted_index == lower - 3 || sorted_index == lower - 4) && bottom < 3)
 		return (2);
 	else
 		return (0);
@@ -265,25 +265,35 @@ int	find_case(int sorted_index, int lower)
 
 void	case_one(t_stats *data)
 {
+	printf("case_one\n");
+	printf("data->lower: %d\n", data->lower);
+	printf("data->bottom: %d\n", data->bottom);
+	printf("data->swap: %d\n", data->swap);
+	printf("data->stack_b->sorted_index %d\n", data->stack_b->sorted_index);
+	printf("data->stack_a->sorted_index %d\n", data->stack_a->sorted_index);
 	if (data->stack_b->sorted_index == data->lower - 1)
 	{
+		printf("TEST");
 		pa(data->head_a, data->head_b);
 		data->swap++;
 		data->lower++;
 	}
 	else if (data->swap) // lower met swap
 	{
+		printf("SWAP\n");
 		pa(data->head_a, data->head_b);
 		sa(data->head_a);
 		data->swap = 0;
 		if (data->bottom)
 			handle_bottom(data);
+		data->lower--; // toegevoegd
 	}
 	else // lower geen swap
 	{
+		printf("NO SWAP\n");
 		pa(data->head_a, data->head_b);
 		if (data->bottom)
-			handle_bottom(); // zelfde als boven miscchien?
+			handle_bottom(data); // zelfde als boven miscchien?
 	}
 	data->lower--;
 }
@@ -296,7 +306,7 @@ void	handle_bottom(t_stats *data)
 		data->bottom--;
 		data->lower--;
 		if (data->bottom)
-			more_bottom();
+			more_bottom(data);
 		else
 			data->bottom_stack = NULL;
 	}
@@ -316,8 +326,8 @@ bool	add_second(t_stats *data)
 		if (data->bottom && data->bottom_stack->sorted_index == data->stack_a->sorted_index - 1)
 		{
 			rra(data->head_a);
-			rra(data->head_a);
 			data->lower--;
+			data->bottom_stack = NULL;
 			data->bottom--;
 		}
 		return (true);
@@ -352,7 +362,7 @@ void	try_three(t_stats *data)
 
 void	try_two(t_stats *data)
 {
-	rra(data->head_a;
+	rra(data->head_a);
 	if (data->bottom == 2)
 		data->bottom_stack = find_bottom(data->stack_a);
 	else
@@ -361,14 +371,15 @@ void	try_two(t_stats *data)
 	{
 		sa(data->head_a);
 		if (data->stack_a->sorted_index == data->stack_a->sorted_index - 1) // twee op juiste plek
-			check_third();
+			check_third(data);
 		else if (data->bottom_stack->sorted_index == data->stack_a->next->sorted_index - 1) // niet twee juiste volgorde
-
+			get_second(data);
 		else // tweede was niet goed
+		     ra(data->head_a);
 
 	}
 	else // tweede was niet goed, dus moet derde wel zijn
-		 get_third();
+		 get_third(data);
 }
 
 void	more_bottom(t_stats *data)
@@ -386,29 +397,125 @@ void	more_bottom(t_stats *data)
 		 try_two(data);
 }
 
-void	case_two(t_stats *data)
+//void	case_two(t_stats *data)
+//{
+//	if (data->bottom < 3)
+//	{
+//		if (!data->bottom || data->bottom_stack->sorted_index < data->stack_b->sorted_index)
+//		{
+//			pa(data->head_a, data->head_b);
+//			ra(data->head_a);
+//			data->bottom_stack = find_bottom(data->stack_a);
+//		}
+//		else
+//		{
+//			pa(data->head_a, data->head_b);
+//			ra(data->head_a);
+//		}
+//		data->bottom++;
+//	}
+//}
+
+void	check_third(t_stats *data)
 {
-	if (data->bottom < 3)
+	data->lower--;
+	data->bottom--;
+	if (data->bottom) // maak ff 1 statement
 	{
-		if (!data->bottom || data->bottom_stack->sorted_index < data->stack_b->sorted_index)
+		if (data->bottom_stack->sorted_index == data->stack_a->sorted_index - 1)
 		{
-			pa(data->head_a, data->head_b);
-			ra(data->head_a);
-			data->bottom_stack = find_bottom(data->stack_a);
+			rra(data->head_a);
+			data->bottom_stack = NULL;
+			data->bottom--;
+			data->lower--;
 		}
-		else
-		{
-			pa(data->head_a, data->head_b);
-			ra(data->head_a);
-		}
-		data->bottom++;
+	}
+	else
+		data->bottom_stack = NULL;
+}
+
+void	get_second(t_stats *data)
+{
+	rra(data->head_a);
+	data->lower--;
+	data->bottom--;
+	sa(data->head_a);
+	if (data->stack_a->sorted_index == data->stack_a->next->sorted_index - 1)
+	{
+		data->lower--;
+		data->bottom--;
+		data->bottom_stack = NULL;
+	}
+	else
+	{
+		ra(data->head_a);
+		data->bottom_stack = find_bottom(data->stack_a);
 	}
 }
 
+void	get_third(t_stats *data)
+{
+	rra(data->head_a);
+	sa(data->head_a);
+	ra(data->head_a);
+	sa(data->head_a);
+	data->bottom_stack = NULL;
+	if (data->stack_a->sorted_index == data->stack_a->next->sorted_index - 1)
+		funk(data);
+	else if (data->bottom_stack->sorted_index == data->stack_a->next->sorted_index - 1)
+		fonk(data);
+	else
+	{
+		if (data->stack_a->sorted_index > data->bottom_stack->sorted_index)
+			data->bottom_stack = data->stack_a;
+		ra(data->head_a);
+	}
+}
 
+void	funk(t_stats *data)
+{
+	data->bottom--;
+	data->lower--;
+	if (data->bottom_stack->sorted_index == data->stack_a->sorted_index - 1)
+	{
+		rra(data->head_a);
+		data->bottom--;
+		data->lower--;
+		data->bottom_stack = NULL;
+	}
+}
 
+void	fonk(t_stats *data)
+{
+	rra(data->head_a);
+	sa(data->head_a);
+	data->lower--;
+	data->bottom--;
+	if (data->stack_a->sorted_index == data->stack_a->next->sorted_index - 1)
+	{
+		data->bottom--;
+		data->lower--;
+		data->bottom_stack = NULL;
+	}
+	else
+	{
+		ra(data->head_a);
+		data->bottom_stack = find_bottom(data->stack_a);
+	}
+}
 
-
-
-
-
+void	case_two(t_stats *data) // kan korter
+{
+	if (!data->bottom || data->bottom_stack->sorted_index < data->stack_b->sorted_index)
+	{
+		pa(data->head_a, data->head_b);
+		ra(data->head_a);
+		data->bottom_stack = find_bottom(data->stack_a);
+	}
+	else
+	{
+		pa(data->head_a, data->head_b);
+		ra(data->head_a);
+	}
+	data->bottom++;
+}
