@@ -27,8 +27,13 @@ typedef struct s_stats
 {
 	struct s_node	*stack_a;
 	struct s_node	*stack_b;
-	int	current_number;
+	int	whole;
+	int	quarter;
+	int	three_quarter;
+	int	tq;
+	int	h;
 	int	swap;
+	int	swap_rot;
 	int	lower;
 	int	bottom;
 	struct s_node	*bottom_stack;
@@ -83,5 +88,11 @@ void	check_third(t_stats *data);
 void	funk(t_stats *data);
 void	fonk(t_stats *data);
 bool	add_second(t_stats *data);
+void	swap(t_stats *data);
+void	upper_quarter(t_stats *data);
+void	lower_quarter(t_stats *data);
+void	swop(t_stats *data);
+void	swap_two(t_stats *data);
+void	more_swap(t_stats *data);
 
 #endif
