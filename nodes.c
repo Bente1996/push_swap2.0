@@ -54,19 +54,22 @@ t_node	*append_node(t_node **head, int value, int index)
 
 t_stats	*alloc_stats(t_node **stack_a, t_node **stack_b, int half)
 {
-	t_stats	*stack_info;
+	t_stats	*data;
 
-	stack_info = malloc(sizeof(t_stats));
-	if (!stack_info)
+	data = malloc(sizeof(t_stats));
+	if (!data)
 		return (NULL);
-	stack_info->head_a = stack_a;
-	stack_info->head_b = stack_b;
-	stack_info->stack_a = *stack_a; // waarom is niet alleen head voldoende?
-	stack_info->stack_b = *stack_b;
+	data->stack_a = *stack_a; // data->stack_a = head
+	data->stack_b = *stack_b;
 	//stack_info->current_number = (*stack_b)->sorted_index; niet nodig denk ik
-	stack_info->swap = 0;
-	stack_info->lower = half + 1;
-	stack_info->bottom = 0;
-	stack_info->bottom_stack = NULL;
-	return (stack_info);
+	data->swap = 0;
+	data->lower = half + 1;
+	data->bottom = 0;
+	data->bottom_stack = NULL;
+	return (data);
 }
+
+//void	update_data(t_node **stack_a, t_node **stack_b, )
+//{
+
+//}

@@ -265,24 +265,16 @@ int	find_case(int sorted_index, int lower, int bottom)
 
 void	case_one(t_stats *data)
 {
-	printf("case_one\n");
-	printf("data->lower: %d\n", data->lower);
-	printf("data->bottom: %d\n", data->bottom);
-	printf("data->swap: %d\n", data->swap);
-	printf("data->stack_b->sorted_index %d\n", data->stack_b->sorted_index);
-	printf("data->stack_a->sorted_index %d\n", data->stack_a->sorted_index);
 	if (data->stack_b->sorted_index == data->lower - 1)
 	{
-		printf("TEST");
-		pa(data->head_a, data->head_b);
+		pa(&data->stack_a, &data->stack_b);
 		data->swap++;
 		data->lower++;
 	}
 	else if (data->swap) // lower met swap
 	{
-		printf("SWAP\n");
-		pa(data->head_a, data->head_b);
-		sa(data->head_a);
+		pa(&data->stack_a, &data->stack_b);
+		sa(&data->stack_a);
 		data->swap = 0;
 		if (data->bottom)
 			handle_bottom(data);
@@ -290,8 +282,7 @@ void	case_one(t_stats *data)
 	}
 	else // lower geen swap
 	{
-		printf("NO SWAP\n");
-		pa(data->head_a, data->head_b);
+		pa(&data->stack_a, &data->stack_b);
 		if (data->bottom)
 			handle_bottom(data); // zelfde als boven miscchien?
 	}
@@ -302,7 +293,7 @@ void	handle_bottom(t_stats *data)
 {
 	if (data->bottom_stack->sorted_index == data->stack_a->sorted_index - 1) // wanneer er iig 1 naar boven moet
 	{
-		rra(data->head_a);
+		rra(&data->stack_a);
 		data->bottom--;
 		data->lower--;
 		if (data->bottom)
@@ -316,7 +307,7 @@ bool	add_second(t_stats *data)
 {
 	if (data->bottom_stack->sorted_index == data->stack_a->sorted_index - 1) // tweede mag ook
 	{
-		rra(data->head_a);
+		rra(&data->stack_a);
 		data->bottom--;
 		data->lower--;
 		if (data->bottom)
@@ -325,7 +316,7 @@ bool	add_second(t_stats *data)
 			data->bottom_stack = NULL;
 		if (data->bottom && data->bottom_stack->sorted_index == data->stack_a->sorted_index - 1)
 		{
-			rra(data->head_a);
+			rra(&data->stack_a);
 			data->lower--;
 			data->bottom_stack = NULL;
 			data->bottom--;
@@ -341,15 +332,15 @@ void	try_three(t_stats *data)
 	data->bottom_stack = check_bottom(data->stack_a);
 	if (data->bottom_stack->sorted_index == data->stack_a->sorted_index - 1)
 	{
-		rra(data->head_a);
-		rra(data->head_a);
-		sa(data->head_a);
+		rra(&data->stack_a);
+		rra(&data->stack_a);
+		sa(&data->stack_a);
 		data->lower--;
 		data->bottom--;
 	}
 	if (data->stack_a->sorted_index != data->stack_a->next->sorted_index - 1)
 	{
-		ra(data->head_a);
+		ra(&data->stack_a);
 		data->bottom_stack = find_bottom(data->stack_a);
 	}
 	else
@@ -362,21 +353,20 @@ void	try_three(t_stats *data)
 
 void	try_two(t_stats *data)
 {
-	rra(data->head_a);
+	rra(&data->stack_a);
 	if (data->bottom == 2)
 		data->bottom_stack = find_bottom(data->stack_a);
 	else
 		data->bottom_stack = data->stack_a->next;
 	if (data->stack_a->sorted_index == data->stack_a->next->next->sorted_index - 1) // als tweede goed is
 	{
-		sa(data->head_a);
-		if (data->stack_a->sorted_index == data->stack_a->sorted_index - 1) // twee op juiste plek
+		sa(&data->stack_a);
+		if (data->stack_a->sorted_index == data->stack_a->next->sorted_index - 1) // twee op juiste plek
 			check_third(data);
 		else if (data->bottom_stack->sorted_index == data->stack_a->next->sorted_index - 1) // niet twee juiste volgorde
 			get_second(data);
 		else // tweede was niet goed
-		     ra(data->head_a);
-
+		     ra(&data->stack_a);
 	}
 	else // tweede was niet goed, dus moet derde wel zijn
 		 get_third(data);
@@ -424,7 +414,7 @@ void	check_third(t_stats *data)
 	{
 		if (data->bottom_stack->sorted_index == data->stack_a->sorted_index - 1)
 		{
-			rra(data->head_a);
+			rra(&data->stack_a);
 			data->bottom_stack = NULL;
 			data->bottom--;
 			data->lower--;
@@ -436,10 +426,10 @@ void	check_third(t_stats *data)
 
 void	get_second(t_stats *data)
 {
-	rra(data->head_a);
+	rra(&data->stack_a);
 	data->lower--;
 	data->bottom--;
-	sa(data->head_a);
+	sa(&data->stack_a);
 	if (data->stack_a->sorted_index == data->stack_a->next->sorted_index - 1)
 	{
 		data->lower--;
@@ -448,18 +438,18 @@ void	get_second(t_stats *data)
 	}
 	else
 	{
-		ra(data->head_a);
+		ra(&data->stack_a);
 		data->bottom_stack = find_bottom(data->stack_a);
 	}
 }
 
 void	get_third(t_stats *data)
 {
-	rra(data->head_a);
-	sa(data->head_a);
-	ra(data->head_a);
-	sa(data->head_a);
-	data->bottom_stack = NULL;
+	rra(&data->stack_a);
+	sa(&data->stack_a);
+	ra(&data->stack_a);
+	sa(&data->stack_a);
+	data->bottom_stack = find_bottom(data->stack_a);
 	if (data->stack_a->sorted_index == data->stack_a->next->sorted_index - 1)
 		funk(data);
 	else if (data->bottom_stack->sorted_index == data->stack_a->next->sorted_index - 1)
@@ -468,7 +458,7 @@ void	get_third(t_stats *data)
 	{
 		if (data->stack_a->sorted_index > data->bottom_stack->sorted_index)
 			data->bottom_stack = data->stack_a;
-		ra(data->head_a);
+		ra(&data->stack_a);
 	}
 }
 
@@ -478,7 +468,7 @@ void	funk(t_stats *data)
 	data->lower--;
 	if (data->bottom_stack->sorted_index == data->stack_a->sorted_index - 1)
 	{
-		rra(data->head_a);
+		rra(&data->stack_a);
 		data->bottom--;
 		data->lower--;
 		data->bottom_stack = NULL;
@@ -487,8 +477,8 @@ void	funk(t_stats *data)
 
 void	fonk(t_stats *data)
 {
-	rra(data->head_a);
-	sa(data->head_a);
+	rra(&data->stack_a);
+	sa(&data->stack_a);
 	data->lower--;
 	data->bottom--;
 	if (data->stack_a->sorted_index == data->stack_a->next->sorted_index - 1)
@@ -499,7 +489,7 @@ void	fonk(t_stats *data)
 	}
 	else
 	{
-		ra(data->head_a);
+		ra(&data->stack_a);
 		data->bottom_stack = find_bottom(data->stack_a);
 	}
 }
@@ -508,14 +498,14 @@ void	case_two(t_stats *data) // kan korter
 {
 	if (!data->bottom || data->bottom_stack->sorted_index < data->stack_b->sorted_index)
 	{
-		pa(data->head_a, data->head_b);
-		ra(data->head_a);
+		pa(&data->stack_a, &data->stack_b);
+		ra(&data->stack_a);
 		data->bottom_stack = find_bottom(data->stack_a);
 	}
 	else
 	{
-		pa(data->head_a, data->head_b);
-		ra(data->head_a);
+		pa(&data->stack_a, &data->stack_b);
+		ra(&data->stack_a);
 	}
 	data->bottom++;
 }

@@ -15,7 +15,7 @@
 
 int	main(int argc, char **argv)
 {
-	t_node	*head; // Gekkigeit
+	t_node	*head;
 	t_node *stack_b;
 	int	index;
 	int	operations;
@@ -37,13 +37,9 @@ int	main(int argc, char **argv)
 		return (1);
 	}
 	operations = random_split(&head, &stack_b, index);
-	printf("Afscheid:\n");
 	printf("Operations:%d\n", operations - 1);
-	print_list(head, 'A');
-	print_list(stack_b, 'B');
 	if (already_sorted(head))
 		printf("GOED GESORTEERD :)");
 	free_list(head);
-	free_list(stack_b); // later weg 
 	return (0);
 }

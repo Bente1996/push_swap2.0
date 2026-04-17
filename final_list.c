@@ -3,29 +3,18 @@
 
 void	final_list(t_node **stack_a, t_node **stack_b, int half, int quarter)
 {
-//	t_node	*bottom_stack;
 	t_stats	*data;
-//	int	swap;
-//	int	bottom;
 	int	n;
-	int	bente = 20;
-//
-//	lower = half + 1;
-//	swap = 0;
-//	bottom = 0;
-//	bottom_stack = NULL;
 
 	sorted_to_A(stack_a, stack_b, half, quarter); // alles bovenaan en onderaan B wat gesorteerd was naar A pushen
 	data = alloc_stats(stack_a, stack_b, half);
 	if (!data)
 		return ;
-	printf("%p\n", data->head_a);
-	printf("%p\n", stack_a);
-	while (*stack_b && bente)
+	while (data->stack_b)
 	{
-		printf("oneindig?\n");
-	//	printf("(*stack_b)->sorted_index %d\n", (*stack_b)->sorted_index);
 
+		*stack_a = data->stack_a;
+		*stack_b = data->stack_b;
 		n = find_case((*stack_b)->sorted_index, data->lower, data->bottom);
 		if (n)
 		{
@@ -35,12 +24,8 @@ void	final_list(t_node **stack_a, t_node **stack_b, int half, int quarter)
 				case_two(data);
 		}
 		else // rest
-			rb(stack_b);
-		bente--;
+			rb(&data->stack_b);
 	}
-	printf("data->bottom: %d\n", data->bottom);
-	printf("data->swap: %d\n", data->swap);
-	printf("data->lower: %d\n", data->lower);
 }
 
 

@@ -23,6 +23,7 @@ void	pb(t_node **stack_a, t_node **stack_b)
 
 void	pa(t_node **stack_a, t_node **stack_b)
 {
+	printf("inside pa\n");
 	t_node	*tmp;
 
 	if (!*stack_b)

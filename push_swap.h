@@ -25,8 +25,6 @@ typedef struct s_node
 
 typedef struct s_stats
 {
-	struct s_node	**head_a;
-	struct s_node	**head_b;
 	struct s_node	*stack_a;
 	struct s_node	*stack_b;
 	int	current_number;
