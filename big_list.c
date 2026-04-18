@@ -8,22 +8,22 @@ void	big_list(t_node **stack_a, t_node **stack_b, int half) // werkt met + 2
 	data = alloc_stats(stack_a, stack_b, half);
 	if (!data)
 		return ;
-	int bente = 6000;
-	while (data->stack_a && bente) // alles naar b: 73_50 0-49(random) 74_99
+	while (data->stack_a) // alles naar b: 73_50 0-49(random) 74_99
 	{
-		if ((data->stack_a->sorted_index >= data->tq && data->stack_a->sorted_index <= data->tq + 2) && data->stack_a->sorted_index > data->three_quarter) // 75->99
+		if ((data->stack_a->sorted_index >= data->tq && \
+				data->stack_a->sorted_index <= data->tq + 2) && \
+				data->stack_a->sorted_index > data->three_quarter) // 75->99
 			upper_quarter(data);
-		else if ((data->stack_a->sorted_index >= data->h && data->stack_a->sorted_index <= data->h + 2) && data->stack_a->sorted_index <= data->three_quarter) // 50->74	
+		else if ((data->stack_a->sorted_index >= data->h && \
+				data->stack_a->sorted_index <= data->h + 2) && \
+				data->stack_a->sorted_index <= data->three_quarter) // 50->74	
 			lower_quarter(data);
 		else // was niet de goeie
 			ra(&data->stack_a);
-		bente--;
 	}
-	*stack_a = data->stack_a;
+	*stack_a = NULL;
 	*stack_b = data->stack_b;
-	print_list(*stack_a, 'A');
-	print_list(*stack_b, 'B');
-	//final_list(stack_a, stack_b, half, data->quarter);
+	final_list(stack_a, stack_b, half, data->quarter);
 }
 
 //void	big_list(t_node **stack_a, t_node **stack_b, int half) // werkt met + 2

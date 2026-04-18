@@ -69,6 +69,8 @@ void	free_list(t_node *head)
 
 void	print_list(t_node *list, char stack)
 {
+	if (!list)
+		return ;
 	if (stack == 'A')
 		printf("\nStack A:\n");
 	if (stack == 'B')
@@ -132,6 +134,8 @@ int	stack_size(t_node *stack)
 
 bool	already_sorted(t_node *stack)
 {
+	if (!stack)
+		return (false);
 	while (stack->next)
 	{
 		if (stack->value > stack->next->value)
@@ -500,7 +504,7 @@ void	swap(t_stats *data)
 			sb(&data->stack_b);
 		while (data->swap_rot)
 		{
-			sb(&data->stack_b);
+			rb(&data->stack_b);
 			data->swap_rot--;
 			data->tq++;
 		}

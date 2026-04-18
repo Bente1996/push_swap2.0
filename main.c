@@ -37,6 +37,8 @@ int	main(int argc, char **argv)
 		return (1);
 	}
 	operations = random_split(&head, &stack_b, index);
+	//print_list(head, 'A');
+	//print_list(stack_b, 'B');
 	printf("Operations:%d\n", operations - 1);
 	if (already_sorted(head))
 		printf("GOED GESORTEERD :)");
