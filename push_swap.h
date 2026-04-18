@@ -96,5 +96,11 @@ void	swap_two(t_stats *data);
 void	more_swap(t_stats *data);
 void	group_sort(t_node **stack_a, t_node **stack_b, int highest, int group_size);
 void	halve(t_node **stack_a, t_node **stack_b, int size);
+void	sort_rest(t_node **stack_a, t_node **stack_b, int highest);
+void	split_group(t_node **stack_a, t_node **stack_b, int highest, int size);
+void	sort_lowest(t_node **stack_a, t_node **stack_b, int highest);
+void	sort_highest(t_node **stack_a, t_node **stack_b, int highest);
+void	low_to_A(t_node **stack_a, t_node **stack_b, int half);
+int		group_lowest(t_node **stack_b, t_node **stack_a, int count, int highest);
 
 #endif
