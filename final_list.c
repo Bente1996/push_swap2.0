@@ -40,8 +40,6 @@ void	final_list(t_node **stack_a, t_node **stack_b, int half, int quarter)
 	}
 	*stack_b = data->stack_b;
 	*stack_a = data->stack_a;
-	print_list(*stack_a, 'A');
-	print_list(*stack_b, 'B');
 }
 
 

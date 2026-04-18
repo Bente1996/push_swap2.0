@@ -94,5 +94,7 @@ void	lower_quarter(t_stats *data);
 void	swop(t_stats *data);
 void	swap_two(t_stats *data);
 void	more_swap(t_stats *data);
+void	group_sort(t_node **stack_a, t_node **stack_b, int highest, int group_size);
+void	halve(t_node **stack_a, t_node **stack_b, int size);
 
 #endif

@@ -36,9 +36,10 @@ int	main(int argc, char **argv)
 		free_list(head);
 		return (1);
 	}
-	operations = random_split(&head, &stack_b, index);
-	//print_list(head, 'A');
-	//print_list(stack_b, 'B');
+	halve(&head, &stack_b, index);
+	operations = count_operations("");
+	print_list(head, 'A');
+	print_list(stack_b, 'B');
 	printf("Operations:%d\n", operations - 1);
 	if (already_sorted(head))
 		printf("GOED GESORTEERD :)");
