@@ -41,8 +41,8 @@ typedef struct s_stats
 
 t_node	*append_node(t_node **head, int value, int index);
 t_node	*make_list(int argc, char **argv, int *i);
-int		make_number(char *argv, int *valid);
-int		convert(char *argv, int *valid);
+int	make_number(char *argv, int *valid);
+int	convert(char *argv, int *valid);
 bool	is_overflow(char *argv, int value, int sign);
 bool	is_number(char *argv);
 bool	is_duplicate(t_node *head, int value);
@@ -99,8 +99,9 @@ void	halve(t_node **stack_a, t_node **stack_b, int size);
 void	sort_rest(t_node **stack_a, t_node **stack_b, int highest);
 void	split_group(t_node **stack_a, t_node **stack_b, int highest, int size);
 void	sort_lowest(t_node **stack_a, t_node **stack_b, int highest);
+void	sort_medium(t_node **stack_a, t_node **stack_b, int highest);
 void	sort_highest(t_node **stack_a, t_node **stack_b, int highest);
 void	low_to_A(t_node **stack_a, t_node **stack_b, int half);
-int		group_lowest(t_node **stack_b, t_node **stack_a, int count, int highest);
+int	group_lowest_B(t_node **stack_b, int count, int highest);
 
 #endif

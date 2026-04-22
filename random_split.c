@@ -463,9 +463,9 @@
 //	return (operations);
 //}
 
-int	group_lowest(t_node **stack_b, int count, int highest)
+int	group_lowest_B(t_node **stack_b, int count, int highest)
 {
-	if ((*stack_b)->sorted_index < highest && (*stack_b)->sorted_index > highest - 91) // -1 tot -90
+	if ((*stack_b)->sorted_index < highest && (*stack_b)->sorted_index > highest - 91) // 160 tot 249
 	{
 		if ((*stack_b)->next)
 			rb(stack_b);
@@ -489,7 +489,7 @@ void	low_to_A(t_node **stack_a, t_node **stack_b, int half)
 		{
 			pb(stack_a, stack_b);
 			h--;
-			count = group_lowest(stack_b, count, highest);
+			count = group_lowest_B(stack_b, count, highest); // houd 90 apart
 		}
 		else
 			ra(stack_a);
@@ -506,7 +506,7 @@ void	halve(t_node **stack_a, t_node **stack_b, int size)
 	int		half;
 
 	half = size / 2;
-	low_to_A(stack_a, stack_b, half);
+	low_to_A(stack_a, stack_b, half); // split en houdt 90 apart
 	group_sort(stack_a, stack_b, half, 90);
 }
 
@@ -546,7 +546,7 @@ void	sort_highest(t_node **stack_a, t_node **stack_b, int highest)
 	}
 }
 
-void	sort_lowest(t_node **stack_a, t_node **stack_b, int highest)
+void	sort_medium(t_node **stack_a, t_node **stack_b, int highest)
 {
 	int	count;
 
@@ -576,6 +576,34 @@ void	sort_lowest(t_node **stack_a, t_node **stack_b, int highest)
 	}
 }
 
+void	sort_lowest(t_node **stack_a, t_node **stack_b, int highest)
+{
+	int	count = 15;
+	while (count) // -46 tot -60 op goeie plek zetten
+	{
+		rra(stack_a); // alles naar boven
+		if ((*stack_a)->sorted_index < highest - 50) // -51 tot -60 op goeie plek zetten
+		{
+			pb(stack_a, stack_b); // -56 tot -60 staat goed
+			if ((*stack_b)->sorted_index > highest - 56) // -51 tot -55 naar beneden
+				rb(stack_b);
+		}
+		count--;
+	}
+	count = 5;
+	while (count) // -51 tot -55 op goeie plek zetten
+	{
+		rrb(stack_b);
+		count--;
+	}
+	count = 5;
+	while (count) // -46 tot -50 op goeie plek zetten
+	{
+		pb(stack_a, stack_b);
+		count--;
+	}
+}
+
 void	split_group(t_node **stack_a, t_node **stack_b, int highest, int size)
 {
 	int	count;
@@ -601,7 +629,7 @@ void	sort_rest(t_node **stack_a, t_node **stack_b, int highest)
 	int	count;
 
 	count = 125;
-	while (count > 80)
+	while (count > 80) // 45
 	{
 		rrb(stack_b); // -31 tot -45 blijft in B
 		count--;
@@ -613,7 +641,7 @@ void	sort_rest(t_node **stack_a, t_node **stack_b, int highest)
 		else if ((*stack_b)->sorted_index < highest - 15 && (*stack_b)->sorted_index > highest - 31) // -16 tot -30
 			pa(stack_a, stack_b);
 	}
-	while (count > 65)
+	while (count > 65) // 15
 	{
 		if ((*stack_b)->sorted_index >= highest - 35) // -31 tot -35
 		{
@@ -626,23 +654,23 @@ void	sort_rest(t_node **stack_a, t_node **stack_b, int highest)
 		     pa(stack_a, stack_b);
 		count--;
 	}
-	while (count > 60)
+	while (count > 60) // 5
 	{
 		pb(stack_a, stack_b); // -41 tot -45 goed
 		count--;
 	}
-	while (count > 55)
+	while (count > 55) //5
 	{
 		rrb(stack_b); // -36 tot -40 goed
 		count--;
 	}
-	while (count > 50)
+	while (count > 50) // 5
 	{
 		rra(stack_a);
 		pb(stack_a, stack_b); // -30 tot -35 goed
 		count--;
 	}
-	while (count > 35)
+	while (count > 35) // 15
 	{
 		if ((*stack_a)->sorted_index >= highest - 20)  // -16 tot -20
 			ra(stack_a);
@@ -655,18 +683,18 @@ void	sort_rest(t_node **stack_a, t_node **stack_b, int highest)
 		     pb(stack_a, stack_b); // staat nu al goed
 		count--;
 	}
-	while (count > 30)
+	while (count > 30) // 5
 	{
 		rrb(stack_b); // -21 tot -25 goed
 		count--;
 	}
-	while (count > 25)
+	while (count > 25) // 5
 	{
 		rra(stack_a);
 		pb(stack_a, stack_b); // -16 tot -20 goed
 		count--;
 	}
-	while (count > 10)
+	while (count > 10) // 15
 	{
 		rra(stack_a); // -1 tot -5
 		if ((*stack_a)->sorted_index < highest - 5) // -11 tot -15 gelijk goed
@@ -677,12 +705,12 @@ void	sort_rest(t_node **stack_a, t_node **stack_b, int highest)
 		}
 		count--;
 	}
-	while (count > 5)
+	while (count > 5) // 5
 	{
 		rrb(stack_b); // -6 tot -10 goed
 		count--;
 	}
-	while (count)
+	while (count) // 5
 	{
 		pb(stack_a, stack_b); // -1 tot -5 goed
 		count--;
@@ -693,8 +721,9 @@ void	sort_rest(t_node **stack_a, t_node **stack_b, int highest)
 
 void	group_sort(t_node **stack_a, t_node **stack_b, int highest, int size)
 {
-	split_group(stack_a, stack_b, highest, size);
+	split_group(stack_a, stack_b, highest, size); // 
 	sort_highest(stack_a, stack_b, highest);
+	sort_medium(stack_a, stack_b, highest);
 	sort_lowest(stack_a, stack_b, highest);
 	sort_rest(stack_a, stack_b, highest);
 }
@@ -833,8 +862,8 @@ int	random_split(t_node **stack_a, t_node **stack_b, int size) // goed bij 500, 
 
 
 				// -1 tot -45 deel (goed)
-	int one = 0; // 10
-	int two = 0; // 10
+	int one = 0; // 15
+	int two = 0; // 15
 	count = 45;
 	while (count)
 	{
