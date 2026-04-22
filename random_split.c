@@ -463,14 +463,27 @@
 //	return (operations);
 //}
 
-int	group_lowest_B(t_node **stack_b, int count, int highest)
+//int	group_lowest_B(t_node **stack_b, int count, int highest) // voor 90
+//{
+//	if ((*stack_b)->sorted_index < highest && (*stack_b)->sorted_index > highest - 91) // 160 tot 249
+//	{
+//		if ((*stack_b)->next)
+//			rb(stack_b);
+//		count++;
+//	}
+//	return (count);
+//}
+
+int	group_lowest_B(t_node **stack_b, int count, int highest) // voor 135
 {
-	if ((*stack_b)->sorted_index < highest && (*stack_b)->sorted_index > highest - 91) // 160 tot 249
+	if ((*stack_b)->sorted_index < highest && (*stack_b)->sorted_index > highest - 136) // 115 tot 249
 	{
-		if ((*stack_b)->next)
-			rb(stack_b);
+//		if ((*stack_b)->next)
+//			rb(stack_b); // dalijk wegdoen 22 april
 		count++;
 	}
+	else
+		rb(stack_b); // 0 tot 114 onderaan zodat rest (die we gaan groeperen) boven staat
 	return (count);
 }
 
@@ -494,20 +507,37 @@ void	low_to_A(t_node **stack_a, t_node **stack_b, int half)
 		else
 			ra(stack_a);
 	}
-	while (count) // alles naar boven
-	{
-		rrb(stack_b);
-		count--;
-	}
+//	while (count) // alles naar boven // VERANDERING BIJ 135 22 april
+//	{
+//		rrb(stack_b);
+//		count--;
+//	}
 }
 
 void	halve(t_node **stack_a, t_node **stack_b, int size)
 {
-	int		half;
+	int		highest;
 
-	half = size / 2;
-	low_to_A(stack_a, stack_b, half); // split en houdt 90 apart
-	group_sort(stack_a, stack_b, half, 90);
+	highest = size / 2;
+	low_to_A(stack_a, stack_b, highest); // split en houdt 135 apart, 115-249 bovenaan B
+	//group_sort(stack_a, stack_b, half, 90);
+	split_group(stack_a, stack_b, highest, 135); // 0-90 beneden
+	highest -= 45;
+	sort_highest(stack_a, stack_b, highest); 
+	sort_medium(stack_a, stack_b, highest); 
+	sort_lowest(stack_a, stack_b, highest);
+	int count = 90;
+	while (count)
+	{
+		rrb(stack_b);
+		count--;
+	}
+	highest += 45;
+	split_group(stack_a, stack_b, highest, 90); // 45 beneden
+	sort_highest(stack_a, stack_b, highest);
+	sort_medium(stack_a, stack_b, highest);
+	sort_lowest(stack_a, stack_b, highest);
+	sort_rest(stack_a, stack_b, highest); // sorteert laatste 45
 }
 
 void	sort_highest(t_node **stack_a, t_node **stack_b, int highest)
@@ -604,18 +634,18 @@ void	sort_lowest(t_node **stack_a, t_node **stack_b, int highest)
 	}
 }
 
-void	split_group(t_node **stack_a, t_node **stack_b, int highest, int size)
+void	split_group(t_node **stack_a, t_node **stack_b, int highest, int size) // bij 135
 {
 	int	count;
 
 	count = size;
 	while (count)
 	{
-		if ((*stack_b)->sorted_index > highest - (size - 44)) // -1 tot -45 naar beneden voor later
+		if ((*stack_b)->sorted_index > highest - (size - 44)) // -0 tot -90 naar beneden voor later (160-249)
 			rb(stack_b);
-		else if ((*stack_b)->sorted_index < highest - (size - 30)) // -61 tot -90 bovenaan A
+		else if ((*stack_b)->sorted_index < highest - (size - 30)) // -106 tot -135 bovenaan A (115-145)
 			pa(stack_a, stack_b);
-		else                                             // -46 tot -60 onderaan A
+		else                                             // -90 tot -105 onderaan A (145-160)
 		{
 			pa(stack_a,stack_b);
 			ra(stack_a);
@@ -623,6 +653,26 @@ void	split_group(t_node **stack_a, t_node **stack_b, int highest, int size)
 		count--;
 	}
 }
+
+//void	split_group(t_node **stack_a, t_node **stack_b, int highest, int size) // bij 90
+//{
+//	int	count;
+//
+//	count = size;
+//	while (count)
+//	{
+//		if ((*stack_b)->sorted_index > highest - (size - 44)) // -1 tot -45 naar beneden voor later
+//			rb(stack_b);
+//		else if ((*stack_b)->sorted_index < highest - (size - 30)) // -61 tot -90 bovenaan A
+//			pa(stack_a, stack_b);
+//		else                                             // -46 tot -60 onderaan A
+//		{
+//			pa(stack_a,stack_b);
+//			ra(stack_a);
+//		}
+//		count--;
+//	}
+//}
 
 void	sort_rest(t_node **stack_a, t_node **stack_b, int highest)
 {
@@ -721,7 +771,7 @@ void	sort_rest(t_node **stack_a, t_node **stack_b, int highest)
 
 void	group_sort(t_node **stack_a, t_node **stack_b, int highest, int size)
 {
-	split_group(stack_a, stack_b, highest, size); // 
+	split_group(stack_a, stack_b, highest, size);
 	sort_highest(stack_a, stack_b, highest);
 	sort_medium(stack_a, stack_b, highest);
 	sort_lowest(stack_a, stack_b, highest);
