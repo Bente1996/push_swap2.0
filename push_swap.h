@@ -20,7 +20,7 @@ typedef struct s_node
 	int		value;
 	int		index;
 	int		sorted_index;
-	struct s_node *next;
+	struct s_node	*next;
 }	t_node;
 
 typedef struct s_stats
