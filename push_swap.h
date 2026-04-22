@@ -100,7 +100,7 @@ void	sort_rest(t_node **stack_a, t_node **stack_b, int highest);
 void	split_group(t_node **stack_a, t_node **stack_b, int highest, int size);
 void	sort_lowest(t_node **stack_a, t_node **stack_b, int highest);
 void	sort_medium(t_node **stack_a, t_node **stack_b, int highest);
-void	sort_highest(t_node **stack_a, t_node **stack_b, int highest);
+void	sort_high(t_node **stack_a, t_node **stack_b, int highest);
 void	low_to_A(t_node **stack_a, t_node **stack_b, int half);
 int	group_lowest_B(t_node **stack_b, int count, int highest);
 
