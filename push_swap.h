@@ -95,13 +95,15 @@ void	swop(t_stats *data);
 void	swap_two(t_stats *data);
 void	more_swap(t_stats *data);
 void	group_sort(t_node **stack_a, t_node **stack_b, int highest, int group_size);
-void	halve(t_node **stack_a, t_node **stack_b, int size);
+void	sort_all(t_node **stack_a, t_node **stack_b, int size);
 void	sort_rest(t_node **stack_a, t_node **stack_b, int highest);
-void	split_group(t_node **stack_a, t_node **stack_b, int highest, int size);
-void	sort_lowest(t_node **stack_a, t_node **stack_b, int highest);
+void	devide_B(t_node **stack_a, t_node **stack_b, int highest, int size);
+void	sort_low(t_node **stack_a, t_node **stack_b, int highest);
 void	sort_medium(t_node **stack_a, t_node **stack_b, int highest);
 void	sort_high(t_node **stack_a, t_node **stack_b, int highest);
-void	low_to_A(t_node **stack_a, t_node **stack_b, int half);
-int	group_lowest_B(t_node **stack_b, int count, int highest);
+void	split_list(t_node **stack_a, t_node **stack_b, int half);
+int	split_B(t_node **stack_b, int count, int highest);
+void	organise_B(t_node **stack_a, t_node **stack_b, int half);
+
 
 #endif

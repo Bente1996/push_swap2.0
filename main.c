@@ -36,7 +36,7 @@ int	main(int argc, char **argv)
 		free_list(head);
 		return (1);
 	}
-	halve(&head, &stack_b, index);
+	sort_all(&head, &stack_b, index / 2);
 	operations = count_operations("");
 	print_list(head, 'A');
 	print_list(stack_b, 'B');

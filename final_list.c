@@ -19,28 +19,317 @@
 //			rb(&data->stack_b);
 //	}
 //}
-void	final_list(t_node **stack_a, t_node **stack_b, int half, int quarter)
+
+int	find_highest(t_node *stack_b)
 {
-	t_stats	*data;
-	int	n;
+	int	pos;
+	int	highest_pos;
+	t_node	*highest;
+
+	pos = 1;
+	highest_pos = 1;
+	highest = stack_b;
+	while (stack_b)
+	{
+		if (stack_b->value > highest->value)
+		{
+			highest = stack_b;
+			highest_pos = pos;
+		}
+		stack_b = stack_b->next;
+		pos++;
+	}
+	return (highest_pos);
+}
+
+void	highest_to_top(t_node **stack_b)
+{
+	int	mid_stack;
+	int	highest_pos;
+
+	highest_pos = find_highest(*stack_b);
+	mid_stack = stack_size(*stack_b) / 2;
+	if (mid_stack < highest_pos) // van onderaan
+	{
+		while (highest_pos <= stack_size(*stack_b))
+		{
+			rrb(stack_b);
+			highest_pos++;
+		}
+	}
+	else // vanaf boven
+	{
+		while (highest_pos > 1)
+		{
+			rb(stack_b);
+			highest_pos--;
+		}
+	}
+}
+
+t_node	*sort_three(t_node **stack_a, t_node **stack_b)
+{
+	if ((*stack_b)->sorted_index == 1)
+		rb(stack_b);
+	if ((*stack_b)->sorted_index == 3) // 321  312
+	{
+		pa(stack_a, stack_b);
+		pa(stack_a, stack_b);
+		pa(stack_a, stack_b);
+		if ((*stack_a)->value > (*stack_a)->next->value)
+			sa(stack_a);
+	}
+	else if ((*stack_b)->sorted_index == 2) // 
+	{
+		pa(stack_a, stack_b);
+		if ((*stack_b)->sorted_index == 1)
+			sb(stack_b);
+		pa(stack_a, stack_b);
+		sa(stack_a);
+		pa(stack_a, stack_b);
+	}
+	return (*stack_a);
+}
+
+t_node	*sort_top(t_node **stack_a, t_node **stack_b) // selection sort
+{
+	int n;
+
+	n = 25;
+	printf("SORT TOP\n");
+	while (n) // voeg functies voor kleine aantallen toe
+	{
+		if (n == 3)
+		{
+			*stack_a = sort_three(stack_a, stack_b);
+			break ;
+		}
+		highest_to_top(stack_b);
+		pa(stack_a, stack_b);
+		n--;
+	}
+	return (*stack_a);
+}
+
+void	swap_B(t_stats *data)
+{
+	if ((data->stack_b->sorted_index != data->bottom_stack->sorted_index + 1) || data->swap_rot == 2)
+		rra(&data->stack_a);
+	if (data->swap_rot == 2)
+		rra(&data->stack_a);
+	pa(&data->stack_a, &data->stack_b);
+	ra(&data->stack_a);
+	data->bottom_stack = find_bottom(data->stack_a);
+	if (data->swap_rot == 2)
+	{
+		if (data->stack_a->sorted_index > data->stack_a->next->sorted_index)
+			sa(&data->stack_a);
+		while (data->swap_rot)
+		{
+			ra(&data->stack_a);
+			data->swap_rot--;
+			data->tq++;
+		}
+	}
+	else if (data->stack_a->sorted_index == data->bottom_stack->sorted_index + 1)
+	{
+		ra(&data->stack_a);
+		data->tq++;
+		data->swap_rot--;
+	}
+	else
+		ra(&data->stack_a);
+	data->bottom_stack = find_bottom(data->stack_a);
+	data->tq++;
+}
+
+
+void	upper_quarter_B(t_stats *data)
+{
+	printf("UQ B\n");
+	if (((data->stack_b->sorted_index == data->tq + 1) || (data->stack_b->sorted_index == data->tq + 2)) && data->swap_rot < 2)
+	{
+		pa(&data->stack_a, &data->stack_b);
+		if (!data->swap_rot || (data->swap_rot == 1 && (data->stack_a->sorted_index > data->bottom_stack->sorted_index)))
+			data->bottom_stack = data->stack_a;
+		ra(&data->stack_a);
+		data->swap_rot++;
+	}
+	else if (data->swap_rot && data->stack_b->sorted_index == data->tq)
+		swap_B(data);
+	else if (data->stack_b->sorted_index == data->tq)
+	{
+		pa(&data->stack_a, &data->stack_b);
+		ra(&data->stack_a);
+		data->tq++;
+	}
+}
+
+void	more_swap_B(t_stats *data)
+{
+	printf("halloo\n");
+	ra(&data->stack_a);
+	pa(&data->stack_a, &data->stack_b);
+	rra(&data->stack_a);
+	rra(&data->stack_a);
+	printf("A%d\n", data->stack_a->sorted_index);
+	printf("A%d\n", data->stack_a->next->sorted_index);
+	printf("A%d\n", data->stack_a->next->next->sorted_index);
+	printf("B%d\n", data->stack_b->sorted_index);
+	if (data->stack_a->sorted_index == data->stack_a->next->next->sorted_index + 1)
+	{
+		sa(&data->stack_a);
+		printf("swap%d\n", data->swap);
+		data->swap--;
+		printf("swap%d\n", data->swap);
+		data->h++;
+		if (data->stack_a->sorted_index == data->stack_a->next->sorted_index + 1)
+		{
+			printf("swap%d\n", data->swap);
+			data->swap--;
+			printf("swap%d\n", data->swap);
+			data->h++;
+		}
+	}
+	else // toegevoegd    HEEEEEEEEEL RAAAAAAAR (zit niet in big_list wtfwtfwtfwtfwtf)
+	{
+		data->swap -= 2;
+		data->h += 2;
+	}
+}
+
+void	swap_two_B(t_stats *data)
+{
+	printf("hallootjes\n");
+	ra(&data->stack_a);
+	if (data->stack_a->sorted_index == data->stack_a->sorted_index + 1)
+	{
+		pa(&data->stack_a, &data->stack_b);
+		sa(&data->stack_a);
+		data->swap--;
+		data->h++;
+		rra(&data->stack_a);
+		if (data->stack_a->sorted_index == data->stack_a->next->sorted_index + 1)
+		{
+			data->swap--;
+			data->h++;
+		}
+	}
+	else
+		more_swap_B(data);
+}
+
+void	swop_B(t_stats *data)
+{
+	printf("halloononon\n");
+	if (data->swap == 1)
+	{
+		pa(&data->stack_a, &data->stack_b);
+		sa(&data->stack_a);
+		if (data->stack_a->sorted_index == data->stack_a->next->sorted_index + 1)
+		{
+			data->swap--;
+			data->h++;
+		}
+	}
+	else
+		swap_two_B(data);
+	data->h++;
+}
+
+
+
+void	lower_quarter_B(t_stats *data)
+{
+	printf("LQ B\n");
+	printf("b->sorted_index %d\n", data->stack_b->sorted_index);
+	printf("a->sorted_index %d\n", data->stack_a->sorted_index);
+	printf("h %d\n", data->h);
+	printf("tq %d\n", data->tq);
+	printf("swap %d\n", data->swap);
+	if ((data->stack_b->sorted_index == data->h + 1 || data->stack_b->sorted_index == data->h + 2) && data->swap < 2)
+	{
+		printf("1 test\n");
+		pa(&data->stack_a, &data->stack_b);
+		data->swap++;
+	}
+	else if (data->swap && data->stack_b->sorted_index == data->h)
+	{
+		swop_B(data);
+		printf("2 test\n");
+	}
+	else if (data->stack_b->sorted_index == data->h)
+	{
+		pa(&data->stack_a, &data->stack_b);
+		data->h++;
+		printf("3 test\n");
+	}
+	printf("b->sorted_index %d\n", data->stack_b->sorted_index);
+	printf("a->sorted_index %d\n", data->stack_a->sorted_index);
+	printf("h %d\n", data->h);
+	printf("tq %d\n", data->tq);
+	printf("swap %d\n\n", data->swap);
+}
+
+void	final_list(t_node **stack_a, t_node **stack_b, int half, int quarter) // 2x big_list , gaat iets mis bij tq (126)
+{
+	t_stats *data;
 
 	sorted_to_A(stack_a, stack_b, half, quarter); // alles bovenaan en onderaan B wat gesorteerd was naar A pushen
-	data = alloc_stats(stack_a, stack_b, half);
+	data = alloc_stats(stack_a, stack_b, half - 250);
 	if (!data)
 		return ;
-	while (data->stack_b)
+	data->h = 0;
+	data->tq = 125;
+	data->three_quarter = 126;
+	printf("final list %d %d\n", data->h, data->tq);
+	int bente = 4000000;
+	while (data->stack_b && bente) // alles naar b: 73_50 0-49(random) 74_99
 	{
-		n = find_case(data->stack_b->sorted_index, data->lower, data->bottom);
-		if (n == 1)
-			case_one(data);
-		else if (n == 2) // for -2, -3 en -4 (bottom <3)
-			case_two(data);
-		else // rest
+		if ((data->stack_b->sorted_index >= data->tq && data->stack_b->sorted_index <= data->tq + 2) &&	data->stack_b->sorted_index > data->three_quarter)
+			upper_quarter_B(data);
+		else if ((data->stack_b->sorted_index >= data->h && data->stack_b->sorted_index <= data->h + 2) && data->stack_b->sorted_index <= data->three_quarter)	
+			lower_quarter_B(data);
+		else // was niet de goeie
 			rb(&data->stack_b);
+		bente--;
 	}
-	*stack_b = data->stack_b;
+	if (*stack_b)
+		*stack_b = data->stack_b;
+	else
+		*stack_b = NULL;
 	*stack_a = data->stack_a;
+	//print_list(data->stack_a, 'A');
+	//print_list(data->stack_b, 'B');
 }
+
+//void	final_list(t_node **stack_a, t_node **stack_b, int half, int quarter) // werkt normaal
+//{
+//	t_stats	*data;
+//	int	n;
+//
+//	sorted_to_A(stack_a, stack_b, half, quarter); // alles bovenaan en onderaan B wat gesorteerd was naar A pushen
+//	data = alloc_stats(stack_a, stack_b, half);
+//	if (!data)
+//		return ;
+//	while (data->stack_b)
+//	{
+//		*stack_a = data->stack_a;
+////		if (stack_size(data->stack_b) == 25) // toegevoegd
+////		{
+////			*stack_a = sort_top(&data->stack_a, &data->stack_b);
+////			break ;
+////		}
+//		n = find_case(data->stack_b->sorted_index, data->lower, data->bottom);
+//		if (n == 1)
+//			case_one(data);
+//		else if (n == 2) // for -2, -3 en -4 (bottom <3)
+//			case_two(data);
+//		else // rest
+//			rb(&data->stack_b);
+//	}
+//	*stack_b = data->stack_b;
+//}
 
 
 

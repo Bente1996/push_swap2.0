@@ -595,6 +595,11 @@ void	more_swap(t_stats *data)
 			data->h++;
 		}
 	}
+	else // toegevoegd vanwege mysterie
+	{
+		data->swap -= 2;
+		data->h += 2;
+	}
 }
 
 void	lower_quarter(t_stats *data)

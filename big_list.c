@@ -23,7 +23,6 @@ void	big_list(t_node **stack_a, t_node **stack_b, int half) // werkt met + 2
 	}
 	*stack_a = NULL;
 	*stack_b = data->stack_b;
-	final_list(stack_a, stack_b, half, data->quarter);
 }
 
 //void	big_list(t_node **stack_a, t_node **stack_b, int half) // werkt met + 2
