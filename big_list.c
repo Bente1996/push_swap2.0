@@ -8,6 +8,9 @@ void	big_list(t_node **stack_a, t_node **stack_b, int half) // werkt met + 2
 	data = alloc_stats(stack_a, stack_b, half);
 	if (!data)
 		return ;
+	printf("h big_list: %d\n", data->h);
+	printf("tq big_list: %d\n", data->tq);
+	printf("three quarter big_list: %d\n", data->three_quarter);
 	while (data->stack_a) // alles naar b: 73_50 0-49(random) 74_99
 	{
 		if ((data->stack_a->sorted_index >= data->tq && \

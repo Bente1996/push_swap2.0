@@ -167,12 +167,12 @@ bool	in_group(t_node *stack_b, int *arr, int highest)
 		arr[1] = 10;
 	else if (stack_b->sorted_index == highest - 3)
 		arr[2] = 100;
-	else if (stack_b->sorted_index == highest - 4)
-		arr[3] = 1000;
-	else if (stack_b->sorted_index == highest - 5)
-		arr[4] = 10000;
-	else if (stack_b->sorted_index < highest - 5 && stack_b->sorted_index > highest - 15) // toegevoegd
-		return (true);
+//	else if (stack_b->sorted_index == highest - 4)
+//		arr[3] = 1000;
+//	else if (stack_b->sorted_index == highest - 5)
+//		arr[4] = 10000;
+//	else if (stack_b->sorted_index < highest - 5 && stack_b->sorted_index > highest - 15) // toegevoegd
+//		return (true);
 	else
 		return (false);
 	return (true);
@@ -595,11 +595,11 @@ void	more_swap(t_stats *data)
 			data->h++;
 		}
 	}
-	else // toegevoegd vanwege mysterie
-	{
-		data->swap -= 2;
-		data->h += 2;
-	}
+//	else // toegevoegd vanwege mysterie
+//	{
+//		data->swap -= 2;
+//		data->h += 2;
+//	}
 }
 
 void	lower_quarter(t_stats *data)

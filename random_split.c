@@ -10,28 +10,28 @@ int	split_B(t_node **stack_b, int count, int highest) // voor 180
 	return (count);
 }
 
-void	split_list(t_node **stack_a, t_node **stack_b, int half)
-{
-	int	highest;
-	int	count; // kan sowieso weg
-	int	h;
-
-	h = half;
-	highest = half;
-	count = 0;
-	while (h)
-	{
-		if ((*stack_a)->sorted_index < half) // voeg s toe: NEE geprobeerd
-		{
-			pb(stack_a, stack_b);
-			h--;
-			count = split_B(stack_b, count, highest); // houd 180 apart
-		}
-		else
-			ra(stack_a);
-	}
-	organise_B(stack_a, stack_b, half);
-}
+//void	split_list(t_node **stack_a, t_node **stack_b, int half) // uitgecommened vanwege method 1 test, is wel goed!
+//{
+//	int	highest;
+//	int	count; // kan sowieso weg
+//	int	h;
+//
+//	h = half;
+//	highest = half;
+//	count = 0;
+//	while (h)
+//	{
+//		if ((*stack_a)->sorted_index < half) // voeg s toe: NEE geprobeerd
+//		{
+//			pb(stack_a, stack_b);
+//			h--;
+//			count = split_B(stack_b, count, highest); // houd 180 apart
+//		}
+//		else
+//			ra(stack_a);
+//	}
+//	organise_B(stack_a, stack_b, half);
+//}
 
 void	organise_B(t_node **stack_a, t_node **stack_b, int half)
 {
@@ -59,8 +59,8 @@ void	sort_all(t_node **stack_a, t_node **stack_b, int half) // 180 werkend
 {
 
 	split_list(stack_a, stack_b, half); // split en houdt 135 apart, 115-249 bovenaan B
-	big_list(stack_a, stack_b, --half); // 100 nummers 600 operations (700 = 100% 1100 = 80%)
-	final_list(stack_a, stack_b, half, half / 2);
+//	big_list(stack_a, stack_b, --half); // 100 nummers 600 operations (700 = 100% 1100 = 80%)
+//	final_list(stack_a, stack_b, half, half / 2);
 	
 }
 
