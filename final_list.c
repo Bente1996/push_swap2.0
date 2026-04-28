@@ -111,33 +111,34 @@ t_node	*sort_top(t_node **stack_a, t_node **stack_b) // selection sort
 	return (*stack_a);
 }
 
-//void	final_list(t_node **stack_a, t_node **stack_b, int half, int quarter) // werkt normaal
-//{
-//	t_stats	*data;
-//	int	n;
-//
+void	final_list(t_node **stack_a, t_node **stack_b, int half, int quarter) // werkt normaal
+{
+	t_stats	*data;
+	int	n;
+
 //	sorted_to_A(stack_a, stack_b, half, quarter); // alles bovenaan en onderaan B wat gesorteerd was naar A pushen
-//	data = alloc_stats(stack_a, stack_b, half);
-//	if (!data)
-//		return ;
-//	while (data->stack_b)
-//	{
-//		*stack_a = data->stack_a;
-////		if (stack_size(data->stack_b) == 25) // toegevoegd
-////		{
-////			*stack_a = sort_top(&data->stack_a, &data->stack_b);
-////			break ;
-////		}
-//		n = find_case(data->stack_b->sorted_index, data->lower, data->bottom);
-//		if (n == 1)
-//			case_one(data);
-//		else if (n == 2) // for -2, -3 en -4 (bottom <3)
-//			case_two(data);
-//		else // rest
-//			rb(&data->stack_b);
-//	}
-//	*stack_b = data->stack_b;
-//}
+	quarter++; // voor method 2
+	data = alloc_stats(stack_a, stack_b, half);
+	if (!data)
+		return ;
+	while (data->stack_b)
+	{
+		*stack_a = data->stack_a;
+//		if (stack_size(data->stack_b) == 25) // toegevoegd
+//		{
+//			*stack_a = sort_top(&data->stack_a, &data->stack_b);
+//			break ;
+//		}
+		n = find_case(data->stack_b->sorted_index, data->lower, data->bottom);
+		if (n == 1)
+			case_one(data);
+		else if (n == 2) // for -2, -3 en -4 (bottom <3)
+			case_two(data);
+		else // rest
+			rb(&data->stack_b);
+	}
+	*stack_b = data->stack_b;
+}
 
 
 

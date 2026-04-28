@@ -1,6 +1,8 @@
+// old: 6904
+
 // b noramlly sorted by 5 but big_list instead of final_list: 9394
 // without sorting: 8453
-// sorted by shifting 3/3:
+// sorted B by 6:
 
 #include "push_swap.h"
 #include <stdio.h>
@@ -249,28 +251,28 @@ void	organise(t_node **stack_a, t_node **stack_b)
 	}
 }
 
-void	split_list(t_node **stack_a, t_node **stack_b, int half)
-{
-//	int	highest;
-//	int	count; // kan sowieso weg
-	int	h;
-
-	h = half;
-//	highest = half;
-//	count = 0;
-	while (h)
-	{
-		if ((*stack_a)->sorted_index < half)
-		{
-			pb(stack_a, stack_b);
-			h--;
-		//	if ((*stack_b)->sorted_index < 125) // eerste 125 naar beneden bij 500
-		//		rb(stack_b);
-			//count = split_B(stack_b, count, highest); // houd 180 apart
-		}
-		else
-			ra(stack_a);
-	}
-	//organise_B(stack_a, stack_b, half);
-	organise(stack_a, stack_b);
-}
+//void	split_list(t_node **stack_a, t_node **stack_b, int half)
+//{
+////	int	highest;
+////	int	count; // kan sowieso weg
+//	int	h;
+//
+//	h = half;
+////	highest = half;
+////	count = 0;
+//	while (h)
+//	{
+//		if ((*stack_a)->sorted_index < half)
+//		{
+//			pb(stack_a, stack_b);
+//			h--;
+//		//	if ((*stack_b)->sorted_index < 125) // eerste 125 naar beneden bij 500
+//		//		rb(stack_b);
+//			//count = split_B(stack_b, count, highest); // houd 180 apart
+//		}
+//		else
+//			ra(stack_a);
+//	}
+//	//organise_B(stack_a, stack_b, half);
+//	organise(stack_a, stack_b);
+//}

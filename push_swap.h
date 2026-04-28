@@ -104,6 +104,6 @@ void	sort_high(t_node **stack_a, t_node **stack_b, int highest);
 void	split_list(t_node **stack_a, t_node **stack_b, int half);
 int	split_B(t_node **stack_b, int count, int highest);
 void	organise_B(t_node **stack_a, t_node **stack_b, int half);
-
+void	sort_A(t_node **stack_a, t_node **stack_b, int half);
 
 #endif
