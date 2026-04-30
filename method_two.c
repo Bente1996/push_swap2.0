@@ -1,6 +1,7 @@
 // final_list X2 ipv big_list
 
 #include "push_swap.h"
+#include <stdio.h>
 
 void	sort_high_A(t_node **stack_a, t_node **stack_b, int highest)
 {
@@ -189,33 +190,31 @@ void	sort_rest_A(t_node **stack_a, t_node **stack_b, int highest)
 		count--;
 	}
 }
-int	split_A(t_node **stack_a, t_node **stack_b, int count, int highest) // voor 180
+int	split_A(t_node **stack_a, t_node **stack_b, int count, int highest) // kan hetzelfde als split_B worden gemaakt
 {
-	if ((*stack_a)->sorted_index < highest && (*stack_a)->sorted_index > highest - 181) // 320-450
-	{
-		ra(stack_a);
-		count++;
-	}
+	pb(stack_a, stack_b);
+	if ((*stack_b)->sorted_index < highest && (*stack_b)->sorted_index > highest - 181) // 320-450
+		count++; // count is nergens meer voor nodig
 	else
-		pb(stack_a, stack_b); // 250-320 in B bewaren
+		rb(stack_b); // 250-320 in B bewaren
 	return (count);
 }
 
-void	devide_A(t_node **stack_a, t_node **stack_b, int half, int size) // bij 135
+void	devide_A(t_node **stack_a, t_node **stack_b, int half, int size)
 {
 	int	count;
 
 	count = size;
 	while (count)
 	{
-		if ((*stack_b)->sorted_index > half - (size - 44)) // -0 tot -90 naar beneden voor later (160-249)
-			ra(stack_b);
-		else if ((*stack_b)->sorted_index < half - (size - 30)) // -106 tot -135 bovenaan A (115-145)
+		if ((*stack_a)->sorted_index > half - (size - 44)) // -0 tot -135 naar beneden voor later (365-499)
+			ra(stack_a);
+		else if ((*stack_a)->sorted_index < half - (size - 30)) // -151 tot -180 bovenaan B (320-349) 
 			pb(stack_a, stack_b);
-		else                                             // -90 tot -105 onderaan A (145-160)
+		else                                             // -135 tot -150 onderaan B (350-364)
 		{
 			pb(stack_a,stack_b);
-			rb(stack_a);
+			rb(stack_b);
 		}
 		count--;
 	}
@@ -242,7 +241,13 @@ void	organise_A(t_node **stack_a, t_node **stack_b, int half)
 		count--;
 	}
 	devide_A(stack_a, stack_b, half, 90); // 45 beneden
-	sort_rest(stack_a, stack_b, half); // sorteert laatste 45
+	sort_rest_A(stack_a, stack_b, half); // sorteert laatste 45
+	count = 70;
+	while (count)
+	{
+		pa(stack_a, stack_b);
+		count--;
+	}
 }
 
 void	sort_A(t_node **stack_a, t_node **stack_b, int half) // uitgecommened vanwege method 1 test, is wel goed!
@@ -251,7 +256,7 @@ void	sort_A(t_node **stack_a, t_node **stack_b, int half) // uitgecommened vanwe
 	int	count; // kan sowieso weg
 	int	h;
 
-	h = half;
+	h = 250;
 	highest = half;
 	count = 0;
 	while (h)
@@ -259,12 +264,33 @@ void	sort_A(t_node **stack_a, t_node **stack_b, int half) // uitgecommened vanwe
 		h--;
 		count = split_A(stack_a, stack_b, count, highest); // houd 180 apart
 	}
-	organise_A(stack_a, stack_b, half);
-	//int bente = 70;
-	//while (bente)
-	//{
-	//	pa(stack_a, stack_b);
-	//	bente--;
-	//}
+	count = 70;
+	organise_B(stack_a, stack_b, half);
+//	organise_A(stack_a, stack_b, half);
 }
 
+void	final_list_A(t_node **stack_a, t_node **stack_b, int half, int quarter) // werkt normaal
+{
+	t_stats	*data;
+	int	n;
+	int	count;
+
+	count = 180;
+   	quarter++; // voor method 2
+	data = alloc_stats(stack_a, stack_b, half);
+	if (!data)
+		return ;
+	while (count)
+	{
+		*stack_a = data->stack_a;
+		n = find_case(data->stack_b->sorted_index, data->lower, data->bottom);
+		if (n == 1)
+			case_one(data);
+		else if (n == 2) // for -2, -3 en -4 (bottom <3)
+			case_two(data);
+		else // rest
+			rb(&data->stack_b);
+		count--;
+	}
+	*stack_b = data->stack_b;
+}

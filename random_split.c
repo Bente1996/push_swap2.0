@@ -61,7 +61,7 @@ void	sort_all(t_node **stack_a, t_node **stack_b, int half) // 180 werkend
 	split_list(stack_a, stack_b, half); // split en houdt 135 apart, 115-249 bovenaan B
 //	big_list(stack_a, stack_b, --half); // 100 nummers 600 operations (700 = 100% 1100 = 80%)
 	sort_A(stack_a, stack_b, half * 2); // in method 2, final_list A
-	//final_list(stack_a, stack_b, half, half / 2);
+	final_list_A(stack_a, stack_b, half * 2, half);
 	
 }
 

@@ -124,11 +124,6 @@ void	final_list(t_node **stack_a, t_node **stack_b, int half, int quarter) // we
 	while (data->stack_b)
 	{
 		*stack_a = data->stack_a;
-//		if (stack_size(data->stack_b) == 25) // toegevoegd
-//		{
-//			*stack_a = sort_top(&data->stack_a, &data->stack_b);
-//			break ;
-//		}
 		n = find_case(data->stack_b->sorted_index, data->lower, data->bottom);
 		if (n == 1)
 			case_one(data);

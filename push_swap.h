@@ -56,6 +56,7 @@ void	shift_group(int *arr, int n);
 void	intentional_split(t_node **stack_a, t_node **stack_b, int half);
 void	big_list(t_node **stack_a, t_node **stack_b, int half);
 void	final_list(t_node **stack_a, t_node **stack_b, int half, int quarter);
+void	final_list_A(t_node **stack_a, t_node **stack_b, int half, int quarter);
 bool	sorted(t_node *stack, int half, char A_or_B);
 bool	already_sorted(t_node *stack);
 void	pb(t_node **stack_a, t_node **stack_b);
