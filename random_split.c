@@ -52,17 +52,29 @@ void	organise_B(t_node **stack_a, t_node **stack_b, int half)
 	}
 	devide_B(stack_a, stack_b, half, 90); // 45 beneden
 	sort_rest(stack_a, stack_b, half); // sorteert laatste 45
-
 }
 
 void	sort_all(t_node **stack_a, t_node **stack_b, int half) // 180 werkend
 {
+	int	count;
 
+	count = 70;
 	split_list(stack_a, stack_b, half); // split en houdt 135 apart, 115-249 bovenaan B
 //	big_list(stack_a, stack_b, --half); // 100 nummers 600 operations (700 = 100% 1100 = 80%)
-	sort_A(stack_a, stack_b, half * 2); // in method 2, final_list A
-	final_list_A(stack_a, stack_b, half * 2, half);
+	//sort_A(stack_a, stack_b, half * 2); // in method 2, final_list A
+	//final_list_A(stack_a, stack_b, half * 2, 180);
+	//while (count)
+	//{
+	//	rrb(stack_b);
+	//	count--;
+	//}
+	//final_list_A(stack_a, stack_b, half + 70, 70);
 	
+
+	final_list(stack_a, stack_b, half, half / 2); // operations is nu 2767
+												  // ipv 2392??? KIJK HIER NAAR,
+												  // check ook data-Lower-- x2:
+												  // waarom?
 }
 
 void	sort_high(t_node **stack_a, t_node **stack_b, int highest)

@@ -227,27 +227,22 @@ void	organise_A(t_node **stack_a, t_node **stack_b, int half)
 {
 	int count;
 
-	count = 135; // doe juist 115 rb ipv 135 rrb
-	devide_A(stack_a, stack_b, half, 180); // 0-135 beneden
-	while (count > 90) // 45
+	devide_B(stack_a, stack_b, half, 180); // 0-135 beneden
+	count = 135;
+	while (count) // 135
 	{
-		ra(stack_a);
+		rrb(stack_b);
 		count--;
 	}
-	devide_A(stack_a, stack_b, half, 135); // 0-90 beneden
+	devide_B(stack_a, stack_b, half, 135); // 0-90 beneden
+	count = 90;
 	while (count) // 90
 	{
-		rra(stack_a);
+		rrb(stack_b);
 		count--;
 	}
-	devide_A(stack_a, stack_b, half, 90); // 45 beneden
-	sort_rest_A(stack_a, stack_b, half); // sorteert laatste 45
-	count = 70;
-	while (count)
-	{
-		pa(stack_a, stack_b);
-		count--;
-	}
+	devide_B(stack_a, stack_b, half, 90); // 45 beneden
+	sort_rest(stack_a, stack_b, half); // sorteert laatste 45
 }
 
 void	sort_A(t_node **stack_a, t_node **stack_b, int half) // uitgecommened vanwege method 1 test, is wel goed!
@@ -264,33 +259,45 @@ void	sort_A(t_node **stack_a, t_node **stack_b, int half) // uitgecommened vanwe
 		h--;
 		count = split_A(stack_a, stack_b, count, highest); // houd 180 apart
 	}
-	count = 70;
-	organise_B(stack_a, stack_b, half);
-//	organise_A(stack_a, stack_b, half);
+//	organise_B(stack_a, stack_b, half);
+	organise_A(stack_a, stack_b, half);
 }
 
-void	final_list_A(t_node **stack_a, t_node **stack_b, int half, int quarter) // werkt normaal
+void	final_list_A(t_node **stack_a, t_node **stack_b, int half, int count) // werkt normaal
 {
 	t_stats	*data;
 	int	n;
-	int	count;
 
-	count = 180;
-   	quarter++; // voor method 2
 	data = alloc_stats(stack_a, stack_b, half);
 	if (!data)
 		return ;
+	int bente = 1000;
+	data->lower--;
+	data->lower--;
 	while (count)
 	{
+		printf("data->lower: %d\n", data->lower);
+		if (data->bottom_stack)
+			printf("data->bottom: %d\n", data->bottom_stack->sorted_index);
+		bente--;
 		*stack_a = data->stack_a;
 		n = find_case(data->stack_b->sorted_index, data->lower, data->bottom);
 		if (n == 1)
+		{
+			printf("case one\n");
 			case_one(data);
+			count--;
+		}
 		else if (n == 2) // for -2, -3 en -4 (bottom <3)
+		{
+			printf("case one\n");
 			case_two(data);
+			count--;
+		}
 		else // rest
 			rb(&data->stack_b);
-		count--;
 	}
+	printf("data->lower: %d\n", data->lower);
+//	printf("data->lower: %d\n", data->lower);
 	*stack_b = data->stack_b;
 }
