@@ -115,35 +115,31 @@ void	final_list(t_node **stack_a, t_node **stack_b, int half, int quarter) // we
 {
 	t_stats	*data;
 	int	n;
-	int	count;
 
-	count = 251;
 //	sorted_to_A(stack_a, stack_b, half, quarter); // alles bovenaan en onderaan B wat gesorteerd was naar A pushen
+	half--; // voor method 2
+	half--; // voor method 2
 	quarter++; // voor method 2
+	quarter--;
 	data = alloc_stats(stack_a, stack_b, half);
 	if (!data)
 		return ;
-	data->lower--; // toegevoegd bij method 2, weet niet waarom (ook in A
-				   // versie)
-	data->lower--; // toegevoegd bij method 2
-	while (data->stack_b && count)
+	while (data->stack_b)
 	{
-		*stack_a = data->stack_a;
 		n = find_case(data->stack_b->sorted_index, data->lower, data->bottom);
 		if (n == 1)
 		{
 			case_one(data);
-			count--;
 		}
 		else if (n == 2) // for -2, -3 en -4 (bottom <3)
 		{
-			count--;
 			case_two(data);
 		}
 		else // rest
 			rb(&data->stack_b);
+		*stack_a = data->stack_a;
+		*stack_b = data->stack_b;
 	}
-	*stack_b = data->stack_b;
 }
 
 

@@ -192,11 +192,13 @@ void	sort_rest_A(t_node **stack_a, t_node **stack_b, int highest)
 }
 int	split_A(t_node **stack_a, t_node **stack_b, int count, int highest) // kan hetzelfde als split_B worden gemaakt
 {
-	pb(stack_a, stack_b);
-	if ((*stack_b)->sorted_index < highest && (*stack_b)->sorted_index > highest - 181) // 320-450
+	if ((*stack_a)->sorted_index < highest && (*stack_a)->sorted_index > highest - 181) // 320-450
+	{
+		pb(stack_a, stack_b);
 		count++; // count is nergens meer voor nodig
+	}
 	else
-		rb(stack_b); // 250-320 in B bewaren
+		ra(stack_a); // 250-320 in B bewaren
 	return (count);
 }
 
@@ -252,6 +254,7 @@ void	sort_A(t_node **stack_a, t_node **stack_b, int half) // uitgecommened vanwe
 	int	h;
 
 	h = 250;
+	half -= 70;
 	highest = half;
 	count = 0;
 	while (h)
@@ -263,6 +266,48 @@ void	sort_A(t_node **stack_a, t_node **stack_b, int half) // uitgecommened vanwe
 	organise_A(stack_a, stack_b, half);
 }
 
+void	final_list_small(t_node **stack_a, t_node **stack_b, int half, int quarter) // A EN B OMGEDRAAID
+{
+	t_stats	*data;
+	int	n;
+
+//	sorted_to_A(stack_a, stack_b, half, quarter); // alles bovenaan en onderaan B wat gesorteerd was naar A pushen
+	half--; // voor method 2
+	half--; // voor method 2
+	quarter++; // voor method 2
+	quarter--;
+	data = alloc_stats(stack_a, stack_b, half);
+	if (!data)
+		return ;
+	int count = 70;
+	while (count) // alles is nu omgekeerd gesorteerd
+	{
+		n = find_case(data->stack_b->sorted_index, data->lower, data->bottom);
+		if (n == 1)
+		{
+			case_one(data);
+			count--;
+		}
+		else if (n == 2) // for -2, -3 en -4 (bottom <3)
+		{
+			case_two(data);
+			count--;
+		}
+		else // rest
+			rb(&data->stack_b);
+		*stack_a = data->stack_a;
+		*stack_b = data->stack_b;
+	}
+	count = 70;
+	while (count)
+	{
+		pb(stack_a, stack_b);
+		if (stack_size(*stack_b))
+			rb(stack_b);
+		count--;
+	}
+}
+
 void	final_list_A(t_node **stack_a, t_node **stack_b, int half, int count) // werkt normaal
 {
 	t_stats	*data;
@@ -271,33 +316,24 @@ void	final_list_A(t_node **stack_a, t_node **stack_b, int half, int count) // we
 	data = alloc_stats(stack_a, stack_b, half);
 	if (!data)
 		return ;
-	int bente = 1000;
 	data->lower--;
 	data->lower--;
 	while (count)
 	{
-		printf("data->lower: %d\n", data->lower);
-		if (data->bottom_stack)
-			printf("data->bottom: %d\n", data->bottom_stack->sorted_index);
-		bente--;
-		*stack_a = data->stack_a;
 		n = find_case(data->stack_b->sorted_index, data->lower, data->bottom);
 		if (n == 1)
 		{
-			printf("case one\n");
-			case_one(data);
 			count--;
+			case_one(data);
 		}
 		else if (n == 2) // for -2, -3 en -4 (bottom <3)
 		{
-			printf("case one\n");
-			case_two(data);
 			count--;
+			case_two(data);
 		}
 		else // rest
 			rb(&data->stack_b);
+		*stack_a = data->stack_a;
+		*stack_b = data->stack_b;
 	}
-	printf("data->lower: %d\n", data->lower);
-//	printf("data->lower: %d\n", data->lower);
-	*stack_b = data->stack_b;
 }
