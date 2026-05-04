@@ -159,103 +159,6 @@ t_node	*find_bottom(t_node *stack)
 	return (stack);
 }
 
-bool	in_group(t_node *stack_b, int *arr, int highest)
-{
-	if (stack_b->sorted_index == highest - 1)
-		arr[0] = 1;
-	else if (stack_b->sorted_index == highest - 2)
-		arr[1] = 10;
-	else if (stack_b->sorted_index == highest - 3)
-		arr[2] = 100;
-//	else if (stack_b->sorted_index == highest - 4)
-//		arr[3] = 1000;
-//	else if (stack_b->sorted_index == highest - 5)
-//		arr[4] = 10000;
-//	else if (stack_b->sorted_index < highest - 5 && stack_b->sorted_index > highest - 15) // toegevoegd
-//		return (true);
-	else
-		return (false);
-	return (true);
-}
-
-int	move_highest(int *arr, int highest)
-{
-	int	i;
-	int	sum;
-
-	i = 0;
-	sum = 0;
-	while (i < 5 && arr[i] != 0)
-		sum += arr[i++];
-	if (sum == 1)
-		highest--;
-	else if (sum == 11)
-		highest -= 2;
-	else if (sum == 111)
-		highest -= 3;
-	else if (sum == 1111)
-		highest -= 4;
-	else if (sum == 11111)
-		highest -= 5;
-	else
-		return (highest);
-	check_shift(arr, sum); // give right values based on shift 5->4 for sum == 1
-	return(highest);
-}
-
-void	shift_group(int *arr, int n)
-{
-	int	shrink;
-	int	i;
-
-	i = 0;
-	shrink = 1;
-	while (i + n < 5)
-	{
-		if (arr[i + n])
-			arr[i] = arr[i + n] - (shrink * 9);
-		else
-			arr[i] = 0;
-		i++;
-		shrink *= 10;
-	}
-}
-
-void	check_shift(int *arr, int sum)
-{
-	int	i;
-
-	i = 4;
-	if (sum == 1) // dan was de tweede dus sowieso niet gevonden, 3e mss wel
-		shift_group(arr, 1);
-	else if (sum == 11)
-		shift_group(arr, 2); 
-	else if (sum == 111)
-		shift_group(arr, 3);
-	else if (sum == 1111)
-		shift_group(arr, 4);
-	while (sum >= 1) // zet nodige arrays op 0
-	{
-		arr[i--] = 0;
-		sum /= 10;
-	}
-}
-
-
-void	sorted_to_A(t_node **A, t_node **B, int half, int quarter)
-{
-	while (half > quarter)
-	{
-		rrb(B);
-		pa(A, B);
-		half--;
-	}
-	while (half)
-	{
-		pa(A, B);
-		half--;
-	}
-}
 
 int	find_case(int sorted_index, int lower, int bottom)
 {
@@ -521,25 +424,7 @@ void	swap(t_stats *data)
 	data->tq++;
 }
 
-void	upper_quarter(t_stats *data)
-{
-	if (((data->stack_a->sorted_index == data->tq + 1) || (data->stack_a->sorted_index == data->tq + 2)) && data->swap_rot < 2)
-	{
-		pb(&data->stack_a, &data->stack_b);
-		if (!data->swap_rot || (data->swap_rot == 1 && (data->stack_b->sorted_index > data->bottom_stack->sorted_index)))
-			data->bottom_stack = data->stack_b;
-		rb(&data->stack_b);
-		data->swap_rot++;
-	}
-	else if (data->swap_rot && data->stack_a->sorted_index == data->tq)
-		swap(data);
-	else if (data->stack_a->sorted_index == data->tq)
-	{
-		pb(&data->stack_a, &data->stack_b);
-		rb(&data->stack_b);
-		data->tq++;
-	}
-}
+
 
 void	swop(t_stats *data)
 {
@@ -594,26 +479,5 @@ void	more_swap(t_stats *data)
 			data->swap--;
 			data->h++;
 		}
-	}
-//	else // toegevoegd vanwege mysterie
-//	{
-//		data->swap -= 2;
-//		data->h += 2;
-//	}
-}
-
-void	lower_quarter(t_stats *data)
-{
-	if ((data->stack_a->sorted_index == data->h + 1 || data->stack_a->sorted_index == data->h + 2) && data->swap < 2)
-	{
-		pb(&data->stack_a, &data->stack_b);
-		data->swap++;
-	}
-	else if (data->swap && data->stack_a->sorted_index == data->h)
-		swop(data);
-	else if (data->stack_a->sorted_index == data->h)
-	{
-		pb(&data->stack_a, &data->stack_b);
-		data->h++;
 	}
 }
