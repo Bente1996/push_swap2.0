@@ -27,9 +27,6 @@ typedef struct s_stats
 {
 	struct s_node	*stack_a;
 	struct s_node	*stack_b;
-	int	whole;
-	int	quarter;
-	int	three_quarter;
 	int	tq;
 	int	h;
 	int	swap;
@@ -46,7 +43,7 @@ int	convert(char *argv, int *valid);
 bool	is_overflow(char *argv, int value, int sign);
 bool	is_number(char *argv);
 bool	is_duplicate(t_node *head, int value);
-void	free_list(t_node *head);
+int	free_list(t_node *head);
 t_node	*sort_indices(t_node **list);
 int	random_split(t_node **stack_a, t_node **stack_b, int size);
 bool	in_group(t_node *stack_b, int *arr, int highest);
@@ -55,8 +52,7 @@ void	check_shift(int *arr, int sum);
 void	shift_group(int *arr, int n);
 void	intentional_split(t_node **stack_a, t_node **stack_b, int half);
 void	big_list(t_node **stack_a, t_node **stack_b, int half);
-void	final_list_small(t_node **stack_a, t_node **stack_b, int half);
-void	final_list(t_node **stack_a, t_node **stack_b, int half, int count);
+void	grow_list(t_node **stack_a, t_node **stack_b, int half, int count);
 bool	sorted(t_node *stack, int half, char A_or_B);
 bool	already_sorted(t_node *stack);
 void	pb(t_node **stack_a, t_node **stack_b);

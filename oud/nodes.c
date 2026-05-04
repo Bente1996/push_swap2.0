@@ -59,9 +59,17 @@ t_stats	*alloc_stats(t_node **stack_a, t_node **stack_b, int half)
 	data = malloc(sizeof(t_stats));
 	if (!data)
 		return (NULL);
-	data->stack_a = *stack_a;
+	data->stack_a = *stack_a; // data->stack_a = head
 	data->stack_b = *stack_b;
-	data->lower = --half;
+	data->whole = half * 2;
+	data->quarter = half / 2;
+	data->three_quarter = data->whole - data->quarter;
+	data->tq = data->three_quarter + 1;
+	data->h = half + 1;
+	data->swap = 0;
+	data->swap_rot = 0;
+	data->lower = half + 1;
+	data->bottom = 0;
 	data->bottom_stack = NULL;
 	return (data);
 }

@@ -1,17 +1,17 @@
 #include "push_swap.h"
 #include <stdio.h>
 
-void	split_A(t_node **stack_a, t_node **stack_b, int size)
+void	split_A(t_node **stack_a, t_node **stack_b, int highest)
 {
-	if ((*stack_a)->sorted_index < size)
+	if ((*stack_a)->sorted_index < highest && (*stack_a)->sorted_index > highest - 181) // 320-450
 		pb(stack_a, stack_b);
 	else
-		ra(stack_a); // hoogste 70
+		ra(stack_a); // 250-320 in B bewaren
 }
 
-void	split_B(t_node **stack_b, int size) // voor 180
+void	split_B(t_node **stack_b, int highest) // voor 180
 {
-	if (!((*stack_b)->sorted_index > size)) // 70 tot 249
+	if (!((*stack_b)->sorted_index < highest && (*stack_b)->sorted_index > highest - 181)) // 70 tot 249
 		rb(stack_b); // 0 tot 114 onderaan zodat rest (die we gaan groeperen) boven staat
 }
 
@@ -26,7 +26,7 @@ void	organise_B(t_node **stack_a, t_node **stack_b, int half)
 		{
 			pb(stack_a, stack_b);
 			h--;
-			split_B(stack_b, half - 180); // houd 180 apart
+			split_B(stack_b, half); // houd 180 apart
 		}
 		else
 			ra(stack_a);
@@ -34,22 +34,22 @@ void	organise_B(t_node **stack_a, t_node **stack_b, int half)
 	sort_B(stack_a, stack_b, half);
 }
 
-void	sort_A(t_node **stack_a, t_node **stack_b, int size)
+void	sort_A(t_node **stack_a, t_node **stack_b, int half)
 {
 	int count;
 
 	count = 225;
-	sort_quarter(stack_a, stack_b, size, 180); // 0-135 beneden
+	sort_quarter(stack_a, stack_b, half, 180); // 0-135 beneden
 	while (count > 90) // 135
 	{
 		rrb(stack_b);
 		count--;
 	}
-	sort_quarter(stack_a, stack_b, size, 135); // 0-90 beneden
+	sort_quarter(stack_a, stack_b, half, 135); // 0-90 beneden
 	while (count--) // 90
 		rrb(stack_b);
-	sort_quarter(stack_a, stack_b, size, 90); // 45 beneden
-	sort_rest(stack_a, stack_b, size); // sorteert laatste 45
+	sort_quarter(stack_a, stack_b, half, 90); // 45 beneden
+	sort_rest(stack_a, stack_b, half); // sorteert laatste 45
 }
 
 void	sort_B(t_node **stack_a, t_node **stack_b, int half)
@@ -68,32 +68,32 @@ void	sort_B(t_node **stack_a, t_node **stack_b, int half)
 	sort_rest(stack_a, stack_b, half); // sorteert laatste 45
 }
 
-void	organise_A(t_node **stack_a, t_node **stack_b, int size)
+void	organise_A(t_node **stack_a, t_node **stack_b, int half)
 {
-	int	i;
+	int	h;
 
-	i = size - 180;
-	while (i--)
-		split_A(stack_a, stack_b, size); // houd 180 apart
-	sort_A(stack_a, stack_b, size);
+	h = 250;
+	while (h--)
+		split_A(stack_a, stack_b, half); // houd 180 apart
+	sort_A(stack_a, stack_b, half);
 }
 
 void	sort_all(t_node **stack_a, t_node **stack_b, int half)
 {
-	int unsorted;
+	int count;
 
-	unsorted = half - 180;
+	count = 70;
 	organise_B(stack_a, stack_b, half); // organise afhangende van grootte, even/oneven getal
 	organise_A(stack_a, stack_b, half + 180);
-	grow_list(stack_b, stack_a, half * 2, half - 180); // test met andere getallen, totaal 430+
-	while (unsorted--)
+	final_list(stack_b, stack_a, half * 2, 70); // test met andere getallen, totaal 430+
+	while (count--)
 	{
 		pa(stack_a, stack_b);
-		if (*stack_a)
+		if (stack_size(*stack_a))
 			ra(stack_a);
 	}
-	grow_list(stack_a, stack_b, half + 180, 180);
-	grow_list(stack_a, stack_b, half, half);
+	final_list(stack_a, stack_b, half + 180, 180);
+	final_list(stack_a, stack_b, half, 250);
 }
 
 void	sort_high(t_node **stack_a, t_node **stack_b, int highest)

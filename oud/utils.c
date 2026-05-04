@@ -52,7 +52,7 @@ bool	is_duplicate(t_node *head, int value)
 	return (false);
 }
 
-int	free_list(t_node *head)
+void	free_list(t_node *head)
 {
 	t_node	*tmp;
 
@@ -63,7 +63,6 @@ int	free_list(t_node *head)
 		head = head->next;
 		free (tmp);
 	}
-	return (1);
 }
 
 #include <stdio.h>
