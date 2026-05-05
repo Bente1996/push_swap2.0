@@ -1,13 +1,22 @@
 EXEC_NAME := push_swap
 HEADERFILES := push_swap.h
 SRCFILES := main.c \
+	    list_utils.c \
 	    parsing.c \
+	    parsing_utils.c \
 	    utils.c \
 	    nodes.c \
 		sorting.c \
+		sorting_utils.c \
 		operations.c \
-		random_split.c \
-		final_list.c
+		final_list.c \
+		organising.c \
+		organising_utils.c \
+		grow_list_utils.c \
+		lowering.c \
+		lowering_utils.c \
+		swapping.c
+
 
 OBJFILES := $(SRCFILES:.c=.o)
 CFLAGS ?= -Wall -Wextra -Werror -g 

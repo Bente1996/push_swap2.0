@@ -1,18 +1,18 @@
 #include "push_swap.h"
 
-void	organise_A(t_node **stack_a, t_node **stack_b, int size)
+void	organise_A(t_node **stack_a, t_node **stack_b, int highest)
 {
-	int	i;
+	int	count;
 
-	i = size - 180;
-	while (i--)
+	count = highest - 180;
+	while (count--)
 	{
-		if ((*stack_a)->sorted_index < size)
+		if ((*stack_a)->sorted_index < highest)
 			pb(stack_a, stack_b);
 		else
 			ra(stack_a);
 	}
-	sort_A(stack_a, stack_b, size);
+	sort_A(stack_a, stack_b, highest);
 }
 
 void	organise_B(t_node **stack_a, t_node **stack_b, int half)

@@ -73,8 +73,8 @@ t_node	*check_bottom(t_node *stack);
 void	sorted_to_A(t_node **A, t_node **B, int half, int quarter);
 int	find_case(int sorted_index, int lower, int bottom);
 t_stats	*alloc_stats(t_node **stack_a, t_node **stack_b, int half);
-void	case_one(t_stats *data);
-void	case_two(t_stats *data);
+void	add_and_lower(t_stats *data);
+void	add(t_stats *data);
 void	handle_bottom(t_stats *data);
 void	more_bottom(t_stats *data);
 void	get_third(t_stats *data);
@@ -103,6 +103,7 @@ void	split_B(t_node **stack_b, int highest);
 void	split_A(t_node **stack_a, t_node **stack_b, int highest);
 void	sort_A(t_node **stack_a, t_node **stack_b, int size);
 void	sort_B(t_node **stack_a, t_node **stack_b, int half);
-void	organise_A(t_node **stack_a, t_node **stack_b, int half);
+void	organise_A(t_node **stack_a, t_node **stack_b, int highest);
+void	organise_B(t_node **stack_a, t_node **stack_b, int half);
 
 #endif

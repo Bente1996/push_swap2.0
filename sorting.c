@@ -31,27 +31,6 @@ void	sort_all(t_node **stack_a, t_node **stack_b, int half)
 	grow_list(stack_a, stack_b, half, half);
 }
 
-t_node	*sort_indices(t_node **list)
-{
-	t_node	*head;
-	t_node	*tmp;
 
-	head = *list;
-	tmp = *list;
-	while (tmp)
-	{
-		while (*list)
-		{
-			if (tmp->value > (*list)->value)
-				tmp->sorted_index += 1;
-			if (!(*list)->next)
-				break ;
-			*list = (*list)->next;
-		}
-		*list = head;	
-		tmp = tmp->next;
-	}
-	return (head);
-}
 
 
