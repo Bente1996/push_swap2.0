@@ -4,18 +4,18 @@ SRCFILES := main.c \
 	    list_utils.c \
 	    parsing.c \
 	    parsing_utils.c \
-	    utils.c \
 	    nodes.c \
 		sorting.c \
 		sorting_utils.c \
 		operations.c \
-		final_list.c \
 		organising.c \
 		organising_utils.c \
+		grow_list.c \
 		grow_list_utils.c \
 		lowering.c \
 		lowering_utils.c \
-		swapping.c
+		swapping.c \
+		utils.c
 
 
 OBJFILES := $(SRCFILES:.c=.o)

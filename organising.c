@@ -26,7 +26,7 @@ void	organise_B(t_node **stack_a, t_node **stack_b, int half)
 		{
 			pb(stack_a, stack_b);
 			h--;
-			if (!((*stack_b)->sorted_index > half - 180))
+			if (!((*stack_b)->sorted_index > half - 181)) // 181 voor 499 ipv 180
 					rb(stack_b);
 		}
 		else
@@ -62,7 +62,7 @@ void	sort_B(t_node **stack_a, t_node **stack_b, int half)
 	while (count--)
 		rb(stack_b);
 	sort_quarter(stack_a, stack_b, half, 135); // 0-90 beneden
-	count = 90;
+	count = 89; // van 90 naar 89 gedaan voor 499
 	while (count--)
 		rrb(stack_b);
 	sort_quarter(stack_a, stack_b, half, 90); // 45 beneden
