@@ -30,7 +30,7 @@ int	main(int argc, char **argv)
 		return (free_list(stack_a));
 	if (already_sorted(stack_a))
 		return (free_list(stack_a));
-	sort_all(&stack_a, &stack_b, index / 2);
+	sort_all(&stack_a, &stack_b, index);
 
 	operations = count_operations("");
 	print_list(stack_a, 'A');

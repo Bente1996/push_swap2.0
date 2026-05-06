@@ -13,33 +13,41 @@
 #include "push_swap.h"
 #include <stdio.h>
 
-void	sort_all(t_node **stack_a, t_node **stack_b, int half)
+void	sort_all(t_node **stack_a, t_node **stack_b, int all)
 {
-	int	all;
+//	int	all;
+	int	size;
 
-	all = stack_size(*stack_a);	
+//	all = stack_size(*stack_a);	
+	size = (((all / 2) / 45) - 1) * 45;
+	printf("size: %d\n", size);
 	if (all > 359)
-		sort_big(stack_a, stack_b, all, half);
-//	else
-//		small_sort(stack_a, stack_b);
+	{
+		//sort_big(stack_a, stack_b, all); // werkt
+		sort_small(stack_a, stack_b, all, size); // uniform maken
+	}
+	else // 270
+		sort_small(stack_a, stack_b, all, size);
 }
 
-void	sort_small(t_node **stack_a, t_node **stack_b, int all, int half)
+void	sort_small(t_node **stack_a, t_node **stack_b, int all, int size)
 {
 	int 	sorted;
-	int	size = 135;
+      	int	half;
 
+      	half = all / 2;
 	sorted = half - size;
-	organise_B(stack_a, stack_b, half); // organise afhangende van grootte, even/oneven getal
+      	organise_B_small(stack_a, stack_b, half, size);
 	if (all != half * 2)
 	{
-		organise_A(stack_a, stack_b, half + size, half + 1);
-		grow_list(stack_b, stack_a, half * 2 + 1, half - size - 1); // test met andere getallen, totaal 430+
+		organise_A_small(stack_a, stack_b, half + size, half + 1); // deze goed maken voor oneven
+									   // !!!!! :D
+		grow_list(stack_b, stack_a, half * 2 + 1, half - size - 1);
 		sorted++;
 	}
 	else
 	{
-		organise_A(stack_a, stack_b, half + size, half);
+		organise_A_small(stack_a, stack_b, half + size, half);
 		grow_list(stack_b, stack_a, half * 2, half - size);
 	}
 	while (sorted--)
@@ -52,16 +60,17 @@ void	sort_small(t_node **stack_a, t_node **stack_b, int all, int half)
 	grow_list(stack_a, stack_b, half, half);
 }
 
-void	sort_big(t_node **stack_a, t_node **stack_b, int all, int half)
+void	sort_big(t_node **stack_a, t_node **stack_b, int all)
 {
 	int 	sorted;
+	int	half = all / 2;
 
-	sorted = half - 180;
-	organise_B(stack_a, stack_b, half); // organise afhangende van grootte, even/oneven getal
+	sorted = half - 180; // - size
+	organise_B(stack_a, stack_b, half);
 	if (all != half * 2)
 	{
 		organise_A(stack_a, stack_b, half + 180, half + 1);
-		grow_list(stack_b, stack_a, half * 2 + 1, half - 179); // test met andere getallen, totaal 430+
+		grow_list(stack_b, stack_a, half * 2 + 1, half - 179);
 		sorted++;
 	}
 	else

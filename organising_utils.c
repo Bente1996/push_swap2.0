@@ -1,10 +1,10 @@
 #include "push_swap.h"
 
-void	sort_quarter(t_node **stack_a, t_node **stack_b, int half, int count)
+void	sort_quarter(t_node **stack_a, t_node **stack_b, int half, int size)
 {
-	int	size;
+	int	count;
 
-	size = count;
+	count = size;
 	while (count)
 	{
 		if ((*stack_b)->sorted_index > half - (size - 44)) // (115-250)

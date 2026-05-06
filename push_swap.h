@@ -92,9 +92,10 @@ void	swop(t_stats *data);
 void	swap_two(t_stats *data);
 void	more_swap(t_stats *data);
 void	group_sort(t_node **stack_a, t_node **stack_b, int highest, int group_size);
-void	sort_all(t_node **stack_a, t_node **stack_b, int half);
+void	sort_all(t_node **stack_a, t_node **stack_b, int all);
 int	choose_sort(int all);
-void	sort_big(t_node **stack_a, t_node **stack_b, int all, int half);
+void	sort_big(t_node **stack_a, t_node **stack_b, int all);
+void	sort_small(t_node **stack_a, t_node **stack_b, int all, int half);
 void	sort_rest(t_node **stack_a, t_node **stack_b, int highest);
 void	sort_quarter(t_node **stack_a, t_node **stack_b, int highest, int size);
 void	sort_low(t_node **stack_a, t_node **stack_b, int highest);
@@ -105,7 +106,11 @@ void	split_B(t_node **stack_b, int highest);
 void	split_A(t_node **stack_a, t_node **stack_b, int highest);
 void	sort_A(t_node **stack_a, t_node **stack_b, int size);
 void	sort_B(t_node **stack_a, t_node **stack_b, int half);
+void	sort_A_small(t_node **stack_a, t_node **stack_b, int half, int size);
+void	sort_B_small(t_node **stack_a, t_node **stack_b, int half, int size);
 void	organise_A(t_node **stack_a, t_node **stack_b, int highest, int count);
 void	organise_B(t_node **stack_a, t_node **stack_b, int half);
+void	organise_B_small(t_node **stack_a, t_node **stack_b, int half, int size);
+void	organise_A_small(t_node **stack_a, t_node **stack_b, int half, int size);
 
 #endif
