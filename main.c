@@ -38,7 +38,10 @@ int	main(int argc, char **argv)
 	printf("Operations:%d\n", operations - 1);
 	if (already_sorted(stack_a))
 		printf("GOED GESORTEERD :)");
+	else
+		printf("niet goed gesorteerd\n");
 
+	printf("stacsize: %d\n", stack_size(stack_a));
 	free_list(stack_a);
 	return (0);
 }

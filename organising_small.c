@@ -49,20 +49,3 @@ void	organise_A(t_node **stack_a, t_node **stack_b, int highest, int count)
 	sort_A(stack_a, stack_b, highest);
 }
 
-void	sort_A(t_node **stack_a, t_node **stack_b, int size)
-{
-	int count;
-
-	count = 225;
-	sort_quarter(stack_a, stack_b, size, 180); // 0-135 beneden
-	while (count > 90) // 135
-	{
-		rrb(stack_b);
-		count--;
-	}
-	sort_quarter(stack_a, stack_b, size, 135); // 0-90 beneden
-	while (count--) // 90
-		rrb(stack_b);
-	sort_quarter(stack_a, stack_b, size, 90); // 45 beneden
-	sort_rest(stack_a, stack_b, size); // sorteert laatste 45
-}

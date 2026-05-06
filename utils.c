@@ -18,6 +18,8 @@ int	count_operations(char *operation)
 	static int	operation_count;
 
 	operation_count++;
+	if (operation[0] == 'x')
+		operation_count--;
 	//printf("%s\n", operation); // vervang door ft_printf
 	operation++; // alleen zodat printen niet hoeft
 	return (operation_count);

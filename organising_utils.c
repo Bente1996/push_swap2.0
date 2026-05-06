@@ -1,29 +1,29 @@
 #include "push_swap.h"
 
-void	sort_quarter(t_node **stack_a, t_node **stack_b, int half, int size)
+void	sort_quarter(t_node **stack_a, t_node **stack_b, int half, int count)
 {
-	int	count;
+	int	size;
 
-	count = size;
+	size = count;
 	while (count)
 	{
-		if ((*stack_b)->sorted_index > half - (size - 44)) // -0 tot -90 naar beneden voor later (160-249)
+		if ((*stack_b)->sorted_index > half - (size - 44)) // (115-250)
 			rb(stack_b);
-		else if ((*stack_b)->sorted_index < half - (size - 30)) // -106 tot -135 bovenaan A (115-145)
+		else if ((*stack_b)->sorted_index < half - (size - 30)) // (99-70)
 			pa(stack_a, stack_b);
-		else                                             // -90 tot -105 onderaan A (145-160)
+		else                                             // (100-114)
 		{
 			pa(stack_a,stack_b);
 			ra(stack_a);
 		}
 		count--;
 	}
-	sort_high(stack_a, stack_b, half - (size - 90)); 
+	sort_low(stack_a, stack_b, half - (size - 90)); 
 	sort_medium(stack_a, stack_b, half - (size - 90)); 
-	sort_low(stack_a, stack_b, half - (size - 90));
+	sort_high(stack_a, stack_b, half - (size - 90));
 }
 
-void	sort_high(t_node **stack_a, t_node **stack_b, int highest)
+void	sort_low(t_node **stack_a, t_node **stack_b, int highest)
 {
 	int	count;
 
@@ -81,7 +81,7 @@ void	sort_medium(t_node **stack_a, t_node **stack_b, int highest)
 	}
 }
 
-void	sort_low(t_node **stack_a, t_node **stack_b, int highest)
+void	sort_high(t_node **stack_a, t_node **stack_b, int highest)
 {
 	int	count;
 

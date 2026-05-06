@@ -9,6 +9,7 @@ SRCFILES := main.c \
 		sorting_utils.c \
 		operations.c \
 		organising.c \
+		organising_small.c \
 		organising_utils.c \
 		grow_list.c \
 		grow_list_utils.c \
