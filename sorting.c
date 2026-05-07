@@ -26,28 +26,30 @@ void	sort_all(t_node **stack_a, t_node **stack_b, int all)
 		//sort_big(stack_a, stack_b, all); // werkt
 		sort_small(stack_a, stack_b, all, size); // uniform maken
 	}
-	else // 270
-		sort_small(stack_a, stack_b, all, size);
+	//else // 270
+	//	sort_small(stack_a, stack_b, all, size);
 }
 
 void	sort_small(t_node **stack_a, t_node **stack_b, int all, int size)
 {
 	int 	sorted;
-      	int	half;
+    int	half;
 
-      	half = all / 2;
+    half = all / 2;
 	sorted = half - size;
-      	organise_B_small(stack_a, stack_b, half, size);
+	printf("half: %d\n", half);
+	printf("size: %d\n", size);
+    organise_B_small(stack_a, stack_b, half, size);
 	if (all != half * 2)
 	{
-		organise_A_small(stack_a, stack_b, half + size, half + 1); // deze goed maken voor oneven
-									   // !!!!! :D
-		grow_list(stack_b, stack_a, half * 2 + 1, half - size - 1);
+		organise_A_small(stack_a, stack_b, all, half + size); // deze goed maken voor oneven
+		  						   // !!!!! :D
+		grow_list(stack_b, stack_a, half * 2 + 1, half - size + 1);
 		sorted++;
 	}
 	else
 	{
-		organise_A_small(stack_a, stack_b, half + size, half);
+		organise_A_small(stack_a, stack_b, all, half + size);
 		grow_list(stack_b, stack_a, half * 2, half - size);
 	}
 	while (sorted--)
