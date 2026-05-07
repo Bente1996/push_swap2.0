@@ -15,19 +15,20 @@
 
 void	sort_all(t_node **stack_a, t_node **stack_b, int all)
 {
-//	int	all;
 	int	size;
 
-//	all = stack_size(*stack_a);	
+//	size = 180;
+//	size = 135;
 	size = (((all / 2) / 45) - 1) * 45;
+	if (!size)
+		size = 0; // klopt niet
 	printf("size: %d\n", size);
 	if (all > 359)
 	{
-		//sort_big(stack_a, stack_b, all); // werkt
 		sort_small(stack_a, stack_b, all, size); // uniform maken
 	}
-	//else // 270
-	//	sort_small(stack_a, stack_b, all, size);
+	else // 270
+		sort_small(stack_a, stack_b, all, size);
 }
 
 void	sort_small(t_node **stack_a, t_node **stack_b, int all, int size)
