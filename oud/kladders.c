@@ -1,3 +1,31 @@
+void	sort_big(t_node **stack_a, t_node **stack_b, int all)
+{
+	int 	sorted;
+	int	half = all / 2;
+
+	sorted = half - 180; // - size
+	organise_B(stack_a, stack_b, half);
+	if (all != half * 2)
+	{
+		organise_A(stack_a, stack_b, half + 180, half + 1);
+		grow_list(stack_b, stack_a, half * 2 + 1, half - 179);
+		sorted++;
+	}
+	else
+	{
+		organise_A(stack_a, stack_b, half + 180, half);
+		grow_list(stack_b, stack_a, half * 2, half - 180);
+	}
+	while (sorted--)
+	{
+		pa(stack_a, stack_b);
+		if (*stack_a)
+			ra(stack_a);
+	}
+	grow_list(stack_a, stack_b, half + 180, 180);
+	grow_list(stack_a, stack_b, half, half);
+}
+
 void	upper_quarter(t_stats *data)
 {
 	if (((data->stack_a->sorted_index == data->tq + 1) || (data->stack_a->sorted_index == data->tq + 2)) && data->swap_rot < 2)

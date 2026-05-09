@@ -28,6 +28,60 @@ void	big_list(t_node **stack_a, t_node **stack_b, int half) // werkt met + 2
 	*stack_b = data->stack_b;
 }
 
+void	upper_quarter(t_stats *data)
+{
+	if (((data->stack_a->sorted_index == data->tq + 1) || (data->stack_a->sorted_index == data->tq + 2)) && data->swap_rot < 2)
+	{
+		pb(&data->stack_a, &data->stack_b);
+		if (!data->swap_rot || (data->swap_rot == 1 && (data->stack_b->sorted_index > data->bottom_stack->sorted_index)))
+			data->bottom_stack = data->stack_b;
+		rb(&data->stack_b);
+		data->swap_rot++;
+	}
+	else if (data->swap_rot && data->stack_a->sorted_index == data->tq)
+		swap(data);
+	else if (data->stack_a->sorted_index == data->tq)
+	{
+		pb(&data->stack_a, &data->stack_b);
+		rb(&data->stack_b);
+		data->tq++;
+	}
+}
+
+void	lower_quarter(t_stats *data)
+{
+	if ((data->stack_a->sorted_index == data->h + 1 || data->stack_a->sorted_index == data->h + 2) && data->swap < 2)
+	{
+		pb(&data->stack_a, &data->stack_b);
+		data->swap++;
+	}
+	else if (data->swap && data->stack_a->sorted_index == data->h)
+		swop(data);
+	else if (data->stack_a->sorted_index == data->h)
+	{
+		pb(&data->stack_a, &data->stack_b);
+		data->h++;
+	}
+}
+
+void	sorted_to_A(t_node **A, t_node **B, int half, int quarter)
+{
+	printf("half in sorted to a: %d\n", half);
+	printf("half in sorted to a: %d\n", quarter);
+	quarter++;
+	while (half > quarter)
+	{
+		rrb(B);
+		pa(A, B);
+		half--;
+	}
+	while (half)
+	{
+		pa(A, B);
+		half--;
+	}
+}
+
 //void	big_list(t_node **stack_a, t_node **stack_b, int half) // werkt met + 2
 //															   // WERKT GEWOON
 //{

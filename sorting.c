@@ -19,8 +19,10 @@ void	sort_all(t_node **stack_a, t_node **stack_b, int all)
 
 //	size = 180;
 //	size = 135;
-	size = (((all / 2) / 45) - 1) * 45;
-	if (!size)
+//	size = 90;
+	size = 45;
+//	size = (((all / 2) / 45) - 1) * 45;
+	if (size <= 0)
 		size = 0; // klopt niet
 	printf("size: %d\n", size);
 	if (all > 359)
@@ -33,60 +35,28 @@ void	sort_all(t_node **stack_a, t_node **stack_b, int all)
 
 void	sort_small(t_node **stack_a, t_node **stack_b, int all, int size)
 {
-	int 	sorted;
-    int	half;
+//	int 	sorted;
+    	int	half;
 
-    half = all / 2;
-	sorted = half - size;
-	printf("half: %d\n", half);
-	printf("size: %d\n", size);
-    organise_B_small(stack_a, stack_b, half, size);
-	if (all != half * 2)
-	{
-		organise_A_small(stack_a, stack_b, all, half + size); // deze goed maken voor oneven
-		  						   // !!!!! :D
-		grow_list(stack_b, stack_a, half * 2 + 1, half - size + 1);
-		sorted++;
-	}
-	else
-	{
-		organise_A_small(stack_a, stack_b, all, half + size);
-		grow_list(stack_b, stack_a, half * 2, half - size);
-	}
-	while (sorted--)
-	{
-		pa(stack_a, stack_b);
-		if (*stack_a)
-			ra(stack_a);
-	}
-	grow_list(stack_a, stack_b, half + size, size);
-	grow_list(stack_a, stack_b, half, half);
-}
-
-void	sort_big(t_node **stack_a, t_node **stack_b, int all)
-{
-	int 	sorted;
-	int	half = all / 2;
-
-	sorted = half - 180; // - size
-	organise_B(stack_a, stack_b, half);
-	if (all != half * 2)
-	{
-		organise_A(stack_a, stack_b, half + 180, half + 1);
-		grow_list(stack_b, stack_a, half * 2 + 1, half - 179);
-		sorted++;
-	}
-	else
-	{
-		organise_A(stack_a, stack_b, half + 180, half);
-		grow_list(stack_b, stack_a, half * 2, half - 180);
-	}
-	while (sorted--)
-	{
-		pa(stack_a, stack_b);
-		if (*stack_a)
-			ra(stack_a);
-	}
-	grow_list(stack_a, stack_b, half + 180, 180);
-	grow_list(stack_a, stack_b, half, half);
+    	half = all / 2;
+//	sorted = half - size;
+    	organise_B_small(stack_a, stack_b, half, size);
+	big_list(stack_a, stack_b, half);              // 100 werkt 99 niet
+	//organise_A_small(stack_a, stack_b, all, half + size);
+	//if (all != half * 2)
+	//{
+	//	grow_list(stack_b, stack_a, all, half - size + 1);
+	//	sorted++;
+	//}
+	//else
+	//	grow_list(stack_b, stack_a, all, half - size);
+	//while (sorted--)
+	//{
+	//	pa(stack_a, stack_b);
+	//	if (*stack_a)
+	//		ra(stack_a);
+	//}
+	//grow_list(stack_a, stack_b, half + size, size);
+	//sorted_to_A(stack_a, stack_b, half, half / 2);
+	//grow_list(stack_a, stack_b, half, half);
 }

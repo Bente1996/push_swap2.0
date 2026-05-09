@@ -27,6 +27,7 @@ typedef struct s_stats
 {
 	struct s_node	*stack_a;
 	struct s_node	*stack_b;
+	int	three_quarter;
 	int	tq;
 	int	h;
 	int	swap;

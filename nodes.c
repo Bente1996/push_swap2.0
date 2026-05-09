@@ -55,13 +55,18 @@ t_node	*append_node(t_node **head, int value, int index)
 t_stats	*alloc_stats(t_node **stack_a, t_node **stack_b, int half)
 {
 	t_stats	*data;
+	int	all;
 
+	all = half * 2;
 	data = malloc(sizeof(t_stats));
 	if (!data)
 		return (NULL);
 	data->stack_a = *stack_a;
 	data->stack_b = *stack_b;
 	data->lower = --half;
+	data->three_quarter = all - (half / 2) - 1;
+	data-> tq = data->three_quarter + 1;
+	data->h = half + 1;
 	data->bottom_stack = NULL;
 	return (data);
 }

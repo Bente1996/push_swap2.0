@@ -20,21 +20,16 @@ void	organise_B_small(t_node **stack_a, t_node **stack_b, int half, int size)
 	sort_B_small(stack_a, stack_b, half, size);
 }
 
+#include <stdio.h>
+
 void	sort_B_small(t_node **stack_a, t_node **stack_b, int half, int size)
 {
 	int count;
 
-	count = half - size + 45;;
-	//if (size == 135)
-	//	count = half - size + 45;
-	//else if (count == 180)
-	//	count = half - 135;
-	//count = 45; // doe juist 115 rb ipv 135 rrb
-	sort_quarter(stack_a, stack_b, half, size); // 0-135 beneden
+	count = half - size + 45;
+	//sort_quarter(stack_a, stack_b, half, size); // 0-135 beneden
 	if (size >= 135)
 	{
-//		if (size == 180)
-//			count += 70;
 		while (count--)
 			rb(stack_b);
 		sort_quarter(stack_a, stack_b, half, size - 45); // 0-90 beneden
@@ -48,8 +43,6 @@ void	sort_B_small(t_node **stack_a, t_node **stack_b, int half, int size)
 	}
 	sort_rest(stack_a, stack_b, half); // sorteert laatste
 }
-
-#include <stdio.h>
 
 void	organise_A_small(t_node **stack_a, t_node **stack_b, int all, int highest)
 {
@@ -76,7 +69,7 @@ void	sort_A_small(t_node **stack_a, t_node **stack_b, int highest, int size)
 	int count;
 
 	count = 90;
-   	sort_quarter(stack_a, stack_b, highest, size); // 0-135 beneden
+//   	sort_quarter(stack_a, stack_b, highest, size); // 0-135 beneden
 	if (size >= 135)
 	{
 		if (size == 180)
