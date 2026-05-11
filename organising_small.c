@@ -27,7 +27,8 @@ void	sort_B_small(t_node **stack_a, t_node **stack_b, int half, int size)
 	int count;
 
 	count = half - size + 45;
-	//sort_quarter(stack_a, stack_b, half, size); // 0-135 beneden
+	if (size >= 90)
+		sort_quarter(stack_a, stack_b, half, size); // 0-135 beneden
 	if (size >= 135)
 	{
 		while (count--)
@@ -69,7 +70,8 @@ void	sort_A_small(t_node **stack_a, t_node **stack_b, int highest, int size)
 	int count;
 
 	count = 90;
-//   	sort_quarter(stack_a, stack_b, highest, size); // 0-135 beneden
+	if (size >= 90)
+	   	sort_quarter(stack_a, stack_b, highest, size); // 0-135 beneden
 	if (size >= 135)
 	{
 		if (size == 180)

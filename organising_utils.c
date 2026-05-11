@@ -114,7 +114,8 @@ void	sort_rest(t_node **stack_a, t_node **stack_b, int highest)
 	count = 45;
 	while (count--) // 45
 	{
-	//		rrb(stack_b); // -31 tot -45 blijft in B
+		if (highest > 95) // even voor nu
+			rrb(stack_b); // -31 tot -45 blijft in B
 		if ((*stack_b)->sorted_index > highest - 16) // begin: -1 tot -15
 		{
 			pa(stack_a, stack_b);
@@ -126,7 +127,6 @@ void	sort_rest(t_node **stack_a, t_node **stack_b, int highest)
 			rb(stack_b); // voor 100!!!
 		else if (highest == 95)
 			rb(stack_b);
-
 	}
 	if (highest == 50)
 	{
