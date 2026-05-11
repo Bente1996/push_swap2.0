@@ -22,6 +22,7 @@ void	sort_all(t_node **stack_a, t_node **stack_b, int all)
 //	size = 90;
 //	size = 45;
 	size = (((all / 2) / 45) - 1) * 45;
+
 //	if (size <= 0)
 //		size = 0; // klopt niet
 	printf("size: %d\n", size);
