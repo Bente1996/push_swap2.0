@@ -17,7 +17,8 @@ SRCFILES := main.c \
 		lowering_utils.c \
 		swapping.c \
 		utils.c \
-		big_list.c
+		big_list.c \
+		hundred.c
 
 
 OBJFILES := $(SRCFILES:.c=.o)
