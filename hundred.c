@@ -1,6 +1,168 @@
 #include "push_swap.h"
 #include <stdio.h>
 
+void	big_list_two(t_node **stack_a, t_node **stack_b, int half)
+{
+	t_stats *data;
+
+	data = alloc_stats(stack_a, stack_b, half);
+	if (!data)
+		return ;
+	data->h = 49;
+	data->tq = 25;
+	data->three_quarter = 25;
+	printf("h big_list: %d\n", data->h);
+	printf("tq big_list: %d\n", data->tq);
+	printf("three quarter big_list: %d\n", data->three_quarter);
+
+	int bente = 30;
+	while (data->stack_a && bente) // alles naar b: 73_50 0-49(random) 74_99
+	{
+		bente--;
+		printf("data->stack_a: %d\n", data->stack_b->sorted_index);
+		printf("data->stack_b: %d\n", data->stack_a->sorted_index);
+		if ((data->stack_a->sorted_index <= data->tq && \
+				data->stack_a->sorted_index >= data->tq - 2) && \
+				data->stack_a->sorted_index < data->three_quarter) // 75->99
+			upper_quarter(data);
+			//lower_quarter(data);
+		else if ((data->stack_a->sorted_index <= data->h && \
+				data->stack_a->sorted_index >= data->h - 2) && \
+				data->stack_a->sorted_index >= data->three_quarter) // 50->74	
+			lower_quarter(data);
+			//upper_quarter(data);
+		else // was niet de goeie
+			ra(&data->stack_a);
+	}
+	*stack_a = NULL;
+	*stack_b = data->stack_b;
+}
+
+void	upper_quarter_two(t_stats *data)
+{
+	if (((data->stack_a->sorted_index == data->tq - 1) || (data->stack_a->sorted_index == data->tq - 2)) && data->swap_rot < 2)
+	{
+		pb(&data->stack_a, &data->stack_b);
+		if (!data->swap_rot || (data->swap_rot == 1 && (data->stack_b->sorted_index < data->bottom_stack->sorted_index)))
+			data->bottom_stack = data->stack_b;
+		rb(&data->stack_b);
+		data->swap_rot++;
+	}
+	else if (data->swap_rot && data->stack_a->sorted_index == data->tq)
+		swap_t(data);
+	else if (data->stack_a->sorted_index == data->tq)
+	{
+		pb(&data->stack_a, &data->stack_b);
+		rb(&data->stack_b);
+		data->tq--;
+	}
+}
+
+void	lower_quarter_two(t_stats *data)
+{
+	if ((data->stack_a->sorted_index == data->h - 1 || data->stack_a->sorted_index == data->h - 2) && data->swap < 2)
+	{
+		pb(&data->stack_a, &data->stack_b);
+		data->swap++;
+	}
+	else if (data->swap && data->stack_a->sorted_index == data->h)
+		swop_t(data);
+	else if (data->stack_a->sorted_index == data->h)
+	{
+		pb(&data->stack_a, &data->stack_b);
+		data->h--;
+	}
+}
+
+void	swap_t(t_stats *data)
+{
+	if ((data->stack_a->sorted_index != data->bottom_stack->sorted_index - 1) || data->swap_rot == 2)
+		rrb(&data->stack_b);
+	if (data->swap_rot == 2)
+		rrb(&data->stack_b);
+	pb(&data->stack_a, &data->stack_b);
+	rb(&data->stack_b);
+	data->bottom_stack = find_bottom(data->stack_b);
+	if (data->swap_rot == 2)
+	{
+		if (data->stack_b->sorted_index < data->stack_b->next->sorted_index)
+			sb(&data->stack_b);
+		while (data->swap_rot)
+		{
+			rb(&data->stack_b);
+			data->swap_rot--;
+			data->tq--;
+		}
+	}
+	else if (data->stack_b->sorted_index == data->bottom_stack->sorted_index - 1)
+	{
+		rb(&data->stack_b);
+		data->tq--;
+		data->swap_rot--;
+	}
+	else
+		rb(&data->stack_b);
+	data->bottom_stack = find_bottom(data->stack_b);
+	data->tq--;
+}
+
+
+
+void	swop_t(t_stats *data)
+{
+	if (data->swap == 1)
+	{
+		pb(&data->stack_a, &data->stack_b);
+		sb(&data->stack_b);
+		if (data->stack_b->sorted_index == data->stack_b->next->sorted_index - 1)
+		{
+			data->swap--;
+			data->h--;
+		}
+	}
+	else
+		swap_two_t(data);
+	data->h--;
+}
+
+void	swap_two_t(t_stats *data)
+{
+	rb(&data->stack_b);
+	if (data->stack_b->sorted_index == data->stack_a->sorted_index - 1)
+	{
+		pb(&data->stack_a, &data->stack_b);
+		sb(&data->stack_b);
+		data->swap--;
+		data->h--;
+		rrb(&data->stack_b);
+		if (data->stack_b->sorted_index == data->stack_b->next->sorted_index - 1)
+		{
+			data->swap--;
+			data->h--;
+		}
+	}
+	else
+		more_swap_t(data);
+}
+
+void	more_swap_t(t_stats *data)
+{
+	rb(&data->stack_b);
+	pb(&data->stack_a, &data->stack_b);
+	rrb(&data->stack_b);
+	rrb(&data->stack_b);
+	if (data->stack_b->sorted_index == data->stack_b->next->next->sorted_index - 1)
+	{
+		sb(&data->stack_b);
+		data->swap--;
+		data->h--;
+		if (data->stack_b->sorted_index == data->stack_b->next->sorted_index - 1)
+		{
+			data->swap--;
+			data->h--;
+		}
+	}
+}
 int	move_highest(int *arr, int highest)
 {
 	int	i;
@@ -130,7 +292,9 @@ int	random_split(t_node **stack_a, t_node **stack_b, int size) // test: group op
 //	print_list(*stack_b, 'B');
 	big_list(stack_a, stack_b, half); // 100 nummers 600 operations (700 = 100% 1100 = 80%)
 	sorted_to_A(stack_a, stack_b, half, half / 2);
-	grow_list(stack_a, stack_b, half, half);
+
+	//big_list(stack_b, stack_a, half); // BLBL kinda
+	grow_list(stack_a, stack_b, half, half); // BLGL
 	operations = 1;
 	return (operations);
 }

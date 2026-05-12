@@ -25,8 +25,8 @@ void	big_lists(t_node **stack_a, t_node **stack_b, int all) // 2x big list
 			ra(stack_a);
 	}
 	big_list(stack_a, stack_b, half);
-	//sorted_to_A(stack_a, stack_b, half, half / 2);
-	//big_list(stack_b, stack_a, half);
+	sorted_to_A(stack_a, stack_b, half, half / 2);
+	big_list_two(stack_b, stack_a, half);
 }
 
 void	sort_all(t_node **stack_a, t_node **stack_b, int all)
@@ -43,9 +43,9 @@ void	sort_all(t_node **stack_a, t_node **stack_b, int all)
 	if (size < 45)
 		size = 45;
 	printf("size: %d\n", size);
-	//big_lists(stack_a, stack_b, all);
+	big_lists(stack_a, stack_b, all);
 	//sort_small(stack_a, stack_b, all, size);
-	random_split(stack_a, stack_b, all);
+	//random_split(stack_a, stack_b, all);
 }
 
 void	sort_small(t_node **stack_a, t_node **stack_b, int all, int size)
