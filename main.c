@@ -16,7 +16,7 @@
 int	main(int argc, char **argv)
 {
 	t_node	*stack_a;
-	t_node *stack_b;
+	t_node	*stack_b;
 	int	index;
 	int	operations;
 
