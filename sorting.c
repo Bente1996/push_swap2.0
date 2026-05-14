@@ -29,6 +29,18 @@ void	big_lists(t_node **stack_a, t_node **stack_b, int all) // 2x big list
 	big_list_two(stack_b, stack_a, half);
 }
 
+void	bl_gl(t_node **stack_a, t_node **stack_b, int all, int size)
+{
+	int	half;
+
+	half = all / 2;  
+
+	organise_B_small(stack_a, stack_b, half, size);
+	big_list(stack_a, stack_b, half);              // 100 werkt 99 niet
+	sorted_to_A(stack_a, stack_b, half, half / 2);
+	grow_list(stack_a, stack_b, half, half);
+}
+
 void	sort_all(t_node **stack_a, t_node **stack_b, int all)
 {
 	int	size;
@@ -43,21 +55,20 @@ void	sort_all(t_node **stack_a, t_node **stack_b, int all)
 	if (size < 45)
 		size = 45;
 	printf("size: %d\n", size);
-	big_lists(stack_a, stack_b, all);
+	big_lists(stack_a, stack_b, all); // VEELBELOVEND, alleen veel code aanpassen ..
+	//bl_gl(stack_a, stack_b, all, size);
 	//sort_small(stack_a, stack_b, all, size);
 	//random_split(stack_a, stack_b, all);
 }
 
-void	sort_small(t_node **stack_a, t_node **stack_b, int all, int size)
+void	sort_small(t_node **stack_a, t_node **stack_b, int all, int size) // GL x2
 {
 	int 	sorted;
 	int	half;
 
 	half = all / 2;
 	sorted = half - size;
-    organise_B_small(stack_a, stack_b, half, size);
-//	big_list(stack_a, stack_b, half);              // 100 werkt 99 niet
-//	sorted_to_A(stack_a, stack_b, half, half / 2);
+    	organise_B_small(stack_a, stack_b, half, size);
 	organise_A_small(stack_a, stack_b, all, half + size);
 	if (all != half * 2)
 	{
