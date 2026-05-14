@@ -1,7 +1,7 @@
 #include "push_swap.h"
 #include <stdio.h>
 
-void	big_list_two(t_node **stack_a, t_node **stack_b, int half) // alles omgedraaid beetje silly
+void	big_list_two(t_node **stack_a, t_node **stack_b, int half) // alles omgedraaid beetje silly, verander namen (three_quarter -> quarter, A vs B)
 {
 	t_stats *data;
 
@@ -184,6 +184,31 @@ int	move_highest(int *arr, int highest)
 	return(highest);
 }
 
+int	move_quarter(int *arr, int quarter)
+{
+	int	i;
+	int	sum;
+
+	i = 0;
+	sum = 0;
+	while (i < 5 && arr[i] != 0)
+		sum += arr[i++];
+	if (sum == 1)
+		quarter++;
+	else if (sum == 11)
+		quarter += 2;
+	else if (sum == 111)
+		quarter += 3;
+//	else if (sum == 1111)
+//		highest -= 4;
+//	else if (sum == 11111)
+//		highest -= 5;
+	else
+		return (quarter);
+	check_shift(arr, sum); // give right values based on shift 5->4 for sum == 1
+	return(quarter);
+}
+
 void	shift_group(int *arr, int n)
 {
 	int	shrink;
@@ -230,10 +255,10 @@ bool	in_group(t_node *stack_b, int *arr, int highest)
 		arr[1] = 10;
 	else if (stack_b->sorted_index == highest - 3)
 		arr[2] = 100;
-	else if (stack_b->sorted_index == highest - 4)
-		arr[3] = 1000;
-	else if (stack_b->sorted_index == highest - 5)
-		arr[4] = 10000;
+//	else if (stack_b->sorted_index == highest - 4)
+//		arr[3] = 1000;
+//	else if (stack_b->sorted_index == highest - 5)
+//		arr[4] = 10000;
 	//else if (stack_b->sorted_index < highest - 5 && stack_b->sorted_index > highest - 15) // toegevoegd
 	//	return (true);
 	else
@@ -241,21 +266,41 @@ bool	in_group(t_node *stack_b, int *arr, int highest)
 	return (true);
 }
 
+bool	in_other_group(t_node *stack_b, int *arr, int quarter)
+{
+	if (stack_b->sorted_index == quarter)
+		arr[0] = 1;
+	else if (stack_b->sorted_index == quarter + 1)
+		arr[1] = 10;
+	else if (stack_b->sorted_index == quarter + 2)
+		arr[2] = 100;
+//	else if (stack_b->sorted_index == highest - 4)
+//		arr[3] = 1000;
+//	else if (stack_b->sorted_index == highest - 5)
+//		arr[4] = 10000;
+	//else if (stack_b->sorted_index < highest - 5 && stack_b->sorted_index > highest - 15) // toegevoegd
+	//	return (true);
+	else
+		return (false);
+	return (true);
+}
 
-int	random_split(t_node **stack_a, t_node **stack_b, int size) // test: group op A
+int	random_split(t_node **stack_a, t_node **stack_b, int all) // test: group op A
 															   // ipv B
 {
-	static 	int	arr[5] = {0};
+	int	arr[5] = {0};
+	static	int	array[3];
 	int		half;
 	int		highest;
 	int		h;
 	int		operations;
 	int		count;
+	int		quarter;
 
-	arr[1]++;
-	half = size / 2;
+	half = all / 2;
 	h = half;
 	highest = half;
+	quarter = 0;
 	count = 0;
 	printf("%d\n", half);
 	while (h)
@@ -275,17 +320,26 @@ int	random_split(t_node **stack_a, t_node **stack_b, int size) // test: group op
 			count++;
 			printf("count:%d\n", count);
 		}
+		else if (*stack_b && in_other_group(*stack_b, array, quarter))
+		{
+			quarter = move_quarter(array, quarter);
+			if ((*stack_b)->next)
+				rb(stack_b);
+			count++;
+			printf("count:%d\n", count);
+		}
 	}
 	while (count)
 	{
 		rrb(stack_b);
 		count--;
 	}
-	//half--; // naar juiste index
 	big_list(stack_a, stack_b, half);
-	sorted_to_A(stack_a, stack_b, half, half / 2);
-	//big_list_two(stack_b, stack_a, half); // BLBL kinda
-	//grow_list(stack_a, stack_b, half, half); // BLGL
+	if (all % 2)
+		sorted_to_A(stack_a, stack_b, half + 1, half / 2);
+	else
+		sorted_to_A(stack_a, stack_b, half, half / 2);
+	big_list_two(stack_b, stack_a, half); // 672 group 5
 	operations = 1;
 	return (operations);
 }

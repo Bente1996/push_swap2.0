@@ -39,7 +39,7 @@ void	bl_gl(t_node **stack_a, t_node **stack_b, int all, int size)
 	half = all / 2;  
 
 	organise_B_small(stack_a, stack_b, half, size);
-	big_list(stack_a, stack_b, half);              // 100 werkt 99 niet
+	big_list(stack_a, stack_b, half);
 	sorted_to_A(stack_a, stack_b, half, half / 2);
 	grow_list(stack_a, stack_b, half, half);
 }
@@ -58,10 +58,10 @@ void	sort_all(t_node **stack_a, t_node **stack_b, int all)
 	if (size < 45)
 		size = 45;
 	printf("size: %d\n", size);
-	big_lists(stack_a, stack_b, all); // BL+BL: 395 vOOr big_list_two, 641 NA, check oneven en group 2x3?
+	//big_lists(stack_a, stack_b, all); // BL+BL: 395 vOOr big_list_two, 641 NA, check oneven en group 2x3? = 635!
 	//bl_gl(stack_a, stack_b, all, size); // BL+GL(organisex1): 722 NA grow_list
 	//sort_small(stack_a, stack_b, all, size); GL+GL(organisex2):
-	//random_split(stack_a, stack_b, all); // BL+GL+group: 405 vOOr grow_list, 662 NA
+	random_split(stack_a, stack_b, all); // BL+GL+group: 405 vOOr grow_list, 662 NA, 635 met group
 }
 
 void	sort_small(t_node **stack_a, t_node **stack_b, int all, int size) // GL x2
