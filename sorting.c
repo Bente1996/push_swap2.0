@@ -55,7 +55,7 @@ void	sort_all(t_node **stack_a, t_node **stack_b, int all)
 	if (size < 45)
 		size = 45;
 	printf("size: %d\n", size);
-	big_lists(stack_a, stack_b, all); // BL+BL: 395 vOOr big_list_two, 625 NA
+	big_lists(stack_a, stack_b, all); // BL+BL: 395 vOOr big_list_two, 641 NA, check oneven en group 2x3?
 	//bl_gl(stack_a, stack_b, all, size); // BL+GL(organisex1): 722 NA grow_list
 	//sort_small(stack_a, stack_b, all, size); GL+GL(organisex2):
 	//random_split(stack_a, stack_b, all); // BL+GL+group: 405 vOOr grow_list, 662 NA

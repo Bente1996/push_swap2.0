@@ -63,21 +63,21 @@ t_stats	*alloc_stats(t_node **stack_a, t_node **stack_b, int half)
 		return (NULL);
 	data->stack_a = *stack_a;
 	data->stack_b = *stack_b;
-	data->quarter = half / 2 - 1;
+	data->quarter = half / 2;
 	if (already_sorted(*stack_b)) // swapped, eigenlijk a
 	{
 		data->three_quarter = data->quarter;
-		data->lower = 0;
-		half = 0;
-		data->h = half;
+		data->lower = 0; // do we care?
+		data->h = half - 1;
+		data->tq = 0;
 	}
 	else
 	{
 		data->lower = --half;
 		data->three_quarter = all - (half / 2) - 1;
 		data->h = half + 1;
+		data->tq = data->three_quarter + 1;
 	}
-	data->tq = data->three_quarter + 1;
 	data->bottom_stack = NULL;
 	return (data);
 }
