@@ -9,28 +9,19 @@ void	big_list_two(t_node **stack_a, t_node **stack_b, int half)
 	if (!data)
 		return ;
 	data->h = 49;
-	data->tq = 25;
+	data->tq = 24;
 	data->three_quarter = 25;
-	printf("h big_list: %d\n", data->h);
-	printf("tq big_list: %d\n", data->tq);
-	printf("three quarter big_list: %d\n", data->three_quarter);
 
-	int bente = 30;
-	while (data->stack_a && bente) // alles naar b: 73_50 0-49(random) 74_99
+	while (data->stack_a) // alles naar b: 73_50 0-49(random) 74_99
 	{
-		bente--;
-		printf("data->stack_a: %d\n", data->stack_b->sorted_index);
-		printf("data->stack_b: %d\n", data->stack_a->sorted_index);
 		if ((data->stack_a->sorted_index <= data->tq && \
 				data->stack_a->sorted_index >= data->tq - 2) && \
-				data->stack_a->sorted_index < data->three_quarter) // 75->99
-			upper_quarter(data);
-			//lower_quarter(data);
+				data->stack_a->sorted_index < data->three_quarter) // 0-24
+			upper_quarter_two(data);
 		else if ((data->stack_a->sorted_index <= data->h && \
 				data->stack_a->sorted_index >= data->h - 2) && \
-				data->stack_a->sorted_index >= data->three_quarter) // 50->74	
-			lower_quarter(data);
-			//upper_quarter(data);
+				data->stack_a->sorted_index >= data->three_quarter) // 25-49
+			lower_quarter_two(data);
 		else // was niet de goeie
 			ra(&data->stack_a);
 	}
@@ -279,7 +270,6 @@ int	random_split(t_node **stack_a, t_node **stack_b, int size) // test: group op
 			count++;
 			printf("count:%d\n", count);
 		}
-		//print_list(*stack_b, 'B');
 	}
 	while (count)
 	{
@@ -287,14 +277,10 @@ int	random_split(t_node **stack_a, t_node **stack_b, int size) // test: group op
 		count--;
 	}
 	//half--; // naar juiste index
-	//printf("Binnenkomst:\n");
-//	print_list(*stack_a, 'A');
-//	print_list(*stack_b, 'B');
-	big_list(stack_a, stack_b, half); // 100 nummers 600 operations (700 = 100% 1100 = 80%)
+	big_list(stack_a, stack_b, half);
 	sorted_to_A(stack_a, stack_b, half, half / 2);
-
-	//big_list(stack_b, stack_a, half); // BLBL kinda
-	grow_list(stack_a, stack_b, half, half); // BLGL
+	//big_list_two(stack_b, stack_a, half); // BLBL kinda
+	//grow_list(stack_a, stack_b, half, half); // BLGL
 	operations = 1;
 	return (operations);
 }

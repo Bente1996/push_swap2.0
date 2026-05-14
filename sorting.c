@@ -13,7 +13,7 @@
 #include "push_swap.h"
 #include <stdio.h>
 
-void	big_lists(t_node **stack_a, t_node **stack_b, int all) // 2x big list
+void	big_lists(t_node **stack_a, t_node **stack_b, int all) // 2x big list, voeg randomsplitshit toe, maar pas groep aan naar 2x 3
 {
 	int	half = all / 2;
 
@@ -55,10 +55,10 @@ void	sort_all(t_node **stack_a, t_node **stack_b, int all)
 	if (size < 45)
 		size = 45;
 	printf("size: %d\n", size);
-	big_lists(stack_a, stack_b, all); // VEELBELOVEND, alleen veel code aanpassen ..
-	//bl_gl(stack_a, stack_b, all, size);
-	//sort_small(stack_a, stack_b, all, size);
-	//random_split(stack_a, stack_b, all);
+	big_lists(stack_a, stack_b, all); // BL+BL: 395 vOOr big_list_two, 625 NA
+	//bl_gl(stack_a, stack_b, all, size); // BL+GL(organisex1): 722 NA grow_list
+	//sort_small(stack_a, stack_b, all, size); GL+GL(organisex2):
+	//random_split(stack_a, stack_b, all); // BL+GL+group: 405 vOOr grow_list, 662 NA
 }
 
 void	sort_small(t_node **stack_a, t_node **stack_b, int all, int size) // GL x2
