@@ -67,8 +67,6 @@ void	lower_quarter(t_stats *data)
 
 void	sorted_to_A(t_node **A, t_node **B, int half, int quarter)
 {
-	printf("half in sorted to a: %d\n", half);
-	printf("half in sorted to a: %d\n", quarter);
 	quarter++;
 	while (half > quarter)
 	{
@@ -76,11 +74,8 @@ void	sorted_to_A(t_node **A, t_node **B, int half, int quarter)
 		pa(A, B);
 		half--;
 	}
-	while (half)
-	{
+	while (half--)
 		pa(A, B);
-		half--;
-	}
 }
 
 //void	big_list(t_node **stack_a, t_node **stack_b, int half) // werkt met + 2

@@ -17,7 +17,7 @@ void	big_lists(t_node **stack_a, t_node **stack_b, int all) // 2x big list, voeg
 {
 	int	half = all / 2;
 
-	while (stack_size(*stack_a) > half)
+	while (stack_size(*stack_b) < half)
 	{
 		if ((*stack_a)->sorted_index < half)
 				pb(stack_a, stack_b);
@@ -25,7 +25,10 @@ void	big_lists(t_node **stack_a, t_node **stack_b, int all) // 2x big list, voeg
 			ra(stack_a);
 	}
 	big_list(stack_a, stack_b, half);
-	sorted_to_A(stack_a, stack_b, half, half / 2);
+	if (all % 2)
+		sorted_to_A(stack_a, stack_b, half + 1, half / 2);
+	else
+		sorted_to_A(stack_a, stack_b, half, half / 2);
 	big_list_two(stack_b, stack_a, half);
 }
 

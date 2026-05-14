@@ -15,7 +15,7 @@ void	big_list_two(t_node **stack_a, t_node **stack_b, int half) // alles omgedra
 	printf("data->h: %d\n", data->h);
 	printf("data->tq: %d\n", data->tq);
 	printf("data->three_quarter: %d\n", data->three_quarter);
-	while (data->stack_a) // alles naar b: 73_50 0-49(random) 74_99
+	while (data->stack_a)
 	{
 		if ((data->stack_a->sorted_index >= data->tq && \
 				data->stack_a->sorted_index <= data->tq + 2) && \
