@@ -38,7 +38,7 @@ t_node	*sort_indices(t_node **list)
 		while (*list)
 		{
 			if (tmp->value > (*list)->value)
-				tmp->sorted_index += 1;
+				tmp->n_index += 1;
 			if (!(*list)->next)
 				break ;
 			*list = (*list)->next;

@@ -23,7 +23,7 @@ t_node	*new_node(int value, int index)
 		return (NULL);
 	new->value = value;
 	new->index = index;
-	new->sorted_index = 0;
+	new->n_index = 0;
 	new->next = NULL;
 	return (new);
 }
@@ -52,7 +52,7 @@ t_node	*append_node(t_node **head, int value, int index)
 	return (new);
 }
 
-t_stats	*alloc_stats(t_node **stack_a, t_node **stack_b, int half)
+t_stats	*alloc_stats(t_node **A, t_node **B, int half)
 {
 	t_stats	*data;
 	int	all;
@@ -61,9 +61,9 @@ t_stats	*alloc_stats(t_node **stack_a, t_node **stack_b, int half)
 	data = malloc(sizeof(t_stats));
 	if (!data)
 		return (NULL);
-	data->stack_a = *stack_a;
-	data->stack_b = *stack_b;
-	if (!already_sorted(*stack_b) && !already_sorted(*stack_a)) // als stack_a niet gesorteerd
+//	data->A = *A;
+//	data->B = *B;
+	if (!already_sorted(*B) && !already_sorted(*A)) // als stack_a niet gesorteerd
 		data->top = 1;
 	else
 		data->top = 0; // voeg toe aan big_list en bl_two? mss

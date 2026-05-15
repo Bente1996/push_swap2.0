@@ -7,11 +7,11 @@ void	organise_B_small(t_node **stack_a, t_node **stack_b, int half, int size)
 	h = half;
 	while (h)
 	{
-		if ((*stack_a)->sorted_index < half)
+		if ((*stack_a)->n_index < half)
 		{
 			pb(stack_a, stack_b);
 			h--;
-			if (((*stack_b)->sorted_index < half - size))
+			if (((*stack_b)->n_index < half - size))
 					rb(stack_b, 0);
 		}
 		else
@@ -55,7 +55,7 @@ void	organise_A_small(t_node **stack_a, t_node **stack_b, int all, int highest)
 		half++;
 	while (half--)
 	{
-		if ((*stack_a)->sorted_index < highest)
+		if ((*stack_a)->n_index < highest)
 			pb(stack_a, stack_b);
 		else
 			ra(stack_a, 0);

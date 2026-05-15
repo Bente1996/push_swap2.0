@@ -1,62 +1,61 @@
 #include "push_swap.h"
 #include <stdio.h>
 
-void	big_list(t_node **stack_a, t_node **stack_b, int half) // werkt met + 2
+void	big_list(t_node **A, t_node **B, int half) // werkt met + 2
 {
 	t_stats *data;
 
-	data = alloc_stats(stack_a, stack_b, half);
+	data = alloc_stats(A, B, half);
 	if (!data)
 		return ;
-	while (data->stack_a) // alles naar b: 73_50 0-49(random) 74_99
+	while (*A) // alles naar b: 73_50 0-49(random) 74_99
 	{
-		if ((data->stack_a->sorted_index >= data->tq && \
-				data->stack_a->sorted_index <= data->tq + 2) && \
-				data->stack_a->sorted_index > data->three_quarter) // 75->99
-			upper_quarter(data);
-		else if ((data->stack_a->sorted_index >= data->h && \
-				data->stack_a->sorted_index <= data->h + 2) && \
-				data->stack_a->sorted_index <= data->three_quarter) // 50->74	
-			lower_quarter(data);
+		if (((*A)->n_index >= data->tq && \
+				(*A)->n_index <= data->tq + 2) && \
+				(*A)->n_index > data->three_quarter) // 75->99
+			upper_quarter(data, A, B);
+		else if (((*A)->n_index >= data->h && \
+				(*A)->n_index <= data->h + 2) && \
+				(*A)->n_index <= data->three_quarter) // 50->74	
+			lower_quarter(data, A, B);
 		else // was niet de goeie
-			ra(&data->stack_a, 0);
+			ra(A, 0);
 	}
-	*stack_a = NULL;
-	*stack_b = data->stack_b;
+	*A = NULL; // kan weg
 }
 
-void	upper_quarter(t_stats *data)
+void	upper_quarter(t_stats *data, t_node **A, t_node **B)
 {
-	if (((data->stack_a->sorted_index == data->tq + 1) || (data->stack_a->sorted_index == data->tq + 2)) && data->swap_rot < 2)
+	if ((((*A)->n_index == data->tq + 1) || ((*A)->n_index == data->tq + 2)) && data->swap_rot < 2)
 	{
-		pb(&data->stack_a, &data->stack_b);
-		if (!data->swap_rot || (data->swap_rot == 1 && (data->stack_b->sorted_index > data->bottom_stack->sorted_index)))
-			data->bottom_stack = data->stack_b;
-		rb(&data->stack_b, 0);
+		pb(A, B);
+		if (!data->swap_rot || (data->swap_rot == 1 && ((*B)->n_index > data->bottom_stack->n_index)))
+			data->bottom_stack = *B;
+		rb(B, 0);
 		data->swap_rot++;
 	}
-	else if (data->swap_rot && data->stack_a->sorted_index == data->tq)
-		swap(data);
-	else if (data->stack_a->sorted_index == data->tq)
+	else if (data->swap_rot && (*A)->n_index == data->tq)
+		swap(data, A, B);
+	else if ((*A)->n_index == data->tq)
 	{
-		pb(&data->stack_a, &data->stack_b);
-		rb(&data->stack_b, 0);
+		pb(A, B);
+		rb(B, 0);
 		data->tq++;
 	}
 }
 
-void	lower_quarter(t_stats *data)
+void	lower_quarter(t_stats *data, t_node **A, t_node **B)
 {
-	if ((data->stack_a->sorted_index == data->h + 1 || data->stack_a->sorted_index == data->h + 2) && data->swap < 2)
+	if (((*A)->n_index == data->h + 1 || (*A)->n_index == data->h + 2) && data->swap < 2)
 	{
-		pb(&data->stack_a, &data->stack_b);
+		pb(A, B);
 		data->swap++;
 	}
-	else if (data->swap && data->stack_a->sorted_index == data->h)
-		swop(data);
-	else if (data->stack_a->sorted_index == data->h)
+	else if (data->swap && (*A)->n_index == data->h)
+		swop(data, A, B);
+	else if ((*A)->n_index == data->h)
 	{
-		pb(&data->stack_a, &data->stack_b);
+		pb(A, B);
 		data->h++;
 	}
 }

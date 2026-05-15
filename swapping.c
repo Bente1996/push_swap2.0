@@ -1,88 +1,86 @@
 #include "push_swap.h"
 
-void	swap(t_stats *data)
+void	swap(t_stats *data, t_node **A, t_node **B)
 {
-	if ((data->stack_a->sorted_index != data->bottom_stack->sorted_index + 1) || data->swap_rot == 2)
-		rrb(&data->stack_b);
+	if (((*A)->n_index != data->bottom_stack->n_index + 1) || data->swap_rot == 2)
+		rrb(B);
 	if (data->swap_rot == 2)
-		rrb(&data->stack_b);
-	pb(&data->stack_a, &data->stack_b);
-	rb(&data->stack_b, 0);
-	data->bottom_stack = find_bottom(data->stack_b);
+		rrb(B);
+	pb(A, B);
+	rb(A, 0);
+	data->bottom_stack = find_bottom(*B);
 	if (data->swap_rot == 2)
 	{
-		if (data->stack_b->sorted_index > data->stack_b->next->sorted_index)
-			sb(&data->stack_b);
+		if ((*B)->n_index > (*B)->next->n_index)
+			sb(B);
 		while (data->swap_rot)
 		{
-			rb(&data->stack_b, 0);
+			rb(B, 0);
 			data->swap_rot--;
 			data->tq++;
 		}
 	}
-	else if (data->stack_b->sorted_index == data->bottom_stack->sorted_index + 1)
+	else if ((*B)->n_index == data->bottom_stack->n_index + 1)
 	{
-		rb(&data->stack_b, 0);
+		rb(B, 0);
 		data->tq++;
 		data->swap_rot--;
 	}
 	else
-		rb(&data->stack_b, 0);
-	data->bottom_stack = find_bottom(data->stack_b);
+		rb(B, 0);
+	data->bottom_stack = find_bottom(*B);
 	data->tq++;
 }
 
-
-
-void	swop(t_stats *data)
+void	swop(t_stats *data, t_node **A, t_node **B)
 {
 	if (data->swap == 1)
 	{
-		pb(&data->stack_a, &data->stack_b);
-		sb(&data->stack_b);
-		if (data->stack_b->sorted_index == data->stack_b->next->sorted_index + 1)
+		pb(A, B);
+		sb(B);
+		if ((*B)->n_index == (*B)->next->n_index + 1)
 		{
 			data->swap--;
 			data->h++;
 		}
 	}
 	else
-		swap_two(data);
+		swap_two(data, A, B);
 	data->h++;
 }
 
-void	swap_two(t_stats *data)
+void	swap_two(t_stats *data, t_node **A, t_node **B)
 {
-	rb(&data->stack_b, 0);
-	if (data->stack_b->sorted_index == data->stack_a->sorted_index + 1)
+	rb(B, 0);
+	if ((*B)->n_index == (*A)->n_index + 1)
 	{
-		pb(&data->stack_a, &data->stack_b);
-		sb(&data->stack_b);
+		pb(A, B);
+		sb(B);
 		data->swap--;
 		data->h++;
-		rrb(&data->stack_b);
-		if (data->stack_b->sorted_index == data->stack_b->next->sorted_index + 1)
+		rrb(B);
+		if ((*B)->n_index == (*B)->next->n_index + 1)
 		{
 			data->swap--;
 			data->h++;
 		}
 	}
 	else
-		more_swap(data);
+		more_swap(data, A, B);
 }
 
-void	more_swap(t_stats *data)
+void	more_swap(t_stats *data, t_node **A, t_node **B)
 {
-	rb(&data->stack_b, 0);
-	pb(&data->stack_a, &data->stack_b);
-	rrb(&data->stack_b);
-	rrb(&data->stack_b);
-	if (data->stack_b->sorted_index == data->stack_b->next->next->sorted_index + 1)
+	rb(B, 0);
+	pb(A, B);
+	rrb(B);
+	rrb(B);
+	if ((*B)->n_index == (*B)->next->next->n_index + 1)
 	{
-		sb(&data->stack_b);
+		sb(B);
 		data->swap--;
 		data->h++;
-		if (data->stack_b->sorted_index == data->stack_b->next->sorted_index + 1)
+		if ((*B)->n_index == (*B)->next->n_index + 1)
 		{
 			data->swap--;
 			data->h++;
