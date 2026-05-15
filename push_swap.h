@@ -27,6 +27,7 @@ typedef struct s_stats
 {
 	struct s_node	*stack_a;
 	struct s_node	*stack_b;
+	int	top;
 	int	quarter;
 	int	three_quarter;
 	int	tq;
@@ -59,13 +60,13 @@ void	grow_list(t_node **stack_a, t_node **stack_b, int half, int count);
 bool	sorted(t_node *stack, int half, char A_or_B);
 bool	already_sorted(t_node *stack);
 void	pb(t_node **stack_a, t_node **stack_b);
-void	pa(t_node **stack_a, t_node **stack_b);
-void	ra(t_node **stack_a);
-void	rb(t_node **stack_b);
+void	pa(t_node **stack_a, t_node **stack_b, int top);
+void	ra(t_node **stack_a, int top);
+void	rb(t_node **stack_b, int top);
 void	rr(t_node **stack_a, t_node **stack_b);
 void	rrb(t_node **stack_b);
-void	rra(t_node **stack_a);
-void	sa(t_node **stack_a);
+void	rra(t_node **stack_a, int top);
+void	sa(t_node **stack_a, int top);
 void	sb(t_node **stack_b);
 bool	one_element(t_node **stack_a, t_node **stack_b, int half);
 int	stack_size(t_node *stack);

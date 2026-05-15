@@ -7,7 +7,7 @@ void	swap(t_stats *data)
 	if (data->swap_rot == 2)
 		rrb(&data->stack_b);
 	pb(&data->stack_a, &data->stack_b);
-	rb(&data->stack_b);
+	rb(&data->stack_b, 0);
 	data->bottom_stack = find_bottom(data->stack_b);
 	if (data->swap_rot == 2)
 	{
@@ -15,19 +15,19 @@ void	swap(t_stats *data)
 			sb(&data->stack_b);
 		while (data->swap_rot)
 		{
-			rb(&data->stack_b);
+			rb(&data->stack_b, 0);
 			data->swap_rot--;
 			data->tq++;
 		}
 	}
 	else if (data->stack_b->sorted_index == data->bottom_stack->sorted_index + 1)
 	{
-		rb(&data->stack_b);
+		rb(&data->stack_b, 0);
 		data->tq++;
 		data->swap_rot--;
 	}
 	else
-		rb(&data->stack_b);
+		rb(&data->stack_b, 0);
 	data->bottom_stack = find_bottom(data->stack_b);
 	data->tq++;
 }
@@ -53,7 +53,7 @@ void	swop(t_stats *data)
 
 void	swap_two(t_stats *data)
 {
-	rb(&data->stack_b);
+	rb(&data->stack_b, 0);
 	if (data->stack_b->sorted_index == data->stack_a->sorted_index + 1)
 	{
 		pb(&data->stack_a, &data->stack_b);
@@ -73,7 +73,7 @@ void	swap_two(t_stats *data)
 
 void	more_swap(t_stats *data)
 {
-	rb(&data->stack_b);
+	rb(&data->stack_b, 0);
 	pb(&data->stack_a, &data->stack_b);
 	rrb(&data->stack_b);
 	rrb(&data->stack_b);

@@ -11,14 +11,14 @@ void	grow_list(t_node **stack_a, t_node **stack_b, int half, int count) // werkt
 		return ; // free en exit (1)
 	while (count--)
 	{
-		n = find_case(data->stack_b->sorted_index, data->lower, data->bottom);
+		n = find_case(data->stack_b->sorted_index, data->lower, data->bottom); // goed
 		if (n == 1)
 			add_and_lower(data);
 		else if (n == 2) // for -2, -3 en -4 (bottom <3)
 			add(data);
 		else // rest
 		{
-			rb(&data->stack_b);
+			rb(&data->stack_b, data->top);
 			count++;
 		}
 		*stack_a = data->stack_a;

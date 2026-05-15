@@ -22,7 +22,7 @@ void	big_lists(t_node **stack_a, t_node **stack_b, int all) // 2x big list, voeg
 		if ((*stack_a)->sorted_index < half)
 				pb(stack_a, stack_b);
 		else
-			ra(stack_a);
+			ra(stack_a, 0);
 	}
 	big_list(stack_a, stack_b, half);
 	if (all % 2)
@@ -63,6 +63,9 @@ void	sort_all(t_node **stack_a, t_node **stack_b, int all)
 		sort_small(stack_a, stack_b, all, size); // GL+GL(organisex2): 150
 	else
 		random_split(stack_a, stack_b, all); // BL+GL+group: 405 vOOr grow_list, 662 NA, 635 met group
+//	print_list(*stack_a, 'A');
+//	print_list(*stack_b, 'B');
+//	printf("%d %d\n", stack_size(*stack_a), stack_size(*stack_b));
 }
 
 void	sort_small(t_node **stack_a, t_node **stack_b, int all, int size) // GL x2
@@ -73,7 +76,7 @@ void	sort_small(t_node **stack_a, t_node **stack_b, int all, int size) // GL x2
 	half = all / 2;
 	sorted = half - size;
     	organise_B_small(stack_a, stack_b, half, size);
-	organise_A_small(stack_a, stack_b, all, half + size);
+	organise_A_small(stack_a, stack_b, all, half + size); // 70 in A, bovenste = 499, toeval
 	if (all != half * 2)
 	{
 		grow_list(stack_b, stack_a, all, half - size + 1);
@@ -83,9 +86,9 @@ void	sort_small(t_node **stack_a, t_node **stack_b, int all, int size) // GL x2
 		grow_list(stack_b, stack_a, all, half - size);
 	while (sorted--)
 	{
-		pa(stack_a, stack_b);
+		pa(stack_a, stack_b, 0);
 		if (*stack_a)
-			ra(stack_a);
+			ra(stack_a, 0);
 	}
 	grow_list(stack_a, stack_b, half + size, size);
 	grow_list(stack_a, stack_b, half, half);

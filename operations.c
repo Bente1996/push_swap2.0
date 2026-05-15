@@ -21,12 +21,17 @@ void	pb(t_node **stack_a, t_node **stack_b)
 	count_operations("pb");
 }
 
-void	pa(t_node **stack_a, t_node **stack_b)
+void	pa(t_node **stack_a, t_node **stack_b, int top)
 {
 	t_node	*tmp;
 
 	if (!*stack_b)
 		return ;
+	if (top)
+	{
+		pb(stack_b, stack_a);
+		return ;
+	}
 	tmp = *stack_b;
 	*stack_b = (*stack_b)->next;
 	tmp->next = NULL;
@@ -40,13 +45,18 @@ void	pa(t_node **stack_a, t_node **stack_b)
 	count_operations("pa");
 }
 
-void	ra(t_node **stack_a)
+void	ra(t_node **stack_a, int top)
 {
 	t_node	*first;
 	t_node	*tmp;
 
 	if (!*stack_a || !(*stack_a)->next)
 		return ;
+	if (top)
+	{
+		rb(stack_a, top - 1);
+		return ;
+	}
 	first = *stack_a;
 	tmp = *stack_a;
 	*stack_a = (*stack_a)->next; //nieuwe hoofd
@@ -57,13 +67,18 @@ void	ra(t_node **stack_a)
 	count_operations("ra");
 }
 
-void	rb(t_node **stack_b)
+void	rb(t_node **stack_b, int top)
 {
 	t_node	*first;
 	t_node	*tmp;
 
 	if (!*stack_b || !(*stack_b)->next)
 		return ;
+	if (top)
+	{
+		ra(stack_b, top - 1);
+		return ;
+	}
 	first = *stack_b;
 	tmp = *stack_b;
 	*stack_b = (*stack_b)->next;
@@ -74,12 +89,12 @@ void	rb(t_node **stack_b)
 	count_operations("rb");
 }
 
-void	rr(t_node **stack_a, t_node **stack_b)
-{
-	ra(stack_a);
-	rb(stack_b);
-//	count_operations("rr");
-}
+//void	rr(t_node **stack_a, t_node **stack_b)
+//{
+//	ra(stack_a);
+//	rb(stack_b);
+////	count_operations("rr");
+//}
 
 //void	rrb(t_node **stack_b)
 //{
@@ -115,13 +130,18 @@ void	rrb(t_node **stack_b)
 	count_operations("rrb");
 }
 
-void	rra(t_node **stack_a)
+void	rra(t_node **stack_a, int top)
 {
 	t_node	*second_last;
 	t_node	*last;
 
 	if (!*stack_a || !(*stack_a)->next)
 		return ;
+	if (top)
+	{
+		rrb(stack_a);
+		return ;
+	}
 	second_last = *stack_a;
 	last = *stack_a;
 	while (last->next)
@@ -135,13 +155,18 @@ void	rra(t_node **stack_a)
 	count_operations("rra");
 }
 
-void	sa(t_node **stack_a)
+void	sa(t_node **stack_a, int top)
 {
 	t_node *first;
 	t_node *second;
 	
 	if (!*stack_a || !(*stack_a)->next)
 		return ;
+	if (top)
+	{
+		sb(stack_a);
+		return ;
+	}
 	first = *stack_a;
 	second = (*stack_a)->next;
 	first->next = (*stack_a)->next->next;

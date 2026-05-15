@@ -14,14 +14,14 @@ void	add_and_lower(t_stats *data)
 {
 	if (data->stack_b->sorted_index == data->lower - 1)
 	{
-		pa(&data->stack_a, &data->stack_b);
+		pa(&data->stack_a, &data->stack_b, data->top);
 		data->swap++;
 		data->lower++;
 	}
 	else if (data->swap) // lower met swap
 	{
-		pa(&data->stack_a, &data->stack_b);
-		sa(&data->stack_a);
+		pa(&data->stack_a, &data->stack_b, data->top);
+		sa(&data->stack_a, data->top);
 		data->swap = 0;
 		if (data->bottom)
 			handle_bottom(data);
@@ -29,7 +29,7 @@ void	add_and_lower(t_stats *data)
 	}
 	else // lower geen swap
 	{
-		pa(&data->stack_a, &data->stack_b);
+		pa(&data->stack_a, &data->stack_b, data->top);
 		if (data->bottom)
 			handle_bottom(data); // zelfde als boven miscchien?
 	}
@@ -40,14 +40,14 @@ void	add(t_stats *data)
 {
 	if (!data->bottom || data->bottom_stack->sorted_index < data->stack_b->sorted_index)
 	{
-		pa(&data->stack_a, &data->stack_b);
-		ra(&data->stack_a);
+		pa(&data->stack_a, &data->stack_b, data->top);
+		ra(&data->stack_a, data->top);
 		data->bottom_stack = find_bottom(data->stack_a);
 	}
 	else
 	{
-		pa(&data->stack_a, &data->stack_b);
-		ra(&data->stack_a);
+		pa(&data->stack_a, &data->stack_b, data->top);
+		ra(&data->stack_a, data->top);
 	}
 	data->bottom++;
 }

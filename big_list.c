@@ -19,7 +19,7 @@ void	big_list(t_node **stack_a, t_node **stack_b, int half) // werkt met + 2
 				data->stack_a->sorted_index <= data->three_quarter) // 50->74	
 			lower_quarter(data);
 		else // was niet de goeie
-			ra(&data->stack_a);
+			ra(&data->stack_a, 0);
 	}
 	*stack_a = NULL;
 	*stack_b = data->stack_b;
@@ -32,7 +32,7 @@ void	upper_quarter(t_stats *data)
 		pb(&data->stack_a, &data->stack_b);
 		if (!data->swap_rot || (data->swap_rot == 1 && (data->stack_b->sorted_index > data->bottom_stack->sorted_index)))
 			data->bottom_stack = data->stack_b;
-		rb(&data->stack_b);
+		rb(&data->stack_b, 0);
 		data->swap_rot++;
 	}
 	else if (data->swap_rot && data->stack_a->sorted_index == data->tq)
@@ -40,7 +40,7 @@ void	upper_quarter(t_stats *data)
 	else if (data->stack_a->sorted_index == data->tq)
 	{
 		pb(&data->stack_a, &data->stack_b);
-		rb(&data->stack_b);
+		rb(&data->stack_b, 0);
 		data->tq++;
 	}
 }
@@ -67,11 +67,11 @@ void	sorted_to_A(t_node **A, t_node **B, int half, int quarter)
 	while (half > quarter)
 	{
 		rrb(B);
-		pa(A, B);
+		pa(A, B, 0);
 		half--;
 	}
 	while (half--)
-		pa(A, B);
+		pa(A, B, 0);
 }
 
 //void	big_list(t_node **stack_a, t_node **stack_b, int half) // werkt met + 2
