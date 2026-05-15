@@ -8,13 +8,6 @@ void	big_list_two(t_node **stack_a, t_node **stack_b, int half) // alles omgedra
 	data = alloc_stats(stack_a, stack_b, half);
 	if (!data)
 		return ;
-//	data->h = 49;
-//	data->tq = 24;
-//	data->tq = 0;
-//	data->three_quarter = 25;
-	printf("data->h: %d\n", data->h);
-	printf("data->tq: %d\n", data->tq);
-	printf("data->three_quarter: %d\n", data->three_quarter);
 	while (data->stack_a)
 	{
 		if ((data->stack_a->sorted_index >= data->tq && \
@@ -302,7 +295,6 @@ int	random_split(t_node **stack_a, t_node **stack_b, int all) // test: group op 
 	highest = half;
 	quarter = 0;
 	count = 0;
-	printf("%d\n", half);
 	while (h)
 	{
 		if ((*stack_a)->sorted_index < half)
@@ -318,7 +310,6 @@ int	random_split(t_node **stack_a, t_node **stack_b, int all) // test: group op 
 			if ((*stack_b)->next)
 				rb(stack_b);
 			count++;
-			printf("count:%d\n", count);
 		}
 		else if (*stack_b && in_other_group(*stack_b, array, quarter))
 		{
@@ -326,7 +317,6 @@ int	random_split(t_node **stack_a, t_node **stack_b, int all) // test: group op 
 			if ((*stack_b)->next)
 				rb(stack_b);
 			count++;
-			printf("count:%d\n", count);
 		}
 	}
 	while (count)

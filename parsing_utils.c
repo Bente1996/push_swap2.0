@@ -39,8 +39,6 @@ bool	is_duplicate(t_node *head, int value)
 	return (false);
 }
 
-#include <stdio.h>
-
 bool	already_sorted(t_node *stack)
 {
 	if (!stack)
@@ -48,10 +46,7 @@ bool	already_sorted(t_node *stack)
 	while (stack->next)
 	{
 		if (stack->value > stack->next->value)
-		{
-			printf("value: %d\n", stack->sorted_index);
 			return (false);
-		}
 		stack = stack->next;
 	}
 	return (true);

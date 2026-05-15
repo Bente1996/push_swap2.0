@@ -108,13 +108,11 @@ void	sort_high(t_node **stack_a, t_node **stack_b, int highest)
 
 void	sort_rest(t_node **stack_a, t_node **stack_b, int highest)
 {
-	printf("highest:%d\n", highest);
 	int	count;
 
 	count = 45;
 	while (count--) // 45
 	{
-		//if (highest > 95) // even voor nu
 		rrb(stack_b); // -31 tot -45 blijft in B
 		if ((*stack_b)->sorted_index > highest - 16) // begin: -1 tot -15
 		{
@@ -128,83 +126,69 @@ void	sort_rest(t_node **stack_a, t_node **stack_b, int highest)
 		else if (highest == 95)
 			rb(stack_b);
 	}
-	if (highest == 50)
+	
+	count = 15;
+	while (count--) // 15
 	{
-		int bente = 5;
-		while (bente--)
+		if ((*stack_b)->sorted_index >= highest - 35) // -31 tot -35
+		{
+			pa(stack_a, stack_b);
+			ra(stack_a);
+		}
+		else if ((*stack_b)->sorted_index >=highest - 40) // -36 tot -40
 			rb(stack_b);
+		else // -41 tot -45
+		     pa(stack_a, stack_b);
 	}
-	if (highest == 95)
+	count = 5;
+	while (count--) // 5
+		pb(stack_a, stack_b); // -41 tot -45 goed
+	count = 5;
+	while (count--) //5
+		rrb(stack_b); // -36 tot -40 goed
+	count = 5;
+	while (count--) // 5
 	{
-		int bente = 15;
-		while (bente--)
-			rrb(stack_b);
+		rra(stack_a);
+		pb(stack_a, stack_b); // -30 tot -35 goed
 	}
-	if (highest)
+	count = 15;
+	while (count--) // 15
 	{
-		count = 15;
-		while (count--) // 15
+		if ((*stack_a)->sorted_index >= highest - 20)  // -16 tot -20
+			ra(stack_a);
+		else if ((*stack_a)->sorted_index >= highest - 25) // -21 tot -25
 		{
-			if ((*stack_b)->sorted_index >= highest - 35) // -31 tot -35
-			{
-				pa(stack_a, stack_b);
-				ra(stack_a);
-			}
-			else if ((*stack_b)->sorted_index >=highest - 40) // -36 tot -40
-				rb(stack_b);
-			else // -41 tot -45
-			     pa(stack_a, stack_b);
+			pb(stack_a, stack_b);
+			rb(stack_b);
 		}
-		count = 5;
-		while (count--) // 5
-			pb(stack_a, stack_b); // -41 tot -45 goed
-		count = 5;
-		while (count--) //5
-			rrb(stack_b); // -36 tot -40 goed
-		count = 5;
-		while (count--) // 5
-		{
-			rra(stack_a);
-			pb(stack_a, stack_b); // -30 tot -35 goed
-		}
-		count = 15;
-		while (count--) // 15
-		{
-			if ((*stack_a)->sorted_index >= highest - 20)  // -16 tot -20
-				ra(stack_a);
-			else if ((*stack_a)->sorted_index >= highest - 25) // -21 tot -25
-			{
-				pb(stack_a, stack_b);
-				rb(stack_b);
-			}
-			else // -26 tot -30
-			     pb(stack_a, stack_b); // staat nu al goed
-		}
-		count = 5;
-		while (count--) // 5
-			rrb(stack_b); // -21 tot -25 goed
-		count = 5;
-		while (count--) // 5
-		{
-			rra(stack_a);
-			pb(stack_a, stack_b); // -16 tot -20 goed
-		}
-		count = 15;
-		while (count--) // 15
-		{
-			rra(stack_a); // -1 tot -5
-			if ((*stack_a)->sorted_index < highest - 5) // -11 tot -15 gelijk goed
-			{
-				pb(stack_a, stack_b);
-				if ((*stack_b)->sorted_index >= highest - 10) // -6 tot -10
-					rb(stack_b);
-			}
-		}
-		count = 5;
-		while (count--) // 5
-			rrb(stack_b); // -6 tot -10 goed
-		count = 5;
-		while (count--) // 5
-			pb(stack_a, stack_b); // -1 tot -5 goed
+		else // -26 tot -30
+		     pb(stack_a, stack_b); // staat nu al goed
 	}
+	count = 5;
+	while (count--) // 5
+		rrb(stack_b); // -21 tot -25 goed
+	count = 5;
+	while (count--) // 5
+	{
+		rra(stack_a);
+		pb(stack_a, stack_b); // -16 tot -20 goed
+	}
+	count = 15;
+	while (count--) // 15
+	{
+		rra(stack_a); // -1 tot -5
+		if ((*stack_a)->sorted_index < highest - 5) // -11 tot -15 gelijk goed
+		{
+			pb(stack_a, stack_b);
+			if ((*stack_b)->sorted_index >= highest - 10) // -6 tot -10
+				rb(stack_b);
+		}
+	}
+	count = 5;
+	while (count--) // 5
+		rrb(stack_b); // -6 tot -10 goed
+	count = 5;
+	while (count--) // 5
+		pb(stack_a, stack_b); // -1 tot -5 goed
 }

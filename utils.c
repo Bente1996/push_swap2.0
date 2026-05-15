@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include <stdlib.h>
+#include <stdio.h>
 #include "push_swap.h"
 
 int	count_operations(char *operation)
@@ -20,7 +21,7 @@ int	count_operations(char *operation)
 	operation_count++;
 	if (operation[0] == 'x')
 		operation_count--;
-	//printf("%s\n", operation); // vervang door ft_printf
+	printf("%s\n", operation); // vervang door ft_printf
 	operation++; // alleen zodat printen niet hoeft
 	return (operation_count);
 }

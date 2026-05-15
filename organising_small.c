@@ -18,10 +18,7 @@ void	organise_B_small(t_node **stack_a, t_node **stack_b, int half, int size)
 			ra(stack_a);
 	}
 	sort_B_small(stack_a, stack_b, half, size);
-	//sort_rest(stack_a, stack_b, half); // sorteert laatste
 }
-
-#include <stdio.h>
 
 void	sort_B_small(t_node **stack_a, t_node **stack_b, int half, int size)
 {
@@ -64,7 +61,6 @@ void	organise_A_small(t_node **stack_a, t_node **stack_b, int all, int highest)
 			ra(stack_a);
 	}
 	sort_A_small(stack_a, stack_b, highest, size);
-	//sort_rest(stack_a, stack_b, highest); // sorteert laatste 45
 }
 
 void	sort_A_small(t_node **stack_a, t_node **stack_b, int highest, int size)
