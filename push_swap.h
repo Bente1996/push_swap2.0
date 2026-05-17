@@ -25,8 +25,6 @@ typedef struct s_node
 
 typedef struct s_stats
 {
-//	struct s_node	*A;
-//	struct s_node	*B;
 	int	top;
 	int	quarter;
 	int	three_quarter;

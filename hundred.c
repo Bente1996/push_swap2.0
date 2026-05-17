@@ -11,8 +11,10 @@ void	big_list_two(t_node **A, t_node **B, int half) // verander namen (three_qua
 	data->three_quarter = data->quarter;
 	data->h = half - 1;
 	data->tq = 0;
-	while (*B)
+	int bnete = 1000;
+	while (*B && bnete)
 	{
+		bnete--;
 		if (((*B)->n_index >= data->tq && \
 				(*B)->n_index <= data->tq + 2) && \
 				(*B)->n_index < data->three_quarter) // 0-24
@@ -26,8 +28,6 @@ void	big_list_two(t_node **A, t_node **B, int half) // verander namen (three_qua
 	}
 	while (data->quarter--)
 		rra(A, 0);
-	*B = NULL; // niet nodig
-//	*A = data->A;
 }
 
 void	upper_quarter_two(t_stats *data, t_node **A, t_node **B)
@@ -57,7 +57,7 @@ void	lower_quarter_two(t_stats *data, t_node **A, t_node **B)
 		pa(A, B, 0);
 		data->swap++;
 	}
-	else if (data->swap && (*A)->n_index == data->h)
+	else if (data->swap && (*B)->n_index == data->h)
 		swop_t(data, A, B);
 	else if ((*B)->n_index == data->h)
 	{
@@ -118,7 +118,7 @@ void	swop_t(t_stats *data, t_node **A, t_node **B)
 void	swap_two_t(t_stats *data, t_node **A, t_node **B)
 {
 	ra(A, 0);
-	if ((*A)->n_index == (*A)->n_index - 1)
+	if ((*A)->n_index == (*B)->n_index - 1)
 	{
 		pa(A, B, 0);
 		sa(A, 0);
@@ -169,7 +169,7 @@ int	move_highest(int *arr, int highest)
 		highest -= 2;
 	else if (sum == 111)
 		highest -= 3;
-	else if (sum == 1111)
+	else if (sum == 1111) // vanaf hier weg
 		highest -= 4;
 	else if (sum == 11111)
 		highest -= 5;
@@ -186,7 +186,7 @@ int	move_quarter(int *arr, int quarter)
 
 	i = 0;
 	sum = 0;
-	while (i < 5 && arr[i] != 0)
+	while (i < 5 && arr[i] != 0) // 5 naar 3 veranderen
 		sum += arr[i++];
 	if (sum == 1)
 		quarter++;
@@ -194,10 +194,6 @@ int	move_quarter(int *arr, int quarter)
 		quarter += 2;
 	else if (sum == 111)
 		quarter += 3;
-//	else if (sum == 1111)
-//		highest -= 4;
-//	else if (sum == 11111)
-//		highest -= 5;
 	else
 		return (quarter);
 	check_shift(arr, sum); // give right values based on shift 5->4 for sum == 1
@@ -211,7 +207,7 @@ void	shift_group(int *arr, int n)
 
 	i = 0;
 	shrink = 1;
-	while (i + n < 5)
+	while (i + n < 5) // 5 naar 3 veranderen
 	{
 		if (arr[i + n])
 			arr[i] = arr[i + n] - (shrink * 9);
@@ -233,8 +229,6 @@ void	check_shift(int *arr, int sum)
 		shift_group(arr, 2); 
 	else if (sum == 111)
 		shift_group(arr, 3);
-	else if (sum == 1111)
-		shift_group(arr, 4);
 	while (sum >= 1) // zet nodige arrays op 0
 	{
 		arr[i--] = 0;
@@ -250,12 +244,6 @@ bool	in_group(t_node *B, int *arr, int highest)
 		arr[1] = 10;
 	else if (B->n_index == highest - 3)
 		arr[2] = 100;
-//	else if (stack_b->sorted_index == highest - 4)
-//		arr[3] = 1000;
-//	else if (stack_b->sorted_index == highest - 5)
-//		arr[4] = 10000;
-	//else if (stack_b->sorted_index < highest - 5 && stack_b->sorted_index > highest - 15) // toegevoegd
-	//	return (true);
 	else
 		return (false);
 	return (true);
@@ -269,12 +257,6 @@ bool	in_other_group(t_node *B, int *arr, int quarter)
 		arr[1] = 10;
 	else if (B->n_index == quarter + 2)
 		arr[2] = 100;
-//	else if (stack_b->sorted_index == highest - 4)
-//		arr[3] = 1000;
-//	else if (stack_b->sorted_index == highest - 5)
-//		arr[4] = 10000;
-	//else if (stack_b->sorted_index < highest - 5 && stack_b->sorted_index > highest - 15) // toegevoegd
-	//	return (true);
 	else
 		return (false);
 	return (true);

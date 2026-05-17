@@ -7,7 +7,7 @@ void	swap(t_stats *data, t_node **A, t_node **B)
 	if (data->swap_rot == 2)
 		rrb(B);
 	pb(A, B);
-	rb(A, 0);
+	rb(B, 0);
 	data->bottom_stack = find_bottom(*B);
 	if (data->swap_rot == 2)
 	{

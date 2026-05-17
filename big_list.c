@@ -21,7 +21,6 @@ void	big_list(t_node **A, t_node **B, int half) // werkt met + 2
 		else // was niet de goeie
 			ra(A, 0);
 	}
-	*A = NULL; // kan weg
 }
 
 void	upper_quarter(t_stats *data, t_node **A, t_node **B)
