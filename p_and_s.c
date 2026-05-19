@@ -8,10 +8,7 @@ void	pa(t_node **A, t_node **B, int top)
 	if (!*B)
 		return ;
 	if (top)
-	{
-		pb(B, A);
-		return ;
-	}
+		return (pb(B, A));
 	tmp = *B;
 	*B = (*B)->next;
 	tmp->next = NULL;

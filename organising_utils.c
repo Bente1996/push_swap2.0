@@ -126,7 +126,6 @@ void	sort_rest(t_node **stack_a, t_node **stack_b, int highest)
 		else if (highest == 95)
 			rb(stack_b, 0);
 	}
-	
 	count = 15;
 	while (count--) // 15
 	{

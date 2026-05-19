@@ -1,7 +1,7 @@
 #include "push_swap.h"
 #include <stdio.h>
 
-void	big_list(t_node **A, t_node **B, int half) // werkt met + 2
+void	all_to_B(t_node **A, t_node **B, int half) // werkt met + 2
 {
 	t_stats *data;
 

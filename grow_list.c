@@ -21,7 +21,5 @@ void	grow_list(t_node **A, t_node **B, int half, int count) // werkt normaal
 			rb(B, data->top);
 			count++;
 		}
-	//	*stack_a = data->stack_a;
-	//	*stack_b = data->stack_b;
 	}
 }

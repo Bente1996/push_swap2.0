@@ -15,22 +15,22 @@
 
 int	main(int argc, char **argv)
 {
-	t_node	*stack_a;
-	t_node	*stack_b;
+	t_node	*A;
+	t_node	*B;
 	int		index;
 //	int	operations;
 
-	stack_a = NULL;
-	stack_b = NULL;
+	A = NULL;
+	B = NULL;
 	index = 0;
 	if (argc < 3)
 		return (1);
-	stack_a = make_list(argc, argv, &index);
-	if (!stack_a)
-		return (free_list(stack_a));
-	if (already_sorted(stack_a))
-		return (free_list(stack_a));
-	sort_all(&stack_a, &stack_b, index);
+	A = make_list(argc, argv, &index);
+	if (!A)
+		return (free_list(A));
+	if (already_sorted(A))
+		return (free_list(A));
+	sort_all(&A, &B, index);
 
 //	operations = count_operations("");
 //	print_list(stack_a, 'A');
@@ -42,6 +42,6 @@ int	main(int argc, char **argv)
 //		printf("niet goed gesorteerd\n");
 //
 //	printf("stacksize: %d\n", stack_size(stack_a));
-	free_list(stack_a);
+	free_list(A);
 	return (0);
 }

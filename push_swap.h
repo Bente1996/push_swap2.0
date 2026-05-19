@@ -13,6 +13,8 @@
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
+#define UNEVEN all % 2
+
 #include <stdbool.h>
 
 typedef struct s_node
@@ -46,14 +48,14 @@ bool	is_number(char *argv);
 bool	is_duplicate(t_node *head, int value);
 int	free_list(t_node *head);
 t_node	*sort_indices(t_node **list);
-int	random_split(t_node **stack_a, t_node **stack_b, int size);
+void	sort_medium_list(t_node **stack_a, t_node **stack_b, int size);
 bool	in_group(t_node *stack_b, int *arr, int highest);
 int	move_highest(int *arr, int highest);
 void	check_shift(int *arr, int sum);
 void	shift_group(int *arr, int n);
 void	intentional_split(t_node **stack_a, t_node **stack_b, int half);
-void	big_list(t_node **stack_a, t_node **stack_b, int half);
-void	big_list_two(t_node **stack_a, t_node **stack_b, int half);
+void	all_to_B(t_node **stack_a, t_node **stack_b, int half);
+void	all_to_A(t_node **stack_a, t_node **stack_b, int half);
 void	grow_list(t_node **stack_a, t_node **stack_b, int half, int count);
 bool	sorted(t_node *stack, int half, char A_or_B);
 bool	already_sorted(t_node *stack);
@@ -103,7 +105,7 @@ void	group_sort(t_node **stack_a, t_node **stack_b, int highest, int group_size)
 void	sort_all(t_node **stack_a, t_node **stack_b, int all);
 int	choose_sort(int all);
 void	sort_big(t_node **stack_a, t_node **stack_b, int all);
-void	sort_small(t_node **stack_a, t_node **stack_b, int all, int half);
+void	sort_big_list(t_node **stack_a, t_node **stack_b, int all, int half);
 void	sort_rest(t_node **stack_a, t_node **stack_b, int highest);
 void	sort_quarter(t_node **stack_a, t_node **stack_b, int highest, int size);
 void	sort_low(t_node **stack_a, t_node **stack_b, int highest);

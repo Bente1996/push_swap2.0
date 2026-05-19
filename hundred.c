@@ -1,7 +1,7 @@
 #include "push_swap.h"
 #include <stdio.h>
 
-void	big_list_two(t_node **A, t_node **B, int half) // verander namen (three_quarter -> quarter, A vs B)
+void	all_to_A(t_node **A, t_node **B, int half) // verander namen (three_quarter -> quarter, A vs B)
 {
 	t_stats *data;
 
@@ -11,10 +11,8 @@ void	big_list_two(t_node **A, t_node **B, int half) // verander namen (three_qua
 	data->three_quarter = data->quarter;
 	data->h = half - 1;
 	data->tq = 0;
-	int bnete = 1000;
-	while (*B && bnete)
+	while (*B)
 	{
-		bnete--;
 		if (((*B)->n_index >= data->tq && \
 				(*B)->n_index <= data->tq + 2) && \
 				(*B)->n_index < data->three_quarter) // 0-24
@@ -161,7 +159,7 @@ int	move_highest(int *arr, int highest)
 
 	i = 0;
 	sum = 0;
-	while (i < 5 && arr[i] != 0)
+	while (i < 3 && arr[i] != 0)
 		sum += arr[i++];
 	if (sum == 1)
 		highest--;
@@ -169,35 +167,31 @@ int	move_highest(int *arr, int highest)
 		highest -= 2;
 	else if (sum == 111)
 		highest -= 3;
-	else if (sum == 1111) // vanaf hier weg
-		highest -= 4;
-	else if (sum == 11111)
-		highest -= 5;
 	else
 		return (highest);
 	check_shift(arr, sum); // give right values based on shift 5->4 for sum == 1
 	return(highest);
 }
 
-int	move_quarter(int *arr, int quarter)
+int	move_lowest(int *arr, int lowest)
 {
 	int	i;
 	int	sum;
 
 	i = 0;
 	sum = 0;
-	while (i < 5 && arr[i] != 0) // 5 naar 3 veranderen
+	while (i < 3 && arr[i] != 0) // 5 naar 3 veranderen
 		sum += arr[i++];
 	if (sum == 1)
-		quarter++;
+		lowest++;
 	else if (sum == 11)
-		quarter += 2;
+		lowest += 2;
 	else if (sum == 111)
-		quarter += 3;
+		lowest += 3;
 	else
-		return (quarter);
+		return (lowest);
 	check_shift(arr, sum); // give right values based on shift 5->4 for sum == 1
-	return(quarter);
+	return(lowest);
 }
 
 void	shift_group(int *arr, int n)
@@ -207,7 +201,7 @@ void	shift_group(int *arr, int n)
 
 	i = 0;
 	shrink = 1;
-	while (i + n < 5) // 5 naar 3 veranderen
+	while (i + n < 3) // 5 naar 3 veranderen
 	{
 		if (arr[i + n])
 			arr[i] = arr[i + n] - (shrink * 9);
@@ -222,7 +216,7 @@ void	check_shift(int *arr, int sum)
 {
 	int	i;
 
-	i = 4;
+	i = 2;
 	if (sum == 1) // dan was de tweede dus sowieso niet gevonden, 3e mss wel
 		shift_group(arr, 1);
 	else if (sum == 11)
@@ -236,7 +230,7 @@ void	check_shift(int *arr, int sum)
 	}
 }
 
-bool	in_group(t_node *B, int *arr, int highest)
+bool	highest_group(t_node *B, int *arr, int highest)
 {
 	if (B->n_index == highest - 1)
 		arr[0] = 1;
@@ -249,35 +243,49 @@ bool	in_group(t_node *B, int *arr, int highest)
 	return (true);
 }
 
-bool	in_other_group(t_node *B, int *arr, int quarter)
+bool	lowest_group(t_node *B, int *arr, int lowest)
 {
-	if (B->n_index == quarter)
+	if (B->n_index == lowest)
 		arr[0] = 1;
-	else if (B->n_index == quarter + 1)
+	else if (B->n_index == lowest + 1)
 		arr[1] = 10;
-	else if (B->n_index == quarter + 2)
+	else if (B->n_index == lowest + 2)
 		arr[2] = 100;
 	else
 		return (false);
 	return (true);
 }
 
-int	random_split(t_node **A, t_node **B, int all) // test: group op A
-															   // ipv B
+bool	little_organise(t_node **B, int half)
 {
-	int	arr[5] = {0};
-	static	int	array[3];
-	int		half;
-	int		highest;
-	int		h;
-      	int		operations;
-	int		count;
-	int		quarter;
+	int	arr[3];
+	int	array[3];
+	int	top;
 
-      	half = all / 2;
+	top = 0;
+	if (*B && highest_group(*B, arr, half)) // als getal in de groep zit
+	{
+		half = move_highest(arr, half); // verander zoekcriteria op basis van group shift
+		if ((*B)->next) // WAAROM??!?!??!??!!?
+			rb(B, 0);
+		return (true);
+	}
+	else if (*B && lowest_group(*B, array, top))
+	{
+		top = move_lowest(array, top);
+		if ((*B)->next)
+			rb(B, 0);
+		return (true);
+	}
+	return (false);
+}
+
+void	split_list(t_node **A, t_node **B, int half)
+{
+	int	h;
+	int	count;
+
 	h = half;
-	highest = half;
-	quarter = 0;
 	count = 0;
 	while (h)
 	{
@@ -288,32 +296,24 @@ int	random_split(t_node **A, t_node **B, int all) // test: group op A
 		}
 		else
 			ra(A, 0);
-		if (*B && in_group(*B, arr, highest)) // als getal in de groep zit
-		{
-			highest = move_highest(arr, highest); // verander zoekcriteria op basis van group shift
-			if ((*B)->next)
-				rb(B, 0);
+		if (little_organise(B, half))
 			count++;
-		}
-		else if (*B && in_other_group(*B, array, quarter))
-		{
-			quarter = move_quarter(array, quarter);
-			if ((*B)->next)
-				rb(B, 0);
-			count++;
-		}
 	}
-	while (count)
-	{
+	while (count--)
 		rrb(B);
-		count--;
-	}
-	big_list(A, B, half);
-	if (all % 2)
+}
+
+void	sort_medium_list(t_node **A, t_node **B, int all)
+{
+	int		half;
+
+	half = all / 2;
+	split_list(A, B, all / 2);
+	all_to_B(A, B, half);
+	if (UNEVEN)
 		sorted_to_A(A, B, half + 1, half / 2);
 	else
 		sorted_to_A(A, B, half, half / 2);
-	big_list_two(A, B, half); // 672 group 5
-	operations = 1;
-	return (operations);
+	all_to_A(A, B, half);
+	return ;
 }

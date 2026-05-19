@@ -9,10 +9,7 @@ void	ra(t_node **A, int top)
 	if (!*A || !(*A)->next)
 		return ;
 	if (top)
-	{
-		rb(A, top - 1);
-		return ;
-	}
+		return (rb(A, top - 1));
 	first = *A;
 	tmp = *A;
 	*A = (*A)->next; //nieuwe hoofd
@@ -31,10 +28,7 @@ void	rb(t_node **B, int top)
 	if (!*B || !(*B)->next)
 		return ;
 	if (top)
-	{
-		ra(B, top - 1);
-		return ;
-	}
+		return (ra(B, top - 1));
 	first = *B;
 	tmp = *B;
 	*B = (*B)->next;
@@ -53,10 +47,7 @@ void	rra(t_node **A, int top)
 	if (!*A || !(*A)->next)
 		return ;
 	if (top)
-	{
-		rrb(A);
-		return ;
-	}
+		return (rrb(A));
 	second_last = *A;
 	last = *A;
 	while (last->next)
