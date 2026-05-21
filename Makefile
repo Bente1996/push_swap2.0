@@ -1,6 +1,6 @@
-EXEC_NAME := push_swap
-HEADERFILES := push_swap.h
-SRCFILES := main.c \
+NAME := push_swap
+HEADER_FILES := push_swap.h
+SRC := main.c \
 	    list_utils.c \
 	    parsing.c \
 	    parsing_utils.c \
@@ -21,31 +21,35 @@ SRCFILES := main.c \
 		lowering_utils.c
 
 
-OBJFILES := $(SRCFILES:.c=.o)
+OBJ := $(addprefix $(OBJDIR), $(SRC:.c=.o))
+
+$(OBJDIR)%.o: %.c $(HEADER_FILES)
+	$(CC) $(CFLAGS) -co $@ $<
+
 CFLAGS ?= -Wall -Wextra -Werror -g 
 
-all: $(EXEC_NAME)
+all: $(NAME)
 
-run: $(EXEC_NAME)
-	./$(EXEC_NAME) 1 2 3 4
+run: $(NAME)
+	./$(NAME) 1 2 3 4
 
-valgrind: $(EXEC_NAME)
-	valgrind ./$(EXEC_NAME) 1 2 3 4
+valgrind: $(NAME)
+	valgrind ./$(NAME) 1 2 3 4
 
-valgrind full: $(EXEC_NAME)
-	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes -s ./$(EXEC_NAME) 1 2 3 4
+valgrind full: $(NAME)
+	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes -s ./$(NAME) 1 2 3 4
 
-$(EXEC_NAME): $(OBJFILES)
-	$(CC) $(OBJFILES) $(CFLAGS) -o $(EXEC_NAME)
+$(NAME): $(OBJ)
+	$(CC) $(OBJ) $(CFLAGS) -o $(NAME)
 
-%.o: %.c $(HEADERFILES)
+%.o: %.c $(HEADER_FILES)
 	$(CC) $(CFLAGS) -c $<
 
 clean:
-	rm -f $(OBJFILES)
+	rm -f $(OBJ)
 
 fclean: clean
-	rm -f $(EXEC_NAME)
+	rm -f $(NAME)
 
 re: 
 	$(MAKE) fclean

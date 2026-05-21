@@ -1,3 +1,34 @@
+void	bl_gl(t_node **stack_a, t_node **stack_b, int all, int size)
+{
+	int	half;
+
+	half = all / 2;  
+
+	organise_B_small(stack_a, stack_b, half, size);
+	big_list(stack_a, stack_b, half);
+	sorted_to_A(stack_a, stack_b, half, half / 2);
+	grow_list(stack_a, stack_b, half, half);
+}
+
+void	big_lists(t_node **stack_a, t_node **stack_b, int all) // 2x big list, voeg randomsplitshit toe, maar pas groep aan naar 2x 3
+{
+	int	half = all / 2;
+
+	while (stack_size(*stack_b) < half)
+	{
+		if ((*stack_a)->sorted_index < half)
+				pb(stack_a, stack_b);
+		else
+			ra(stack_a, 0);
+	}
+	big_list(stack_a, stack_b, half);
+	if (all % 2)
+		sorted_to_A(stack_a, stack_b, half + 1, half / 2);
+	else
+		sorted_to_A(stack_a, stack_b, half, half / 2);
+	big_list_two(stack_b, stack_a, half);
+}
+
 void	sort_big(t_node **stack_a, t_node **stack_b, int all)
 {
 	int 	sorted;
