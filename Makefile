@@ -1,30 +1,32 @@
 NAME := push_swap
 HEADER_FILES := push_swap.h
 SRC := main.c \
-	    list_utils.c \
-	    parsing.c \
-	    parsing_utils.c \
-		sorting.c \
-		sorting_utils.c \
+		list_utils.c \
+		nodes.c \
+		utils.c \
+		parsing.c \
+		parsing_utils.c \
 		p_and_s.c \
 		r_and_rr.c \
-		organising_small.c \
+		sort_small_list.c \
+		all_to_A.c \
+		all_to_B.c \
+		sorting.c \
+		organising.c \
 		organising_utils.c \
-		utils.c \
-		nodes.c \
 		swapping.c \
-		big_list.c \
+		lowering.c \
+		lowering_utils.c \
 		grow_list.c \
 		grow_list_utils.c \
-		hundred.c \
-		lowering.c \
-		lowering_utils.c
 
+VPATH = src:..
 
-OBJ := $(addprefix $(OBJDIR), $(SRC:.c=.o))
+OBJ := $(SRC:.c=.o)
+#OBJ := $(addprefix $(OBJDIR), $(SRC:.c=.o))
 
-$(OBJDIR)%.o: %.c $(HEADER_FILES)
-	$(CC) $(CFLAGS) -co $@ $<
+#$(OBJDIR)%.o: %.c $(HEADER_FILES)
+#	$(CC) $(CFLAGS) -co $@ $<
 
 CFLAGS ?= -Wall -Wextra -Werror -g 
 
