@@ -9,12 +9,16 @@ SRC := main.c \
 		p_and_s.c \
 		r_and_rr.c \
 		sort_small_list.c \
-		all_to_A.c \
-		all_to_B.c \
+		sort_medium_list.c \
+		split_list.c \
+		split_list_utils.c \
+		sort_highest_half.c \
+		half_to_tq.c \
+		tq_to_all.c \
+		sort_lowest_half.c \
 		sorting.c \
 		organising.c \
 		organising_utils.c \
-		swapping.c \
 		lowering.c \
 		lowering_utils.c \
 		grow_list.c \

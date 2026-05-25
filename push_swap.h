@@ -64,24 +64,27 @@ void	smallest_to_top(t_node **A);
 int		find_smallest(t_node *A);
 void	sort_three(t_node **A);
 
-void	sort_medium_list(t_node **stack_a, t_node **stack_b, int size);
-void	split_list(t_node **stack_a, t_node **stack_b, int half);
-bool	in_group(t_node *stack_b, int *arr, int highest);
+void	sort_medium_list(t_node **A, t_node **B, int size);
+void	split_list(t_node **A, t_node **B, int half);
+bool	little_organise(t_node **B, int half);
+bool	highest_group(t_node *B, int *arr, int highest);
+bool	lowest_group(t_node *B, int *arr, int highest);
 int		move_highest(int *arr, int highest);
+int		move_lowest(int *arr, int highest);
 void	check_shift(int *arr, int sum);
 void	shift_group(int *arr, int n);
 void	sort_highest_half(t_node **A, t_node **B, int half);
-void	sorted_to_A(t_node **A, t_node **B, int half, int quarter);
-void	sorted_lowest_half(t_node **A, t_node **B, int half);
-void	tq_to_all(t_stats *data, t_node **A, t_node **B);
-void	half_to_tq(t_stats *data, t_node **A, t_node **B);
-void	top_to_quarter(t_stats *data, t_node **A, t_node **B);
-void	quarter_to_half(t_stats *data, t_node **A, t_node **B);
+void	tq_to_all(t_stats *data, t_node **A, t_node **B); // check volgorde
 void	add_to_bottom(t_stats *data, t_node **A, t_node **B);
 void	grow_tq(t_stats *data, t_node **A, t_node **B);
+void	half_to_tq(t_stats *data, t_node **A, t_node **B); // check volgorde
 void	grow_h(t_stats *data, t_node **A, t_node **B);
 void	grow_and_swap_tq(t_stats *data, t_node **A, t_node **B);
 void	grow_and_swap_h(t_stats *data, t_node **A, t_node **B);
+void	sorted_to_A(t_node **A, t_node **B, int half, int quarter);
+void	sort_lowest_half(t_node **A, t_node **B, int half);
+void	top_to_quarter(t_stats *data, t_node **A, t_node **B);
+void	half_to_quarter(t_stats *data, t_node **A, t_node **B);
 t_node *find_bottom(t_node *stack);
 void	swap_t(t_stats *data, t_node **A, t_node **B);
 void	swop(t_stats *data, t_node **A, t_node **B);
