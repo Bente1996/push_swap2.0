@@ -23,12 +23,9 @@ void	sort_lowest_half(t_node **A, t_node **B, int half) // verander namen (three
 	data->three_quarter = data->quarter;
 	data->h = half - 1;
 	data->tq = 0;
-	//int bente = 0;
-	print_list(*B, 'B');
+//	print_list(*B, 'B');
 	while (*B)
 	{
-		//printf("B: %d\n", (*B)->n_index);
-		//printf("bente: %d\n", bente);
 		if (((*B)->n_index >= data->tq && \
 				(*B)->n_index <= data->tq + 2) && \
 				(*B)->n_index < data->three_quarter) // 0-24
@@ -38,15 +35,11 @@ void	sort_lowest_half(t_node **A, t_node **B, int half) // verander namen (three
 				(*B)->n_index >= data->three_quarter) // 25-49
 			half_to_quarter(data, A, B);
 		else // was niet de goeie
-		{
 			rb(B, 0);
-		}
-		printf("h: %d\n", data->h);
-		printf("top: %d\n", data->tq);
-		//bente++;
 	}
 	while (data->quarter--)
 		rra(A, 0);
+//	print_list(*A, 'A');
 }
 
 void	top_to_quarter(t_stats *data, t_node **A, t_node **B)

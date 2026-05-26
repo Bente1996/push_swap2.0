@@ -13,13 +13,112 @@
 #include "push_swap.h"
 #include <stdio.h>
 
-void	split_list(t_node **A, t_node **B, int half)
+//void	mark_gaps(t_node *A, int half)
+//{
+//	t_node	*head;
+//	int	top;
+//
+//	head = A;
+//	top = 0;
+//	while (A->next)
+//	{
+//		if (A->is_group_top)
+//		{
+//			if (A->n_index > top) // zoek hoogste top
+//				top = A->n_index;
+//		}
+//		else if (A->is_group_h)
+//		{
+//			if (A->n_index < half)
+//				half = A->n_index;
+//		}
+//		A = A->next;
+//	}
+//	while (head->next)
+//	{
+//		if (head->n_index < top)
+//			head->is_group_top = true;
+//		else if (head->n_index > half)
+//			head->is_group_h = true;
+//		head = head->next;
+//	}
+//}
+//
+//void	mark_group(t_node *A, int half)
+//{
+//	static int	arr[3];
+//	static int	array[3];
+//	static int	top;
+//	static int	h;
+//
+//	if (h == 0)
+//		h = half;
+//	if (highest_group(A, arr, h))
+//	{
+//		h = move_highest(arr, h); // verander zoekcriteria op basis van group shift
+//		A->is_group_h = true;
+//	}
+//	else if (lowest_group(A, array, top))
+//	{
+//		top = move_lowest(array, top);
+//		A->is_group_top = true;
+//	}
+//}
+//
+//void	split_list(t_node **A, t_node **B, int half)
+//{
+//	t_node *head;
+//	int		h;
+//	int		group;
+//	int		count;
+//
+//	head = *A;
+//	h = half;
+//	group = 0;
+//	count = 0;
+//	while (head->next)
+//	{
+//		if (head->n_index < half)
+//			mark_group(head, half);
+//		head = head->next;
+//	}
+//	mark_gaps(*A, half);
+//	while (h) // push to B
+//	{
+//		if ((*A)->n_index < half)
+//		{
+//			pb(A, B);
+//			if ((*B)->is_group_top || (*B)->is_group_h)
+//			{
+//				rb(B, 0);
+//				group++;
+//			}
+//			h--;
+//		}
+//		else
+//			ra(A, 0);
+//	}
+//	while (group--)
+//	{
+//		rrb(B);
+//		if ((*B)->n_index < 3 || (*B)->n_index > half - 4)
+//		{
+//			pa(A, B, 0);
+//			count++;
+//		}
+//	}
+//	while (count--)
+//		pb(A, B);
+//}
+
+void	split_list(t_node **A, t_node **B, int half) // versie zonder markeren
 {
 	int	h;
 	int	count;
 
 	h = half;
 	count = 0;
+//	print_list(*A, 'A');
 	while (h)
 	{
 		if ((*A)->n_index < half)
@@ -35,13 +134,12 @@ void	split_list(t_node **A, t_node **B, int half)
 	while (count--)
 		rrb(B);
 //	print_list(*B, 'B');
-//	print_list(*A, 'A');
 }
 
 #include <stdio.h>
 
 bool	little_organise(t_node **B, int half) // highest+lowest in 1 functie
-											  // doen
+											  // niet static
 {
 	int	arr[3];
 	int	array[3];
@@ -66,7 +164,7 @@ bool	little_organise(t_node **B, int half) // highest+lowest in 1 functie
 }
 
 //bool	little_organise(t_node **B, int half) // highest+lowest in 1 functie
-//											  // doen
+//											  // static
 //{
 //	static int	arr[3];
 //	static int	array[3];
@@ -78,7 +176,7 @@ bool	little_organise(t_node **B, int half) // highest+lowest in 1 functie
 //	if (highest_group(*B, arr, h))
 //	{
 //		h = move_highest(arr, h); // verander zoekcriteria op basis van group shift
-//		if ((*B)->next) // WAAROM??!?!??!??!!?
+//		if ((*B)->next) // kan weg
 //			rb(B, 0);
 //		return (true);
 //	}
@@ -92,7 +190,7 @@ bool	little_organise(t_node **B, int half) // highest+lowest in 1 functie
 //		return (false);
 //}
 
-//bool	in_group(t_node *B, int half)
+//bool	in_group(t_node *B, int half) // nieuwe little_organise() opzetje
 //{
 //	int	top[4];
 //	int	h[4];

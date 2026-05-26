@@ -22,6 +22,8 @@ typedef struct s_node
 	int		value;
 	int		index;
 	int		n_index;
+	bool	is_group_top;
+	bool	is_group_h;
 	struct s_node	*next;
 }	t_node;
 
