@@ -26,3 +26,32 @@ void	sort_medium_list(t_node **A, t_node **B, int all)
 	sort_lowest_half(A, B, half);
 	return ;
 }
+
+void	split_list(t_node **A, t_node **B, int half)
+{
+	int		h;
+	int		count;
+
+	h = half;
+	count = 0;
+	while (h) // push to B
+	{
+		if ((*A)->n_index < half)
+		{
+			pb(A, B);
+			if ((*B)->n_index < 3 || (*B)->n_index > half - 4)
+			{
+				rb(B, 0);
+				count++;
+			}
+			h--;
+		}
+		else
+			ra(A, 0);
+	}
+	while (count--)
+	{
+		rrb(B);
+	}
+}
+
