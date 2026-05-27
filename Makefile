@@ -10,8 +10,6 @@ SRC := main.c \
 		r_and_rr.c \
 		sort_small_list.c \
 		sort_medium_list.c \
-		split_list.c \
-		split_list_utils.c \
 		sort_highest_half.c \
 		half_to_tq.c \
 		tq_to_all.c \
