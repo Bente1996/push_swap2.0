@@ -33,7 +33,7 @@ void	sort_lowest_half(t_node **A, t_node **B, int half) // verander namen (three
 		else if (((*B)->n_index <= data->h && \
 				(*B)->n_index >= data->h - 2) && \
 				(*B)->n_index >= data->three_quarter) // 25-49
-			half_to_quarter(data, A, B);
+			quarter_to_half(data, A, B);
 		else // was niet de goeie
 			rb(B, 0);
 	}
@@ -62,7 +62,7 @@ void	top_to_quarter(t_stats *data, t_node **A, t_node **B)
 	}
 }
 
-void	half_to_quarter(t_stats *data, t_node **A, t_node **B)
+void	quarter_to_half(t_stats *data, t_node **A, t_node **B)
 {
 	if (((*B)->n_index == data->h - 1 || (*B)->n_index == data->h - 2) && data->swap < 2)
 	{

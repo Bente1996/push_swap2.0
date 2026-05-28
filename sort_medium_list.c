@@ -50,8 +50,6 @@ void	split_list(t_node **A, t_node **B, int half)
 			ra(A, 0);
 	}
 	while (count--)
-	{
 		rrb(B);
-	}
 }
 

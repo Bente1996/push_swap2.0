@@ -32,10 +32,8 @@ void	grow_h(t_stats *data, t_node **A, t_node **B)
 	if (data->swap)
 		grow_and_swap_h(data, A, B);
 	else
-	{
 		pb(A, B);
-		data->h++;
-	}
+	data->h++;
 }
 
 void	grow_and_swap_h(t_stats *data, t_node **A, t_node **B)
@@ -52,7 +50,6 @@ void	grow_and_swap_h(t_stats *data, t_node **A, t_node **B)
 	}
 	else
 		swap_two(data, A, B);
-	data->h++;
 }
 
 void	swap_two(t_stats *data, t_node **A, t_node **B)
@@ -62,34 +59,16 @@ void	swap_two(t_stats *data, t_node **A, t_node **B)
 	{
 		pb(A, B);
 		sb(B);
-		data->swap--;
-		data->h++;
 		rrb(B);
-		if ((*B)->n_index == (*B)->next->n_index + 1)
-		{
-			data->swap--;
-			data->h++;
-		}
 	}
 	else
-		more_swap(data, A, B);
-}
-
-void	more_swap(t_stats *data, t_node **A, t_node **B)
-{
-	rb(B, 0);
-	pb(A, B);
-	rrb(B);
-	rrb(B);
-	if ((*B)->n_index == (*B)->next->next->n_index + 1)
 	{
+		rb(B, 0);
+		pb(A, B);
+		rrb(B);
+		rrb(B);
 		sb(B);
-		data->swap--;
-		data->h++;
-		if ((*B)->n_index == (*B)->next->n_index + 1)
-		{
-			data->swap--;
-			data->h++;
-		}
 	}
+	data->swap -= 2;
+	data->h += 2;
 }

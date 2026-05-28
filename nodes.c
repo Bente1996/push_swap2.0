@@ -24,8 +24,6 @@ t_node	*new_node(int value, int index)
 	new->value = value;
 	new->index = index;
 	new->n_index = 0;
-	new->is_group_top = false;
-	new->is_group_h = false;
 	new->next = NULL;
 	return (new);
 }
