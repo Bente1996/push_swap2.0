@@ -12,6 +12,10 @@
 
 #include "push_swap.h"
 
+static void	grow_h(t_stats *data, t_node **A, t_node **B);
+static void	grow_and_swap_h(t_stats *data, t_node **A, t_node **B);
+static void	swap_two(t_stats *data, t_node **A, t_node **B);
+
 void	half_to_tq(t_stats *data, t_node **A, t_node **B)
 {
 	if (!((*A)->n_index <= data->three_quarter)) // positief maken
@@ -27,7 +31,7 @@ void	half_to_tq(t_stats *data, t_node **A, t_node **B)
 	}
 }
 
-void	grow_h(t_stats *data, t_node **A, t_node **B)
+static void	grow_h(t_stats *data, t_node **A, t_node **B)
 {
 	if (data->swap)
 		grow_and_swap_h(data, A, B);
@@ -36,7 +40,7 @@ void	grow_h(t_stats *data, t_node **A, t_node **B)
 	data->h++;
 }
 
-void	grow_and_swap_h(t_stats *data, t_node **A, t_node **B)
+static void	grow_and_swap_h(t_stats *data, t_node **A, t_node **B)
 {
 	if (data->swap == 1)
 	{
@@ -52,7 +56,7 @@ void	grow_and_swap_h(t_stats *data, t_node **A, t_node **B)
 		swap_two(data, A, B);
 }
 
-void	swap_two(t_stats *data, t_node **A, t_node **B)
+static void	swap_two(t_stats *data, t_node **A, t_node **B)
 {
 	rb(B, 0);
 	if ((*B)->n_index == (*A)->n_index + 1)

@@ -53,3 +53,15 @@ void	split_list(t_node **A, t_node **B, int half)
 		rrb(B);
 }
 
+void	sorted_to_A(t_node **A, t_node **B, int half, int quarter)
+{
+	quarter++;
+	while (half > quarter)
+	{
+		rrb(B);
+		pa(A, B, 0);
+		half--;
+	}
+	while (half--)
+		pa(A, B, 0);
+}

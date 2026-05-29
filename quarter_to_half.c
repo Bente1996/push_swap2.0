@@ -12,6 +12,10 @@
 
 #include "push_swap.h"
 
+static void	grow_half(t_stats *data, t_node **A, t_node **B);
+static void	grow_and_swap_half(t_stats *data, t_node **A, t_node **B);
+static void	swapping_two(t_stats *data, t_node **A, t_node **B);
+
 void	quarter_to_half(t_stats *data, t_node **A, t_node **B)
 {
 	if (!((*B)->n_index >= data->quarter)) // WAAROM WERKT DIT NIET
@@ -27,7 +31,7 @@ void	quarter_to_half(t_stats *data, t_node **A, t_node **B)
 	}
 }
 
-void	grow_half(t_stats *data, t_node **A, t_node **B)
+static void	grow_half(t_stats *data, t_node **A, t_node **B)
 {
 	if (data->swap)
 		grow_and_swap_half(data, A, B);
@@ -37,7 +41,7 @@ void	grow_half(t_stats *data, t_node **A, t_node **B)
 }
 
 
-void	grow_and_swap_half(t_stats *data, t_node **A, t_node **B)
+static void	grow_and_swap_half(t_stats *data, t_node **A, t_node **B)
 {
 	if (data->swap == 1)
 	{
@@ -53,7 +57,7 @@ void	grow_and_swap_half(t_stats *data, t_node **A, t_node **B)
 		swapping_two(data, A, B);
 }
 
-void	swapping_two(t_stats *data, t_node **A, t_node **B)
+static void	swapping_two(t_stats *data, t_node **A, t_node **B)
 {
 	ra(A, 0);
 	if ((*A)->n_index == (*B)->n_index - 1)

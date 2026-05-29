@@ -12,6 +12,10 @@
 
 #include "push_swap.h"
 
+static void	grow_tq(t_stats *data, t_node **a, t_node **b);
+static void	grow_and_swap_tq(t_stats *data, t_node **a, t_node **b);
+static void	add_to_bottom(t_stats *data, t_node **a , t_node **b);
+
 void	tq_to_all(t_stats *data, t_node **A, t_node **B)
 {
 	if (!((*A)->n_index > data->three_quarter))
@@ -22,7 +26,7 @@ void	tq_to_all(t_stats *data, t_node **A, t_node **B)
 		add_to_bottom(data, A, B);
 }
 
-void	grow_tq(t_stats *data, t_node **A, t_node **B)
+static void	grow_tq(t_stats *data, t_node **A, t_node **B)
 {
 	if (!data->swap_rot)
 		pb(A, B);
@@ -32,7 +36,7 @@ void	grow_tq(t_stats *data, t_node **A, t_node **B)
 	data->tq++;
 }
 
-void	grow_and_swap_tq(t_stats *data, t_node **A, t_node **B)
+static void	grow_and_swap_tq(t_stats *data, t_node **A, t_node **B)
 {
 	if (data->swap_rot == 2)
 		rrb(B);
@@ -55,7 +59,7 @@ void	grow_and_swap_tq(t_stats *data, t_node **A, t_node **B)
 	}
 }
 
-void	add_to_bottom(t_stats *data, t_node **A, t_node **B)
+static void	add_to_bottom(t_stats *data, t_node **A, t_node **B)
 {
 	if (!(data->swap_rot < 2))
 		return ;

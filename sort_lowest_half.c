@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include <stdio.h>
 
 void	sort_lowest_half(t_node **A, t_node **B, int half) // verander namen (three_quarter -> quarter, A vs B)
 {
@@ -22,7 +21,6 @@ void	sort_lowest_half(t_node **A, t_node **B, int half) // verander namen (three
 		return ;
 	data->h = half - 1;
 	data->tq = 0;
-//	print_list(*B, 'B');_
 	while (*B)
 	{
 		if (((*B)->n_index >= data->tq && \
@@ -40,37 +38,3 @@ void	sort_lowest_half(t_node **A, t_node **B, int half) // verander namen (three
 	while (data->quarter--)
 		rra(A, 0);
 }
-
-
-void	swap_t(t_stats *data, t_node **A, t_node **B)
-{
-	if (((*B)->n_index != data->bottom_stack->n_index + 1) || data->swap_rot == 2)
-		rra(A, 0);
-	if (data->swap_rot == 2)
-		rra(A, 0);
-	pa(A, B, 0);
-	ra(A, 0);
-	data->bottom_stack = find_bottom(*A);
-	if (data->swap_rot == 2)
-	{
-		if ((*A)->n_index > (*A)->next->n_index)
-			sa(A, 0);
-		while (data->swap_rot)
-		{
-			ra(A, 0);
-			data->swap_rot--;
-			data->tq++;
-		}
-	}
-	else if ((*A)->n_index == data->bottom_stack->n_index + 1)
-	{
-		ra(A, 0);
-		data->tq++;
-		data->swap_rot--;
-	}
-	else
-		ra(A, 0);
-	data->bottom_stack = find_bottom(*A);
-	data->tq++;
-}
-

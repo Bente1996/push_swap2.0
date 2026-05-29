@@ -72,24 +72,12 @@ bool	little_organise(t_node **B, int half);
 
 void	sort_highest_half(t_node **A, t_node **B, int half);
 void	tq_to_all(t_stats *data, t_node **A, t_node **B); // check volgorde
-void	add_to_bottom(t_stats *data, t_node **A, t_node **B);
-void	grow_tq(t_stats *data, t_node **A, t_node **B);
-void	grow_and_swap_tq(t_stats *data, t_node **A, t_node **B);
 void	half_to_tq(t_stats *data, t_node **A, t_node **B); // check volgorde (naam)
-void	grow_h(t_stats *data, t_node **A, t_node **B);
-void	grow_and_swap_h(t_stats *data, t_node **A, t_node **B);
-void	swap_two(t_stats *data, t_node **A, t_node **B);
 
 void	sorted_to_A(t_node **A, t_node **B, int half, int quarter);
 void	sort_lowest_half(t_node **A, t_node **B, int half);
 void	top_to_quarter(t_stats *data, t_node **A, t_node **B);
-void	growing_tq(t_stats *data, t_node **A, t_node **B);
-void	growing_and_swap_tq(t_stats *data, t_node **A, t_node **B);
-void	adding_to_bottom(t_stats *data, t_node **A , t_node **B);
 void	quarter_to_half(t_stats *data, t_node **A, t_node **B);
-void	grow_half(t_stats *data, t_node **A, t_node **B);
-void	grow_and_swap_half(t_stats *data, t_node **A, t_node **B);
-void	swapping_two(t_stats *data, t_node **A, t_node **B);
 
 
 
