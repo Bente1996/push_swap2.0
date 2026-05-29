@@ -42,8 +42,8 @@ typedef struct s_stats
 t_node	*make_list(int argc, char **argv, int *i);
 t_node	*append_node(t_node **head, int value, int index);
 t_stats	*alloc_stats(t_node **stack_a, t_node **stack_b, int half);
-int	make_number(char *argv, int *valid);
-int	convert(char *argv, int *valid);
+int		make_number(char *argv, int *valid);
+int		convert(char *argv, int *valid);
 bool	is_overflow(char *argv, int value, int sign);
 bool	is_number(char *argv);
 bool	is_duplicate(t_node *head, int value);
@@ -51,28 +51,31 @@ t_node	*sort_indices(t_node **list);
 bool	already_sorted(t_node *stack);
 bool	sorted(t_node *stack, int half, char A_or_B);
 
-int	stack_size(t_node *stack);
+int		stack_size(t_node *stack);
 void	print_list(t_node *list, char stack); // naar ft_printf doen
-int	count_operations(char *operation);
-int	free_list(t_node *head);
+int		count_operations(char *operation);
+int		free_list(t_node *head);
 
 
 void	sort_all(t_node **stack_a, t_node **stack_b, int all);
 
 void	sort_small_list(t_node **A, t_node **B, int all);
 void	smallest_to_top(t_node **A);
-int	find_smallest(t_node *A);
+int		find_smallest(t_node *A);
 void	sort_three(t_node **A);
+
+
 
 void	sort_medium_list(t_node **A, t_node **B, int size);
 void	split_list(t_node **A, t_node **B, int half);
 bool	little_organise(t_node **B, int half);
+
 void	sort_highest_half(t_node **A, t_node **B, int half);
 void	tq_to_all(t_stats *data, t_node **A, t_node **B); // check volgorde
 void	add_to_bottom(t_stats *data, t_node **A, t_node **B);
 void	grow_tq(t_stats *data, t_node **A, t_node **B);
 void	grow_and_swap_tq(t_stats *data, t_node **A, t_node **B);
-void	half_to_tq(t_stats *data, t_node **A, t_node **B); // check volgorde
+void	half_to_tq(t_stats *data, t_node **A, t_node **B); // check volgorde (naam)
 void	grow_h(t_stats *data, t_node **A, t_node **B);
 void	grow_and_swap_h(t_stats *data, t_node **A, t_node **B);
 void	swap_two(t_stats *data, t_node **A, t_node **B);
@@ -80,13 +83,21 @@ void	swap_two(t_stats *data, t_node **A, t_node **B);
 void	sorted_to_A(t_node **A, t_node **B, int half, int quarter);
 void	sort_lowest_half(t_node **A, t_node **B, int half);
 void	top_to_quarter(t_stats *data, t_node **A, t_node **B);
+void	growing_tq(t_stats *data, t_node **A, t_node **B);
+void	growing_and_swap_tq(t_stats *data, t_node **A, t_node **B);
+void	adding_to_bottom(t_stats *data, t_node **A , t_node **B);
 void	quarter_to_half(t_stats *data, t_node **A, t_node **B);
-void	swap_t(t_stats *data, t_node **A, t_node **B);
-void	swop_t(t_stats *data, t_node **A, t_node **B);
-void	swap_two_t(t_stats *data, t_node **A, t_node **B);
-void	more_swap_t(t_stats *data, t_node **A, t_node **B);
+void	grow_half(t_stats *data, t_node **A, t_node **B);
+void	grow_and_swap_half(t_stats *data, t_node **A, t_node **B);
+void	swapping_two(t_stats *data, t_node **A, t_node **B);
 
-void	sort_big_list(t_node **stack_a, t_node **stack_b, int all, int half);
+
+
+void	sort_big_list(t_node **stack_a, t_node **stack_b, int all, int half); // ook
+																			  // dubbele
+																			  // (static
+																			  // functions
+																			  // maken)
 void	organise_A(t_node **stack_a, t_node **stack_b, int half, int size);
 void	organise_B(t_node **stack_a, t_node **stack_b, int half, int size);
 void	sort_A(t_node **stack_a, t_node **stack_b, int half, int size);
@@ -112,6 +123,8 @@ void	check_third(t_stats *data, t_node **A);
 void	funk(t_stats *data, t_node **A);
 void	fonk(t_stats *data, t_node **A);
 bool	add_second(t_stats *data, t_node **A);
+
+
 
 void	pb(t_node **stack_a, t_node **stack_b);
 void	pa(t_node **stack_a, t_node **stack_b, int top);

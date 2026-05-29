@@ -37,9 +37,9 @@ void	grow_and_swap_tq(t_stats *data, t_node **A, t_node **B)
 	if (data->swap_rot == 2)
 		rrb(B);
 	rrb(B);
-      	pb(A, B);
-      	rb(B, 0);
-      	data->bottom_stack = find_bottom(*B);
+	pb(A, B);
+	rb(B, 0);
+	data->bottom_stack = find_bottom(*B);
 	if (data->swap_rot == 2)
 	{
 		if ((*B)->n_index > (*B)->next->n_index)

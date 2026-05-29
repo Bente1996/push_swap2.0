@@ -14,6 +14,8 @@ SRC := main.c \
 		half_to_tq.c \
 		tq_to_all.c \
 		sort_lowest_half.c \
+		top_to_quarter.c \
+		quarter_to_half.c \
 		sorting.c \
 		organising.c \
 		organising_utils.c \
