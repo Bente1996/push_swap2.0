@@ -22,13 +22,19 @@ SRC := main.c \
 		grow_list.c \
 		grow_list_utils.c \
 
-VPATH = src:..
+VPATH = src/ \
+		src/linked_list \
+		src/operations \
+		src/parsing \
+		src/sort_big_list \
+		src/sort_medium_list \
+		src/sort_small_list
 
-OBJ := $(SRC:.c=.o)
-#OBJ := $(addprefix $(OBJDIR), $(SRC:.c=.o))
+OBJDIR := bin/
+OBJ := $(addprefix $(OBJDIR), $(SRC:.c=.o))
 
-#$(OBJDIR)%.o: %.c $(HEADER_FILES)
-#	$(CC) $(CFLAGS) -co $@ $<
+$(OBJDIR)%.o: %.c $(HEADER_FILES) | $(OBJDIR)
+	$(CC) $(CFLAGS) -c -o $@ $<
 
 CFLAGS ?= -Wall -Wextra -Werror -g 
 
@@ -40,17 +46,20 @@ run: $(NAME)
 valgrind: $(NAME)
 	valgrind ./$(NAME) 1 2 3 4
 
-valgrind full: $(NAME)
+valgrind_full: $(NAME)
 	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes -s ./$(NAME) 1 2 3 4
 
 $(NAME): $(OBJ)
 	$(CC) $(OBJ) $(CFLAGS) -o $(NAME)
 
-%.o: %.c $(HEADER_FILES)
-	$(CC) $(CFLAGS) -c $<
+# %.o: %.c $(HEADER_FILES) 
+# 	$(CC) $(CFLAGS) -c $< -o $@
+
+%/ :
+	@mkdir -p $@
 
 clean:
-	rm -f $(OBJ)
+	rm -rf $(OBJDIR)
 
 fclean: clean
 	rm -f $(NAME)
