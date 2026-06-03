@@ -29,6 +29,7 @@ typedef struct s_stats
 {
 	int	top;
 	int	quarter;
+	int	q;
 	int	three_quarter;
 	int	tq;
 	int	h;

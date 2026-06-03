@@ -28,15 +28,13 @@ t_node	*new_node(int value, int index)
 	return (new);
 }
 
-#include <stdio.h>
-
 t_node	*append_node(t_node **head, int value, int index)
 {
 	t_node	*new;
 	t_node	*tmp;
 
-	//if (is_duplicate(*head, value))
-	//	return (NULL);
+	if (is_duplicate(*head, value))
+		return (NULL);
 	new = new_node(value, index);
 	if (!new)
 		return (NULL);
@@ -55,21 +53,22 @@ t_node	*append_node(t_node **head, int value, int index)
 t_stats	*alloc_stats(t_node **A, t_node **B, int half)
 {
 	t_stats	*data;
-	int	all;
+	int		all;
 
 	all = half * 2;
 	data = malloc(sizeof(t_stats));
 	if (!data)
 		return (NULL);
-	if (!already_sorted(*B) && !already_sorted(*A)) // als stack_a niet gesorteerd
+	if (!already_sorted(*A) && !already_sorted(*B))
 		data->top = 1;
 	else
-		data->top = 0; // voeg toe aan big_list en bl_two? mss
+		data->top = 0;
 	data->quarter = half / 2;
 	data->lower = --half;
+	data->q = 0;
 	data->three_quarter = all - (half / 2) - 1;
-	data->h = half + 1;
 	data->tq = data->three_quarter + 1;
+	data->h = half + 1;
 	data->bottom_stack = NULL;
 	return (data);
 }

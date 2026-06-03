@@ -1,6 +1,6 @@
 #include "push_swap.h"
 
-void	organise_B_small(t_node **stack_a, t_node **stack_b, int half, int size)
+void	organise_B(t_node **stack_a, t_node **stack_b, int half, int size)
 {
 	int	h;
 
@@ -17,10 +17,10 @@ void	organise_B_small(t_node **stack_a, t_node **stack_b, int half, int size)
 		else
 			ra(stack_a, 0);
 	}
-	sort_B_small(stack_a, stack_b, half, size);
+	sort_B(stack_a, stack_b, half, size);
 }
 
-void	sort_B_small(t_node **stack_a, t_node **stack_b, int half, int size)
+void	sort_B(t_node **stack_a, t_node **stack_b, int half, int size)
 {
 	int count;
 
@@ -43,7 +43,7 @@ void	sort_B_small(t_node **stack_a, t_node **stack_b, int half, int size)
 		sort_rest(stack_a, stack_b, half); // sorteert laatste
 }
 
-void	organise_A_small(t_node **stack_a, t_node **stack_b, int all, int highest)
+void	organise_A(t_node **stack_a, t_node **stack_b, int all, int highest)
 {
 	int	size;
 	int	half;
@@ -60,10 +60,10 @@ void	organise_A_small(t_node **stack_a, t_node **stack_b, int all, int highest)
 		else
 			ra(stack_a, 0);
 	}
-	sort_A_small(stack_a, stack_b, highest, size);
+	sort_A(stack_a, stack_b, highest, size);
 }
 
-void	sort_A_small(t_node **stack_a, t_node **stack_b, int highest, int size)
+void	sort_A(t_node **stack_a, t_node **stack_b, int highest, int size)
 {
 	int count;
 

@@ -38,7 +38,7 @@ OBJ := $(addprefix $(OBJDIR), $(SRC:.c=.o))
 $(OBJDIR)%.o: %.c $(HEADER_FILES) | $(OBJDIR)
 	$(CC) $(CFLAGS) -c -o $@ $<
 
-CFLAGS ?= -Wall -Wextra -Werror -g 
+CFLAGS ?= -Wall -Wextra -Werror -I. -g 
 
 all: $(NAME)
 
