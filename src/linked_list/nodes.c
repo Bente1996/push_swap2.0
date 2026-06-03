@@ -67,8 +67,8 @@ t_stats	*alloc_stats(t_node **A, t_node **B, int half)
 	data->lower = --half;
 	data->q = 0;
 	data->three_quarter = all - (half / 2) - 1;
+	data->h = half;
 	data->tq = data->three_quarter + 1;
-	data->h = half + 1;
 	data->bottom_stack = NULL;
 	return (data);
 }

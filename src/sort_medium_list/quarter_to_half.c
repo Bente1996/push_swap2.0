@@ -18,8 +18,8 @@ static void	swapping_two(t_stats *data, t_node **A, t_node **B);
 
 void	quarter_to_half(t_stats *data, t_node **A, t_node **B)
 {
-	// if (!((*B)->n_index >= data->quarter)) // WAAROM WERKT DIT NIET
-	// 	return (rb(B,0));
+	 if (!((*B)->n_index >= data->quarter)) // WAAROM WERKT DIT NIET
+	 	return (rb(B,0));
 	if ((*B)->n_index == data->h)
 		grow_half(data, A, B); // noem ook grow_h eventjes sttaic maken
 	else if ((*B)->n_index == data->h - 1 || (*B)->n_index == data->h - 2)

@@ -12,32 +12,29 @@
 
 #include "push_swap.h"
 
-static void	grow_tq(t_stats *data, t_node **a, t_node **b);
-static void	grow_and_swap_tq(t_stats *data, t_node **a, t_node **b);
+static void	grow_q(t_stats *data, t_node **a, t_node **b);
+static void	grow_and_swap_q(t_stats *data, t_node **a, t_node **b);
 static void	add_to_bottom(t_stats *data, t_node **a , t_node **b);
 
 void	top_to_quarter(t_stats *data, t_node **A, t_node **B)
 {
-//	if (!((*B)->n_index < data->quarter)) // WAAROM WERKT DIT NIET
-//		return (rb(B, 0));
-
-	if ((*B)->n_index == data->tq)
-		grow_tq(data, A, B);
-	else if ((*B)->n_index == data->tq + 1 || (*B)->n_index == data->tq + 2)
+	if ((*B)->n_index == data->q)
+		grow_q(data, A, B);
+	else if ((*B)->n_index == data->q + 1 || (*B)->n_index == data->q + 2)
 		add_to_bottom(data, A, B);
 }
 
-static void	grow_tq(t_stats *data, t_node **A, t_node **B)
+static void	grow_q(t_stats *data, t_node **A, t_node **B)
 {
 	if (!data->swap_rot)
 		pa(A, B, 0);
 	else
-		grow_and_swap_tq(data, A, B);
+		grow_and_swap_q(data, A, B);
 	ra(A, 0);
-	data->tq++;
+	data->q++;
 }
 
-static void	grow_and_swap_tq(t_stats *data, t_node **A, t_node **B)
+static void	grow_and_swap_q(t_stats *data, t_node **A, t_node **B)
 {
 	if (data->swap_rot == 2)
 		rra(A, 0);
@@ -51,11 +48,11 @@ static void	grow_and_swap_tq(t_stats *data, t_node **A, t_node **B)
 			sa(A, 0);
 		ra(A, 0);
 		data->swap_rot -= 2;
-		data->tq += 2;
+		data->q += 2;
 	}
 	else if ((*A)->n_index == data->bottom_stack->n_index + 1)
 	{
-		data->tq++;
+		data->q++;
 		data->swap_rot--;
 	}
 }

@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-void	sort_lowest_half(t_node **A, t_node **B, int half) // verander namen (three_quarter -> quarter, A vs B)
+void	sort_lowest_half(t_node **A, t_node **B, int half)
 {
 	t_stats *data;
 
@@ -20,21 +20,16 @@ void	sort_lowest_half(t_node **A, t_node **B, int half) // verander namen (three
 	if (!data)
 		return ;
 	data->h = half - 1;
-	data->tq = 0;
 	while (*B)
 	{
-		if (((*B)->n_index >= data->tq 
-			&& (*B)->n_index <= data->tq + 2) 
+		if ((*B)->n_index >= data->q 
+			&& (*B)->n_index <= data->q + 2
 			&& (*B)->n_index < data->quarter) // 0-24
 			top_to_quarter(data, A, B);
-		else if (((*B)->n_index <= data->h && \
-				(*B)->n_index >= data->h - 2) && \
-				(*B)->n_index >= data->quarter) // 25-49
+		else if ((*B)->n_index <= data->h && (*B)->n_index >= data->h - 2) // 25-49
 			quarter_to_half(data, A, B);
-		else // was niet de goeie
-			rb(B, 0);
-		// if ((*A)->n_index == 33)
-		// 	break ;
+		 else
+		 	rb(B, 0);
 	}
 	while (data->quarter--)
 		rra(A, 0);

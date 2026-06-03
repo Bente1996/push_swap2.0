@@ -19,11 +19,12 @@ void	sort_highest_half(t_node **A, t_node **B, int half)
 	data = alloc_stats(A, B, half);
 	if (!data)
 		return ;
-	while (*A) // alles naar b: 73_50 0-49(random) 74_99
+	data->h++;
+	while (*A)
 	{
-		if ((*A)->n_index > data->three_quarter && (*A)->n_index >= data->tq && (*A)->n_index <= data->tq + 2) // 75->99
+		if ((*A)->n_index >= data->tq && (*A)->n_index <= data->tq + 2) // 75->99
 			tq_to_all(data, A, B);
-		else if ((*A)->n_index <= data->three_quarter && (*A)->n_index >= data->h && (*A)->n_index <= data->h + 2) // 50->74	
+		else if ((*A)->n_index >= data->h && (*A)->n_index <= data->h + 2) // 50->74	
 			half_to_tq(data, A, B);
 		else
 			ra(A, 0);

@@ -18,8 +18,6 @@ static void	add_to_bottom(t_stats *data, t_node **a , t_node **b);
 
 void	tq_to_all(t_stats *data, t_node **A, t_node **B)
 {
-	// if (!((*A)->n_index > data->three_quarter))
-	// 	return (ra(A, 0));
 	if ((*A)->n_index == data->tq)
 		grow_tq(data, A, B);
 	else if ((*A)->n_index == data->tq + 1 || (*A)->n_index == data->tq + 2)

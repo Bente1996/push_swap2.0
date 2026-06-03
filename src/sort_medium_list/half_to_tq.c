@@ -18,8 +18,6 @@ static void	swap_two(t_stats *data, t_node **A, t_node **B);
 
 void	half_to_tq(t_stats *data, t_node **A, t_node **B)
 {
-	// if (!((*A)->n_index <= data->three_quarter)) // positief maken
-	// 	return (ra(A, 0));
 	if ((*A)->n_index == data->h)
 		grow_h(data, A, B);
 	else if ((*A)->n_index == data->h + 1 || (*A)->n_index == data->h + 2)
