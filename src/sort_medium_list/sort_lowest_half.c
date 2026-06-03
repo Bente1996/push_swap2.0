@@ -19,7 +19,6 @@ void	sort_lowest_half(t_node **A, t_node **B, int half)
 	data = alloc_stats(A, B, half);
 	if (!data)
 		return ;
-	data->h = half - 1;
 	while (*B)
 	{
 		if ((*B)->n_index >= data->q 

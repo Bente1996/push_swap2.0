@@ -48,10 +48,9 @@ void	organise_A(t_node **stack_a, t_node **stack_b, int all, int highest)
 	int	size;
 	int	half;
 
-
 	half = all / 2;
 	size = highest - half;
-	if (UNEVEN)
+	if (all % 2)
 		half++;
 	while (half--)
 	{

@@ -87,7 +87,7 @@ void	sort_big_list(t_node **stack_a, t_node **stack_b, int all, int half); // oo
 																			  // (static
 																			  // functions
 																			  // maken)
-void	organise_A(t_node **stack_a, t_node **stack_b, int half, int size);
+void	organise_A(t_node **stack_a, t_node **stack_b, int all, int size);
 void	organise_B(t_node **stack_a, t_node **stack_b, int half, int size);
 void	sort_A(t_node **stack_a, t_node **stack_b, int half, int size);
 void	sort_B(t_node **stack_a, t_node **stack_b, int half, int size);

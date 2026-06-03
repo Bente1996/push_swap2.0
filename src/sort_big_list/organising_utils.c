@@ -5,7 +5,7 @@ void	sort_quarter(t_node **stack_a, t_node **stack_b, int half, int size)
 	int	count;
 
 	count = size;
-	while (count)
+	while (count--)
 	{
 		if ((*stack_b)->n_index > half - (size - 44)) // (115-250)
 			rb(stack_b, 0);
@@ -16,7 +16,6 @@ void	sort_quarter(t_node **stack_a, t_node **stack_b, int half, int size)
 			pa(stack_a,stack_b, 0);
 			ra(stack_a, 0);
 		}
-		count--;
 	}
 	sort_low(stack_a, stack_b, half - (size - 90)); 
 	sort_medium(stack_a, stack_b, half - (size - 90)); 
