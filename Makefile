@@ -6,8 +6,14 @@ SRC := main.c \
 		utils.c \
 		parsing.c \
 		parsing_utils.c \
-		p_and_s.c \
-		r_and_rr.c \
+		pa.c \
+		pb.c \
+		sa.c \
+		sb.c \
+		ra.c \
+		rb.c \
+		rra.c \
+		rrb.c \
 		sort_small_list.c \
 		sort_medium_list.c \
 		sort_highest_half.c \
@@ -29,9 +35,10 @@ VPATH = src/ \
 		src/linked_list \
 		src/operations \
 		src/parsing \
-		src/sort_big_list \
-		src/sort_medium_list \
-		src/sort_small_list
+		src/sorting \
+		src/sorting/sort_big_list \
+		src/sorting/sort_medium_list \
+		src/sorting/sort_small_list
 
 OBJDIR := bin/
 OBJ := $(addprefix $(OBJDIR), $(SRC:.c=.o))

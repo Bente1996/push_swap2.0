@@ -18,8 +18,8 @@ t_node	*make_list(int argc, char **argv, int *i)
 {
 	t_node		*list;
 	t_node		*head;
-	int		value;
-	int		valid;
+	int			value;
+	int			valid;
 
 	list = NULL;
 	head = NULL;
@@ -29,7 +29,7 @@ t_node	*make_list(int argc, char **argv, int *i)
 		value = make_number(argv[*i + 1], &valid);
 		if (!valid)
 			return (head);
-		list = append_node(&head, value, *i);	
+		list = append_node(&head, value, *i);
 		if (!list)
 			return (head);
 		*i += 1;
@@ -68,7 +68,7 @@ int	convert(char *argv, int *valid)
 		if (i >= 9)
 		{
 			if ((i == 9 && is_overflow(&argv[i], value, sign)) \
- || (i == 10 && argv[i]))
+|| (i == 10 && argv[i]))
 				return (0);
 		}
 	}

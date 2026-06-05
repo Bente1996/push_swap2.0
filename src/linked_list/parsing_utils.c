@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                            ::::::::        */
+/*   parsing_utils.c                                         :+:    :+:       */
+/*                                                          +:+               */
+/*   By: bede-kon <bede-kon@student.codam.nl>              +#+                */
+/*                                                        +#+                 */
+/*   Created: 2026/06/05 21:47:39 by bede-kon            #+#    #+#           */
+/*   Updated: 2026/06/05 21:47:41 by bede-kon            ########   odam.nl   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 bool	is_number(char *argv)
@@ -23,7 +35,7 @@ bool	is_overflow(char *argv, int value, int sign)
 		if (*argv == '8' && sign == 1)
 			return (true);
 		return (false);
-	}	
+	}
 	else
 		return (true);
 }

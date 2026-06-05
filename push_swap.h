@@ -88,10 +88,10 @@ void	sort_big_list(t_node **stack_a, t_node **stack_b, int all, int half); // oo
 																			  // (static
 																			  // functions
 																			  // maken)
-void	organise_A(t_node **stack_a, t_node **stack_b, int all, int size);
+void	organise_a(t_node **stack_a, t_node **stack_b, int all, int size);
 void	organise_B(t_node **stack_a, t_node **stack_b, int half, int size);
-void	sort_A(t_node **stack_a, t_node **stack_b, int half, int size);
-void	sort_B(t_node **stack_a, t_node **stack_b, int half, int size);
+void	sort_a(t_node **stack_a, t_node **stack_b, int half, int size);
+void	sort_b(t_node **stack_a, t_node **stack_b, int half, int size);
 void	grow_list(t_node **A, t_node **B, int half, int count);
 int	find_case(int sorted_index, int lower, int bottom);
 void	add(t_stats *data, t_node **A, t_node **B);
