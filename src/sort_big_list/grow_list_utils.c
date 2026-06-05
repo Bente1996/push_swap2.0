@@ -31,7 +31,7 @@ void	add_and_lower(t_stats *data, t_node **A, t_node **B)
 	{
 		pa(A, B, data->top);
 		if (data->bottom)
-			handle_bottom(data, A); // zelfde als boven miscchien?
+			handle_bottom(data, A);
 	}
 	data->lower--;
 }

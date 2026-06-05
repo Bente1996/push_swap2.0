@@ -1,3 +1,4 @@
+
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                            ::::::::        */
@@ -95,10 +96,10 @@ void	grow_list(t_node **A, t_node **B, int half, int count);
 int	find_case(int sorted_index, int lower, int bottom);
 void	add(t_stats *data, t_node **A, t_node **B);
 void	add_and_lower(t_stats *data, t_node **A, t_node **B);
-void	sort_quarter(t_node **stack_a, t_node **stack_b, int highest, int size);
-void	sort_low(t_node **stack_a, t_node **stack_b, int highest);
-void	sort_medium(t_node **stack_a, t_node **stack_b, int highest);
-void	sort_high(t_node **stack_a, t_node **stack_b, int highest);
+void	sort_forty_five(t_node **stack_a, t_node **stack_b, int highest, int size);
+void	sort_low(t_node **stack_a, t_node **stack_b, int highest, int count);
+void	sort_medium(t_node **stack_a, t_node **stack_b, int highest, int count);
+void	sort_high(t_node **stack_a, t_node **stack_b, int highest, int count);
 void	sort_rest(t_node **stack_a, t_node **stack_b, int highest);
 void	handle_bottom(t_stats *data, t_node **A);
 void	more_bottom(t_stats *data, t_node **A);

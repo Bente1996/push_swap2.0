@@ -1,49 +1,49 @@
 #include "push_swap.h"
 
-void	organise_B(t_node **stack_a, t_node **stack_b, int half, int size)
+void	organise_B(t_node **A, t_node **B, int half, int size)
 {
 	int	h;
 
 	h = half;
 	while (h)
 	{
-		if ((*stack_a)->n_index < half)
+		if ((*A)->n_index < half)
 		{
-			pb(stack_a, stack_b);
+			pb(A, B);
 			h--;
-			if (((*stack_b)->n_index < half - size))
-					rb(stack_b, 0);
+			if (((*B)->n_index < half - size))
+					rb(B, 0);
 		}
 		else
-			ra(stack_a, 0);
+			ra(A, 0);
 	}
-	sort_B(stack_a, stack_b, half, size);
+	sort_B(A, B, half, size);
 }
 
-void	sort_B(t_node **stack_a, t_node **stack_b, int half, int size)
+void	sort_B(t_node **A, t_node **B, int half, int size)
 {
 	int count;
 
 	count = half - size + 45;
-	sort_quarter(stack_a, stack_b, half, size); // 0-135 beneden
+	sort_forty_five(A, B, half, size); // 0-135 beneden
 	if (size >= 135)
 	{
 		while (count--)
-			rb(stack_b, 0);
-		sort_quarter(stack_a, stack_b, half, size - 45); // 0-90 beneden
+			rb(B, 0);
+		sort_forty_five(A, B, half, size - 45); // 0-90 beneden
 	}
 	if (size == 180)
 	{
 		count = 90; // van 90 naar 89 gedaan voor 499
 		while (count--)
-			rrb(stack_b);
-		sort_quarter(stack_a, stack_b, half, 90); // 45 beneden
+			rrb(B);
+		sort_forty_five(A, B, half, 90); // 45 beneden
 	}
 	if (size >= 90)
-		sort_rest(stack_a, stack_b, half); // sorteert laatste
+		sort_rest(A, B, half); // sorteert laatste
 }
 
-void	organise_A(t_node **stack_a, t_node **stack_b, int all, int highest)
+void	organise_A(t_node **A, t_node **B, int all, int highest)
 {
 	int	size;
 	int	half;
@@ -54,35 +54,35 @@ void	organise_A(t_node **stack_a, t_node **stack_b, int all, int highest)
 		half++;
 	while (half--)
 	{
-		if ((*stack_a)->n_index < highest)
-			pb(stack_a, stack_b);
+		if ((*A)->n_index < highest)
+			pb(A, B);
 		else
-			ra(stack_a, 0);
+			ra(A, 0);
 	}
-	sort_A(stack_a, stack_b, highest, size);
+	sort_A(A, B, highest, size);
 }
 
-void	sort_A(t_node **stack_a, t_node **stack_b, int highest, int size)
+void	sort_A(t_node **A, t_node **B, int highest, int size)
 {
 	int count;
 
 	count = 90;
-	sort_quarter(stack_a, stack_b, highest, size); // 0-135 beneden
+	sort_forty_five(A, B, highest, size); // 0-135 beneden
 	if (size >= 135)
 	{
 		if (size == 180)
 			count += 45;
 		while (count--) // 135
-			rrb(stack_b);
-		sort_quarter(stack_a, stack_b, highest, size - 45); // 0-90 beneden
+			rrb(B);
+		sort_forty_five(A, B, highest, size - 45); // 0-90 beneden
 	}
 	if (size == 180)
 	{
 		count = 90;
 		while (count--) // 90
-			rrb(stack_b);
-		sort_quarter(stack_a, stack_b, highest, 90); // 45 beneden
+			rrb(B);
+		sort_forty_five(A, B, highest, 90); // 45 beneden
 	}
 	if (size >= 90)
-		sort_rest(stack_a, stack_b, highest); // sorteert laatste 45
+		sort_rest(A, B, highest); // sorteert laatste 45
 }
