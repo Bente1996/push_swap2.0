@@ -18,8 +18,9 @@ bool	is_number(char *argv)
 		argv++;
 	while (*argv)
 	{
-		if (*argv++ < '0' || *argv > '9')
+		if (*argv < '0' || *argv > '9')
 			return (false);
+		argv++;
 	}
 	return (true);
 }

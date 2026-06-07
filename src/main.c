@@ -13,7 +13,6 @@ int	main(int argc, char **argv)
 	t_node	*A;
 	t_node	*B;
 	int		index;
-//	int	operations;
 
 	A = NULL;
 	B = NULL;
@@ -22,21 +21,9 @@ int	main(int argc, char **argv)
 		return (1);
 	A = make_list(argc, argv, &index);
 	if (!A)
-		return (free_list(A));
-	if (already_sorted(A))
-		return (free_list(A));
-	sort_all(&A, &B, index);
-
-//	operations = count_operations("");
-//	print_list(stack_a, 'A');
-//	print_list(stack_b, 'B');
-//	printf("Operations:%d\n", operations - 1);
-//	if (already_sorted(stack_a))
-//		printf("GOED GESORTEERD :)");
-//	else
-//		printf("niet goed gesorteerd\n");
-//
-//	printf("stacksize: %d\n", stack_size(stack_a));
+		return (1);
+	if (!already_sorted(A))
+		sort_all(&A, &B, index);
 	free_list(A);
 	return (0);
 }

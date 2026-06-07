@@ -28,10 +28,16 @@ t_node	*make_list(int argc, char **argv, int *i)
 		valid = 0;
 		value = make_number(argv[*i + 1], &valid);
 		if (!valid)
+		{
+			free_list(head);
 			return (NULL);
+		}
 		list = append_node(&head, value, *i);
 		if (!list)
+		{
+			free_list(head);
 			return (NULL);
+		}
 		*i += 1;
 	}
 	head = sort_indices(&head);
