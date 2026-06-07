@@ -11,9 +11,13 @@
 /* ************************************************************************** */
 
 #include "push_swap.h"
+#include <stddef.h>
 
-void	sort_all(t_node **A, t_node **B, int all)
+void	sort_all(t_node **A, int all)
 {
+	t_node	**B;
+
+	B = NULL;
 	if (all >= 450)
 		sort_big_list(A, B, all, 180);
 	else if (all >= 360)

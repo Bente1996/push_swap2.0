@@ -10,20 +10,17 @@
 
 int	main(int argc, char **argv)
 {
-	t_node	*A;
-	t_node	*B;
+	t_node	*a;
 	int		index;
 
-	A = NULL;
-	B = NULL;
+	a = NULL;
 	index = 0;
 	if (argc < 3)
 		return (1);
-	A = make_list(argc, argv, &index);
-	if (!A)
+	a = make_list(argc, argv, &index);
+	if (!a)
 		return (1);
-	if (!already_sorted(A))
-		sort_all(&A, &B, index);
-	free_list(A);
+	sort_all(&a, index);
+	free_list(a);
 	return (0);
 }

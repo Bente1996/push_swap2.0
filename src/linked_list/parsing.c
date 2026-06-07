@@ -41,6 +41,11 @@ t_node	*make_list(int argc, char **argv, int *i)
 		*i += 1;
 	}
 	head = sort_indices(&head);
+	if (already_sorted(head))
+	{
+		free_list(head);
+		return (NULL);
+	}
 	return (head);
 }
 

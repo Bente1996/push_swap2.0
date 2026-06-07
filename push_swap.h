@@ -59,7 +59,7 @@ int		count_operations(char *operation);
 int		free_list(t_node *head);
 
 
-void	sort_all(t_node **a, t_node **b, int all);
+void	sort_all(t_node **a, int all);
 
 void	sort_small_list(t_node **a, t_node **b, int all);
 void	smallest_to_top(t_node **a);
