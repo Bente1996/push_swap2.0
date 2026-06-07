@@ -10,44 +10,44 @@ int	find_case(int n_index, int lower, int bottom)
 		return (0);
 }
 
-void	add_and_lower(t_stats *data, t_node **A, t_node **B)
+void	add_and_lower(t_stats *data, t_node **a, t_node **b)
 {
-	if ((*B)->n_index == data->lower - 1)
+	if ((*b)->n_index == data->lower - 1)
 	{
-		pa(A, B, data->top);
+		pa(a, b, data->top);
 		data->swap++;
 		data->lower++;
 	}
 	else if (data->swap) // lower met swap
 	{
-		pa(A, B, data->top);
-		sa(A, data->top);
+		pa(a, b, data->top);
+		sa(a, data->top);
 		data->swap = 0;
 		if (data->bottom)
-			handle_bottom(data, A);
+			handle_bottom(data, a);
 		data->lower--; // toegevoegd
 	}
 	else // lower geen swap
 	{
-		pa(A, B, data->top);
+		pa(a, b, data->top);
 		if (data->bottom)
-			handle_bottom(data, A);
+			handle_bottom(data, a);
 	}
 	data->lower--;
 }
 
-void	add(t_stats *data, t_node **A, t_node **B)
+void	add(t_stats *data, t_node **a, t_node **b)
 {
-	if (!data->bottom || data->bottom_stack->n_index < (*B)->n_index)
+	if (!data->bottom || data->bottom_stack->n_index < (*b)->n_index)
 	{
-		pa(A, B, data->top);
-		ra(A, data->top);
-		data->bottom_stack = find_bottom(*A);
+		pa(a, b, data->top);
+		ra(a, data->top);
+		data->bottom_stack = find_bottom(*a);
 	}
 	else
 	{
-		pa(A, B, data->top);
-		ra(A, data->top);
+		pa(a, b, data->top);
+		ra(a, data->top);
 	}
 	data->bottom++;
 }

@@ -12,21 +12,21 @@
 
 #include "push_swap.h"
 
-void	sort_highest_half(t_node **A, t_node **B, int half)
+void	sort_highest_half(t_node **a, t_node **b, int half)
 {
-	t_stats *data;
+	t_stats	*data;
 
-	data = alloc_stats(A, B, half);
+	data = alloc_stats(a, b, half);
 	if (!data)
 		return ;
 	data->h++;
-	while (*A)
+	while (*a)
 	{
-		if ((*A)->n_index >= data->tq && (*A)->n_index <= data->tq + 2) // 75->99
-			tq_to_all(data, A, B);
-		else if ((*A)->n_index >= data->h && (*A)->n_index <= data->h + 2) // 50->74	
-			half_to_tq(data, A, B);
+		if ((*a)->n_index >= data->tq && (*a)->n_index <= data->tq + 2) //75->99
+			tq_to_all(data, a, b);
+		else if ((*a)->n_index >= data->h && (*a)->n_index <= data->h + 2) //50->74
+			half_to_tq(data, a, b);
 		else
-			ra(A, 0);
+			ra(a, 0);
 	}
 }

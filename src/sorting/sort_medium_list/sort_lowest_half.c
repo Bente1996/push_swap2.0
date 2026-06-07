@@ -12,24 +12,24 @@
 
 #include "push_swap.h"
 
-void	sort_lowest_half(t_node **A, t_node **B, int half)
+void	sort_lowest_half(t_node **a, t_node **b, int half)
 {
 	t_stats *data;
 
-	data = alloc_stats(A, B, half);
+	data = alloc_stats(a, b, half);
 	if (!data)
 		return ;
-	while (*B)
+	while (*b)
 	{
-		if ((*B)->n_index >= data->q 
-			&& (*B)->n_index <= data->q + 2
-			&& (*B)->n_index < data->quarter) // 0-24
-			top_to_quarter(data, A, B);
-		else if ((*B)->n_index <= data->h && (*B)->n_index >= data->h - 2) // 25-49
-			quarter_to_half(data, A, B);
+		if ((*b)->n_index >= data->q 
+			&& (*b)->n_index <= data->q + 2
+			&& (*b)->n_index < data->quarter) // 0-24
+			top_to_quarter(data, a, b);
+		else if ((*b)->n_index <= data->h && (*b)->n_index >= data->h - 2) // 25-49
+			quarter_to_half(data, a, b);
 		 else
-		 	rb(B, 0);
+		 	rb(b, 0);
 	}
 	while (data->quarter--)
-		rra(A, 0);
+		rra(a, 0);
 }

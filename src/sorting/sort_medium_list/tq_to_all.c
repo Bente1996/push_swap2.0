@@ -14,57 +14,57 @@
 
 static void	grow_tq(t_stats *data, t_node **a, t_node **b);
 static void	grow_and_swap_tq(t_stats *data, t_node **a, t_node **b);
-static void	add_to_bottom(t_stats *data, t_node **a , t_node **b);
+static void	add_to_bottom(t_stats *data, t_node **a, t_node **b);
 
-void	tq_to_all(t_stats *data, t_node **A, t_node **B)
+void	tq_to_all(t_stats *data, t_node **a, t_node **b)
 {
-	if ((*A)->n_index == data->tq)
-		grow_tq(data, A, B);
-	else if ((*A)->n_index == data->tq + 1 || (*A)->n_index == data->tq + 2)
-		add_to_bottom(data, A, B);
+	if ((*a)->n_index == data->tq)
+		grow_tq(data, a, b);
+	else if ((*a)->n_index == data->tq + 1 || (*a)->n_index == data->tq + 2)
+		add_to_bottom(data, a, b);
 }
 
-static void	grow_tq(t_stats *data, t_node **A, t_node **B)
+static void	grow_tq(t_stats *data, t_node **a, t_node **b)
 {
 	if (!data->swap_rot)
-		pb(A, B);
+		pb(a, b);
 	else
-		grow_and_swap_tq(data, A, B);
-	rb(B, 0);
+		grow_and_swap_tq(data, a, b);
+	rb(b, 0);
 	data->tq++;
 }
 
-static void	grow_and_swap_tq(t_stats *data, t_node **A, t_node **B)
+static void	grow_and_swap_tq(t_stats *data, t_node **a, t_node **b)
 {
 	if (data->swap_rot == 2)
-		rrb(B);
-	rrb(B);
-	pb(A, B);
-	rb(B, 0);
-	data->bottom_stack = find_bottom(*B);
+		rrb(b);
+	rrb(b);
+	pb(a, b);
+	rb(b, 0);
+	data->bottom_stack = find_bottom(*b);
 	if (data->swap_rot == 2)
 	{
-		if ((*B)->n_index > (*B)->next->n_index)
-			sb(B);
-		rb(B, 0);
+		if ((*b)->n_index > (*b)->next->n_index)
+			sb(b);
+		rb(b, 0);
 		data->swap_rot -= 2;
 		data->tq += 2;
 	}
-	else if ((*B)->n_index == data->bottom_stack->n_index + 1)
+	else if ((*b)->n_index == data->bottom_stack->n_index + 1)
 	{
 		data->tq++;
 		data->swap_rot--;
 	}
 }
 
-static void	add_to_bottom(t_stats *data, t_node **A, t_node **B)
+static void	add_to_bottom(t_stats *data, t_node **a, t_node **b)
 {
 	if (!(data->swap_rot < 2))
 		return ;
-	pb(A, B);
+	pb(a, b);
 	if (!data->swap_rot || \
-		(data->swap_rot == 1 && (*B)->n_index > data->bottom_stack->n_index))
-		data->bottom_stack = *B;
-	rb(B, 0);
+(data->swap_rot == 1 && (*b)->n_index > data->bottom_stack->n_index))
+		data->bottom_stack = *b;
+	rb(b, 0);
 	data->swap_rot++;
 }

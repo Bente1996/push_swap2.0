@@ -36,8 +36,7 @@ bool	is_overflow(char *argv, int value, int sign)
 			return (true);
 		return (false);
 	}
-	else
-		return (true);
+	return (true);
 }
 
 bool	is_duplicate(t_node *head, int value)

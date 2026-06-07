@@ -12,67 +12,67 @@
 
 #include "push_swap.h"
 
-static void	grow_half(t_stats *data, t_node **A, t_node **B);
-static void	grow_and_swap_half(t_stats *data, t_node **A, t_node **B);
-static void	swapping_two(t_stats *data, t_node **A, t_node **B);
+static void	grow_half(t_stats *data, t_node **a, t_node **b);
+static void	grow_and_swap_half(t_stats *data, t_node **a, t_node **b);
+static void	swapping_two(t_stats *data, t_node **a, t_node **b);
 
-void	quarter_to_half(t_stats *data, t_node **A, t_node **B)
+void	quarter_to_half(t_stats *data, t_node **a, t_node **b)
 {
-	 if (!((*B)->n_index >= data->quarter)) // WAAROM WERKT DIT NIET
-	 	return (rb(B,0));
-	if ((*B)->n_index == data->h)
-		grow_half(data, A, B); // noem ook grow_h eventjes sttaic maken
-	else if ((*B)->n_index == data->h - 1 || (*B)->n_index == data->h - 2)
+	 if (!((*b)->n_index >= data->quarter)) // WAAROM WERKT DIT NIET
+	 	return (rb(b,0));
+	if ((*b)->n_index == data->h)
+		grow_half(data, a, b); // noem ook grow_h eventjes sttaic maken
+	else if ((*b)->n_index == data->h - 1 || (*b)->n_index == data->h - 2)
 	{
 		if (!(data->swap < 2))
 			return ;
-		pa(A, B, 0);
+		pa(a, b, 0);
 		data->swap++;
 	}
 }
 
-static void	grow_half(t_stats *data, t_node **A, t_node **B)
+static void	grow_half(t_stats *data, t_node **a, t_node **b)
 {
 	if (data->swap)
-		grow_and_swap_half(data, A, B);
+		grow_and_swap_half(data, a, b);
 	else
-		pa(A, B, 0);
+		pa(a, b, 0);
 	data->h--;
 }
 
 
-static void	grow_and_swap_half(t_stats *data, t_node **A, t_node **B)
+static void	grow_and_swap_half(t_stats *data, t_node **a, t_node **b)
 {
 	if (data->swap == 1)
 	{
-		pa(A, B, 0);
-		sa(A, 0);
-		if ((*A)->n_index == (*A)->next->n_index - 1)
+		pa(a, b, 0);
+		sa(a, 0);
+		if ((*a)->n_index == (*a)->next->n_index - 1)
 		{
 			data->swap--;
 			data->h--;
 		}
 	}
 	else
-		swapping_two(data, A, B);
+		swapping_two(data, a, b);
 }
 
-static void	swapping_two(t_stats *data, t_node **A, t_node **B)
+static void	swapping_two(t_stats *data, t_node **a, t_node **b)
 {
-	ra(A, 0);
-	if ((*A)->n_index == (*B)->n_index - 1)
+	ra(a, 0);
+	if ((*a)->n_index == (*b)->n_index - 1)
 	{
-		pa(A, B, 0);
-		sa(A, 0);
-		rra(A, 0);
+		pa(a, b, 0);
+		sa(a, 0);
+		rra(a, 0);
 	}
 	else
 	{
-		ra(A, 0);
-		pa(A, B, 0);
-		rra(A, 0);
-		rra(A, 0);
-		sa(A, 0);
+		ra(a, 0);
+		pa(a, b, 0);
+		rra(a, 0);
+		rra(a, 0);
+		sa(a, 0);
 	}
 	data->swap -= 2;
 	data->h -= 2;

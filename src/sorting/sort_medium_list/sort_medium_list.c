@@ -12,22 +12,22 @@
 
 #include "push_swap.h"
 
-void	sort_medium_list(t_node **A, t_node **B, int all)
+void	sort_medium_list(t_node **a, t_node **b, int all)
 {
 	int		half;
 
 	half = all / 2;
-	split_list(A, B, all / 2);
-	sort_highest_half(A, B, half);
+	split_list(a, b, all / 2);
+	sort_highest_half(a, b, half);
 	if (UNEVEN)
-		sorted_to_A(A, B, half + 1, half / 2);
+		sorted_to_a(a, b, half + 1, half / 2);
 	else
-		sorted_to_A(A, B, half, half / 2);
-	sort_lowest_half(A, B, half);
+		sorted_to_a(a, b, half, half / 2);
+	sort_lowest_half(a, b, half);
 	return ;
 }
 
-void	split_list(t_node **A, t_node **B, int half)
+void	split_list(t_node **a, t_node **b, int half)
 {
 	int		h;
 	int		count;
@@ -36,32 +36,32 @@ void	split_list(t_node **A, t_node **B, int half)
 	count = 0;
 	while (h) // push to B
 	{
-		if ((*A)->n_index < half)
+		if ((*a)->n_index < half)
 		{
-			pb(A, B);
-			if ((*B)->n_index < 3 || (*B)->n_index > half - 4)
+			pb(a, b);
+			if ((*b)->n_index < 3 || (*b)->n_index > half - 4)
 			{
-				rb(B, 0);
+				rb(b, 0);
 				count++;
 			}
 			h--;
 		}
 		else
-			ra(A, 0);
+			ra(a, 0);
 	}
 	while (count--)
-		rrb(B);
+		rrb(b);
 }
 
-void	sorted_to_A(t_node **A, t_node **B, int half, int quarter)
+void	sorted_to_a(t_node **a, t_node **b, int half, int quarter)
 {
 	quarter++;
 	while (half > quarter)
 	{
-		rrb(B);
-		pa(A, B, 0);
+		rrb(b);
+		pa(a, b, 0);
 		half--;
 	}
 	while (half--)
-		pa(A, B, 0);
+		pa(a, b, 0);
 }

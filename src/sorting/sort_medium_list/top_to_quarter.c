@@ -14,57 +14,57 @@
 
 static void	grow_q(t_stats *data, t_node **a, t_node **b);
 static void	grow_and_swap_q(t_stats *data, t_node **a, t_node **b);
-static void	add_to_bottom(t_stats *data, t_node **a , t_node **b);
+static void	add_to_bottom(t_stats *data, t_node **a, t_node **b);
 
-void	top_to_quarter(t_stats *data, t_node **A, t_node **B)
+void	top_to_quarter(t_stats *data, t_node **a, t_node **b)
 {
-	if ((*B)->n_index == data->q)
-		grow_q(data, A, B);
-	else if ((*B)->n_index == data->q + 1 || (*B)->n_index == data->q + 2)
-		add_to_bottom(data, A, B);
+	if ((*b)->n_index == data->q)
+		grow_q(data, a, b);
+	else if ((*b)->n_index == data->q + 1 || (*b)->n_index == data->q + 2)
+		add_to_bottom(data, a, b);
 }
 
-static void	grow_q(t_stats *data, t_node **A, t_node **B)
+static void	grow_q(t_stats *data, t_node **a, t_node **b)
 {
 	if (!data->swap_rot)
-		pa(A, B, 0);
+		pa(a, b, 0);
 	else
-		grow_and_swap_q(data, A, B);
-	ra(A, 0);
+		grow_and_swap_q(data, a, b);
+	ra(a, 0);
 	data->q++;
 }
 
-static void	grow_and_swap_q(t_stats *data, t_node **A, t_node **B)
+static void	grow_and_swap_q(t_stats *data, t_node **a, t_node **b)
 {
 	if (data->swap_rot == 2)
-		rra(A, 0);
-	rra(A, 0);
-	pa(A, B, 0);
-	ra(A, 0);
-	data->bottom_stack = find_bottom(*A);
+		rra(a, 0);
+	rra(a, 0);
+	pa(a, b, 0);
+	ra(a, 0);
+	data->bottom_stack = find_bottom(*a);
 	if (data->swap_rot == 2)
 	{
-		if ((*A)->n_index > (*A)->next->n_index)
-			sa(A, 0);
-		ra(A, 0);
+		if ((*a)->n_index > (*a)->next->n_index)
+			sa(a, 0);
+		ra(a, 0);
 		data->swap_rot -= 2;
 		data->q += 2;
 	}
-	else if ((*A)->n_index == data->bottom_stack->n_index + 1)
+	else if ((*a)->n_index == data->bottom_stack->n_index + 1)
 	{
 		data->q++;
 		data->swap_rot--;
 	}
 }
 
-static void	add_to_bottom(t_stats *data, t_node **A, t_node **B)
+static void	add_to_bottom(t_stats *data, t_node **a, t_node **b)
 {
 	if (!(data->swap_rot < 2))
 		return ;
-	pa(A, B, 0);
+	pa(a, b, 0);
 	if (!data->swap_rot || \
-			(data->swap_rot == 1 && (*A)->n_index > data->bottom_stack->n_index))
-		data->bottom_stack = *A;
-	ra(A, 0);
+(data->swap_rot == 1 && (*a)->n_index > data->bottom_stack->n_index))
+		data->bottom_stack = *a;
+	ra(a, 0);
 	data->swap_rot++;
 }

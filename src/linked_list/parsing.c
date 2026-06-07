@@ -23,15 +23,15 @@ t_node	*make_list(int argc, char **argv, int *i)
 
 	list = NULL;
 	head = NULL;
-	valid = 0;
 	while (*i < argc - 1)
 	{
+		valid = 0;
 		value = make_number(argv[*i + 1], &valid);
 		if (!valid)
-			return (head);
+			return (NULL);
 		list = append_node(&head, value, *i);
 		if (!list)
-			return (head);
+			return (NULL);
 		*i += 1;
 	}
 	head = sort_indices(&head);
@@ -43,7 +43,10 @@ int	make_number(char *argv, int *valid)
 	int	value;
 
 	if (!is_number(argv))
+	{
+		*valid = 0;
 		return (0);
+	}
 	value = convert(argv, valid);
 	return (value);
 }
@@ -65,10 +68,9 @@ int	convert(char *argv, int *valid)
 	while (argv[i] && i < 10)
 	{
 		value = (argv[i++] - 48) + value * 10;
-		if (i >= 9)
+		if (i == 9 && argv[i] != '\0')
 		{
-			if ((i == 9 && is_overflow(&argv[i], value, sign)) \
-|| (i == 10 && argv[i]))
+			if (is_overflow(&argv[i], value, sign) || argv[10] != '\0')
 				return (0);
 		}
 	}

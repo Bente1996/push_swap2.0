@@ -12,64 +12,64 @@
 
 #include "push_swap.h"
 
-static void	grow_h(t_stats *data, t_node **A, t_node **B);
-static void	grow_and_swap_h(t_stats *data, t_node **A, t_node **B);
-static void	swap_two(t_stats *data, t_node **A, t_node **B);
+static void	grow_h(t_stats *data, t_node **a, t_node **b);
+static void	grow_and_swap_h(t_stats *data, t_node **a, t_node **b);
+static void	swap_two(t_stats *data, t_node **a, t_node **b);
 
-void	half_to_tq(t_stats *data, t_node **A, t_node **B)
+void	half_to_tq(t_stats *data, t_node **a, t_node **b)
 {
-	if ((*A)->n_index == data->h)
-		grow_h(data, A, B);
-	else if ((*A)->n_index == data->h + 1 || (*A)->n_index == data->h + 2)
+	if ((*a)->n_index == data->h)
+		grow_h(data, a, b);
+	else if ((*a)->n_index == data->h + 1 || (*a)->n_index == data->h + 2)
 	{
 		if (!(data->swap < 2)) // positief maken
 			return ;
-		pb(A, B);
+		pb(a, b);
 		data->swap++;
 	}
 }
 
-static void	grow_h(t_stats *data, t_node **A, t_node **B)
+static void	grow_h(t_stats *data, t_node **a, t_node **b)
 {
 	if (data->swap)
-		grow_and_swap_h(data, A, B);
+		grow_and_swap_h(data, a, b);
 	else
-		pb(A, B);
+		pb(a, b);
 	data->h++;
 }
 
-static void	grow_and_swap_h(t_stats *data, t_node **A, t_node **B)
+static void	grow_and_swap_h(t_stats *data, t_node **a, t_node **b)
 {
 	if (data->swap == 1)
 	{
-		pb(A, B);
-		sb(B);
-		if ((*B)->n_index == (*B)->next->n_index + 1)
+		pb(a, b);
+		sb(b);
+		if ((*b)->n_index == (*b)->next->n_index + 1)
 		{
 			data->swap--;
 			data->h++;
 		}
 	}
 	else
-		swap_two(data, A, B);
+		swap_two(data, a, b);
 }
 
-static void	swap_two(t_stats *data, t_node **A, t_node **B)
+static void	swap_two(t_stats *data, t_node **a, t_node **b)
 {
-	rb(B, 0);
-	if ((*B)->n_index == (*A)->n_index + 1)
+	rb(b, 0);
+	if ((*b)->n_index == (*a)->n_index + 1)
 	{
-		pb(A, B);
-		sb(B);
-		rrb(B);
+		pb(a, b);
+		sb(b);
+		rrb(b);
 	}
 	else
 	{
-		rb(B, 0);
-		pb(A, B);
-		rrb(B);
-		rrb(B);
-		sb(B);
+		rb(b, 0);
+		pb(a, b);
+		rrb(b);
+		rrb(b);
+		sb(b);
 	}
 	data->swap -= 2;
 	data->h += 2;
