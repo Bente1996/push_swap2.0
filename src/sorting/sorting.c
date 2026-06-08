@@ -13,23 +13,23 @@
 #include "push_swap.h"
 #include <stddef.h>
 
-void	sort_all(t_node **A, int all)
+void	sort_all(t_node **a, int all)
 {
-	t_node	**B;
+	t_node	*b;
 
-	B = NULL;
-	if (all >= 450)
-		sort_big_list(A, B, all, 180);
-	else if (all >= 360)
-		sort_big_list(A, B, all, 135);
-	else if (all >= 270)
-		sort_big_list(A, B, all, 90);
-	else if (all >= 150)
-		sort_big_list(A, B, all, 45);
-	else if (all > 20)
-		sort_medium_list(A, B, all);
-	else if (all > 2)
-		sort_small_list(A, B, all);
+	b = NULL;
+	if (all < 3)
+		sa(a, 0);
+	else if (all < 21)
+		sort_small_list(a, &b, all);
+	else if (all < 150)
+		sort_medium_list(a, &b, all);
+	else if (all < 270)
+		sort_big_list(a, &b, all, 45);
+	else if (all < 360)
+		sort_big_list(a, &b, all, 90);
+	else if (all < 450)
+		sort_big_list(a, &b, all, 135);
 	else
-		sa(A, 0);
+		sort_big_list(a, &b, all, 180);
 }

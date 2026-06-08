@@ -49,7 +49,8 @@ t_node	*make_list(int argc, char **argv, int *i)
 	return (head);
 }
 
-int	make_number(char *argv, int *valid)
+int	make_number(char *argv, int *valid) // voeg is_duplicate toe en argc check,
+										// even meegeven
 {
 	int	value;
 

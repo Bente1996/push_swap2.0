@@ -12,35 +12,35 @@
 
 #include "push_swap.h"
 
-void	sort_small_list(t_node **A, t_node **B, int all)
+void	sort_small_list(t_node **a, t_node **b, int all)
 {
 	while (all)
 	{
 		if (all == 3)
 		{
-			sort_three(A);
+			sort_three(a);
 			break ;
 		}
-		smallest_to_top(A);
-		pb(A, B);
+		smallest_to_top(a);
+		pb(a, b);
 		all--;
 	}
-	while (*B)
-		pa(A, B, 0);
+	while (*b)
+		pa(a, b, 0);
 }
 
-void	smallest_to_top(t_node **A)
+void	smallest_to_top(t_node **a)
 {
 	int	mid_stack;
 	int	smallest_pos;
 
-	smallest_pos = find_smallest(*A);
-	mid_stack = stack_size(*A) / 2;
+	smallest_pos = find_smallest(*a);
+	mid_stack = stack_size(*a) / 2;
 	if (mid_stack < smallest_pos) // van onderaan
 	{
-		while (smallest_pos <= stack_size(*A))
+		while (smallest_pos <= stack_size(*a))
 		{
-			rra(A, 0);
+			rra(a, 0);
 			smallest_pos++;
 		}
 	}
@@ -48,13 +48,13 @@ void	smallest_to_top(t_node **A)
 	{
 		while (smallest_pos > 1)
 		{
-			ra(A, 0);
+			ra(a, 0);
 			smallest_pos--;
 		}
 	}
 }
 
-int	find_smallest(t_node *A)
+int	find_smallest(t_node *b)
 {
 	int		pos;
 	int		smallest_pos;
@@ -62,39 +62,39 @@ int	find_smallest(t_node *A)
 
 	pos = 1;
 	smallest_pos = 1;
-	smallest = A;
-	while (A)
+	smallest = b;
+	while (b)
 	{
-		if (A->value < smallest->value)
+		if (b->value < smallest->value)
 		{
-			smallest = A;
+			smallest = b;
 			smallest_pos = pos;
 		}
-		A = A->next;
+		b = b->next;
 		pos++;
 	}
 	return (smallest_pos);
 }
 
-void	sort_three(t_node **A)
+void	sort_three(t_node **a)
 {
-	const int	one = (*A)->value;
-	const int	two = (*A)->next->value;
-	const int	three = (*A)->next->next->value;
+	const int	one = (*a)->value;
+	const int	two = (*a)->next->value;
+	const int	three = (*a)->next->next->value;
 
 	if (one > two && one > three) // 3 1 2 || 3 2 1
 	{
-		ra(A, 0);
+		ra(a, 0);
 		if (two > three)
-			sa(A, 0);
+			sa(a, 0);
 	}
 	else if (one > two && one < three) // 2 1 3
-		sa(A, 0);
+		sa(a, 0);
 	else if (one < two && one > three) // 2 3 1
-		rra(A, 0);
+		rra(a, 0);
 	else if (one < two && one < three) // 1 3 2
 	{
-		rra(A, 0);
-		sa(A, 0);
+		rra(a, 0);
+		sa(a, 0);
 	}
 }

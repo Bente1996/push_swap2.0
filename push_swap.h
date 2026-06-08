@@ -43,7 +43,7 @@ typedef struct s_stats
 
 t_node	*make_list(int argc, char **argv, int *i);
 t_node	*append_node(t_node **head, int value, int index);
-t_stats	*alloc_stats(t_node **stack_a, t_node **stack_b, int half);
+t_stats	*alloc_stats(t_node **a, t_node **b, int half);
 int		make_number(char *argv, int *valid);
 int		convert(char *argv, int *valid);
 bool	is_overflow(char *argv, int value, int sign);

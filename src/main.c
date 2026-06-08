@@ -19,7 +19,10 @@ int	main(int argc, char **argv)
 		return (1);
 	a = make_list(argc, argv, &index);
 	if (!a)
+	{
+		printf("Error\n"); // verander in ft_printf
 		return (1);
+	}
 	sort_all(&a, index);
 	free_list(a);
 	return (0);
