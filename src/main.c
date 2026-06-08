@@ -16,14 +16,15 @@ int	main(int argc, char **argv)
 	a = NULL;
 	index = 0;
 	if (argc < 3)
-		return (1);
-	a = make_list(argc, argv, &index);
+		return (1); // (0) ?
+	a = make_list(argc, argv, &index, &a);
 	if (!a)
 	{
 		printf("Error\n"); // verander in ft_printf
 		return (1);
 	}
-	sort_all(&a, index);
+	if (!already_sorted(a))
+		sort_all(&a, index);
 	free_list(a);
 	return (0);
 }

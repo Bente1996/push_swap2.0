@@ -11,42 +11,34 @@
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include <stdio.h>
 #include <stdlib.h>
 
-t_node	*make_list(int argc, char **argv, int *i)
+t_node	*make_list(int argc, char **argv, int *i, t_node **head)
 {
 	t_node		*list;
-	t_node		*head;
 	int			value;
 	int			valid;
 
 	list = NULL;
-	head = NULL;
 	while (*i < argc - 1)
 	{
 		valid = 0;
 		value = make_number(argv[*i + 1], &valid);
 		if (!valid)
 		{
-			free_list(head);
+			free_list(*head);
 			return (NULL);
 		}
-		list = append_node(&head, value, *i);
+		list = append_node(head, value, *i);
 		if (!list)
 		{
-			free_list(head);
+			free_list(*head);
 			return (NULL);
 		}
 		*i += 1;
 	}
-	head = sort_indices(&head);
-	if (already_sorted(head))
-	{
-		free_list(head);
-		return (NULL);
-	}
-	return (head);
+	*head = sort_indices(head);
+	return (*head);
 }
 
 int	make_number(char *argv, int *valid) // voeg is_duplicate toe en argc check,

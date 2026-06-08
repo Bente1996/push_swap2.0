@@ -24,8 +24,10 @@ SRC := main.c \
 		quarter_to_half.c \
 		sorting.c \
 		sort_big_list.c \
-		organising.c \
-		organising_utils.c \
+		organise_a.c \
+		organise_b.c \
+		sort_forty_five.c \
+		sort_rest.c \
 		lowering.c \
 		lowering_utils.c \
 		grow_list.c \
@@ -34,11 +36,12 @@ SRC := main.c \
 VPATH = src/ \
 		src/linked_list \
 		src/operations \
-		src/parsing \
 		src/sorting \
-		src/sorting/sort_big_list \
-		src/sorting/sort_medium_list \
-		src/sorting/sort_small_list
+		src/sorting/small_list\
+		src/sorting/medium_list \
+		src/sorting/big_list \
+		src/sorting/big_list/organising \
+		src/sorting/big_list/gorw_list
 
 OBJDIR := bin/
 OBJ := $(addprefix $(OBJDIR), $(SRC:.c=.o))

@@ -55,10 +55,8 @@ t_stats	*alloc_stats(t_node **A, t_node **B, int half)
 	t_stats	*data;
 	int		all;
 
-	all = half * 2;
 	data = malloc(sizeof(t_stats));
-	if (!data)
-		return (NULL);
+	all = half * 2;
 	if (!already_sorted(*A) && !already_sorted(*B))
 		data->top = 1;
 	else
