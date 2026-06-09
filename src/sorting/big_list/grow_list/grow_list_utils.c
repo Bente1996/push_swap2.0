@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-int	find_case(int n_index, int lower, int bottom)
+int	is_group(int n_index, int lower, int bottom) // find case
 {
 	if (n_index == lower || n_index == lower - 1)
 		return (1);
@@ -22,7 +22,23 @@ int	find_case(int n_index, int lower, int bottom)
 		return (0);
 }
 
-void	add_and_lower(t_stats *data, t_node **a, t_node **b)
+void	grow_list(t_stats *data, t_node **a, t_node **b, int group)
+{
+	if (group == 1)
+		grow_top(data, a, b);
+	else if (group == 2)
+		grow_bottom(data, a, b);
+}
+
+void	sort_bottom_stack(t_stats *data, t_node **a, t_node **b, int group) // omdraaien
+{
+	if (group == 1)
+		grow_top(data, a, b); // omdraaien, andere func
+	else if (group == 2)
+		grow_bottom(data, a, b); // omdraaien, andere func
+}
+
+void	grow_top(t_stats *data, t_node **a, t_node **b) // add_and_lower
 {
 	if ((*b)->n_index == data->lower - 1)
 	{
@@ -48,7 +64,7 @@ void	add_and_lower(t_stats *data, t_node **a, t_node **b)
 	data->lower--;
 }
 
-void	add(t_stats *data, t_node **a, t_node **b)
+void	grow_bottom(t_stats *data, t_node **a, t_node **b) // add
 {
 	if (!data->bottom || data->bottom_stack->n_index < (*b)->n_index)
 	{
