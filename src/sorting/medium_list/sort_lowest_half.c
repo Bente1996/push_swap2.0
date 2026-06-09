@@ -14,20 +14,20 @@
 
 void	sort_lowest_half(t_node **a, t_node **b, int half)
 {
-	t_stats *data;
+	t_stats data;
 
-	data =  alloc_stats(a, b, half);
+	data = init_stats(a, b, half);
 	while (*b)
 	{
-		if ((*b)->n_index >= data->q 
-			&& (*b)->n_index <= data->q + 2
-			&& (*b)->n_index < data->quarter) // 0-24
-			top_to_quarter(data, a, b);
-		else if ((*b)->n_index <= data->h && (*b)->n_index >= data->h - 2) // 25-49
-			quarter_to_half(data, a, b);
+		if ((*b)->n_index >= data.q 
+			&& (*b)->n_index <= data.q + 2
+			&& (*b)->n_index < data.quarter) // 0-24
+			top_to_quarter(&data, a, b);
+		else if ((*b)->n_index <= data.h && (*b)->n_index >= data.h - 2) // 25-49
+			quarter_to_half(&data, a, b);
 		else
-		 	rb(b, 0);
+			rb(b, 0);
 	}
-	while (data->quarter--)
+	while (data.quarter--)
 		rra(a, 0);
 }

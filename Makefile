@@ -41,7 +41,7 @@ VPATH = src/ \
 		src/sorting/medium_list \
 		src/sorting/big_list \
 		src/sorting/big_list/organising \
-		src/sorting/big_list/gorw_list
+		src/sorting/big_list/grow_list
 
 OBJDIR := bin/
 OBJ := $(addprefix $(OBJDIR), $(SRC:.c=.o))

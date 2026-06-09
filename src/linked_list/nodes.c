@@ -50,23 +50,20 @@ t_node	*append_node(t_node **head, int value, int index)
 	return (new);
 }
 
-t_stats	*alloc_stats(t_node **A, t_node **B, int half)
+t_stats	init_stats(t_node **A, t_node **B, int half)
 {
-	t_stats	*data;
+	t_stats	data;
 	int		all;
 
-	data = malloc(sizeof(t_stats));
+	data = (t_stats){0};
 	all = half * 2;
 	if (!already_sorted(*A) && !already_sorted(*B))
-		data->top = 1;
-	else
-		data->top = 0;
-	data->quarter = half / 2;
-	data->lower = --half;
-	data->q = 0;
-	data->three_quarter = all - (half / 2) - 1;
-	data->h = half;
-	data->tq = data->three_quarter + 1;
-	data->bottom_stack = NULL;
+		data.top = 1;
+	data.quarter = half / 2;
+	data.lower = --half;
+	data.three_quarter = all - (half / 2) - 1;
+	data.h = half;
+	data.tq = data.three_quarter + 1;
+	data.bottom_stack = NULL;
 	return (data);
 }
