@@ -33,11 +33,9 @@ void	sort_big_list(t_node **a, t_node **b, int all, int size)
 		pa(a, b, 0);
 		ra(a, 0);
 	}
-	half_stack_sorted(a, b, half + size, size);       // 250->500 sorted in A
-	half_stack_sorted(a, b, half, half);              // all sorted in A (2x sort half
+	sort_half(a, b, half + size, size);       // 250->500 sorted in A
+	sort_half(a, b, half, half);              // all sorted in A (2x sort half
 											  // stack)
-	//print_list(*a, 'A');
-	//print_list(*b, 'B');
 }
 
 //void	sort_big_list(t_node **a, t_node **b, int all, int size)

@@ -13,21 +13,18 @@
 #include "push_swap.h"
 #include <stddef.h>
 
-void	handle_bottom(t_stats *data, t_node **A)
+void	add_new_lower(t_stats *data, t_node **A) // add_two_lower
 {
-	if (data->bottom_stack->n_index == (*A)->n_index - 1) // wanneer er iig 1 naar boven moet
-	{
-		rra(A, data->top);
-		data->bottom--;
-		data->lower--;
-		if (data->bottom)
-			more_bottom(data, A);
-		else
-			data->bottom_stack = NULL;
-	}
+	rra(A, data->top);
+	data->bottom--;
+	data->lower--;
+	if (data->bottom)
+		more_bottom(data, A);
+	else
+		data->bottom_stack = NULL;
 }
 
-void	more_bottom(t_stats *data, t_node **A)
+void	more_bottom(t_stats *data, t_node **A) // add_three_lower,etc.
 {
 	if ((*A)->n_index == (*A)->next->n_index - 1) // eerste was goed
 	{
