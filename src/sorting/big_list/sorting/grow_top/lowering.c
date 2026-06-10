@@ -13,30 +13,9 @@
 #include "push_swap.h"
 #include <stddef.h>
 
-void	add_new_lower(t_stats *data, t_node **A) // add_two_lower
-{
-	rra(A, data->top);
-	data->bottom--;
-	data->lower--;
-	if (data->bottom)
-		more_bottom(data, A);
-	else
-		data->bottom_stack = NULL;
-}
 
-void	more_bottom(t_stats *data, t_node **A) // add_three_lower,etc.
-{
-	if ((*A)->n_index == (*A)->next->n_index - 1) // eerste was goed
-	{
-		data->bottom_stack = find_bottom(*A);
-		if (!add_second(data, A) && data->bottom == 2) // check tweede
-				try_three(data, A); // tweede mag niet, probeer derde
-	}
-	else // eerste was niet goed dus probeer tweede
-		 try_two(data, A);
-}
 
-void	try_three(t_stats *data, t_node **A)
+void	try_third(t_stats *data, t_node **A)
 {
 	data->bottom_stack = check_bottom(*A);
 	if (data->bottom_stack->n_index == (*A)->n_index - 1)
@@ -60,23 +39,108 @@ void	try_three(t_stats *data, t_node **A)
 	}
 }
 
-void	try_two(t_stats *data, t_node **A)
+void	check_third(t_stats *data, t_node **A)
+{
+	data->lower--;
+	data->bottom--;
+	if (data->bottom_stack->n_index == (*A)->n_index - 1) // maak ff 1 statement
+	{
+		rra(A, data->top);
+		data->bottom--;
+		data->lower--;
+	}
+	data->bottom_stack = NULL;
+}
+
+bool	add_second(t_stats *data, t_node **A)
+{
+	if (data->bottom_stack->n_index == (*A)->n_index - 1) // tweede mag ook
+	{
+		rra(A, data->top);
+		data->bottom--;
+		data->lower--;
+		if (data->bottom)
+			data->bottom_stack = find_bottom(*A);
+		else
+			data->bottom_stack = NULL;
+		if (data->bottom && data->bottom_stack->n_index == (*A)->n_index - 1)
+		{
+			rra(A, data->top);
+			data->lower--;
+			data->bottom_stack = NULL;
+			data->bottom--;
+		}
+		return (true);
+	}
+	else
+		return (false);
+}
+
+void	add_third(t_stats *data, t_node **A)
 {
 	rra(A, data->top);
-	if (data->bottom == 2)
-		data->bottom_stack = find_bottom(*A);
-	else
-		data->bottom_stack = (*A)->next;
-	if ((*A)->n_index == (*A)->next->next->n_index - 1) // als tweede goed is
+	sa(A, data->top);
+	data->lower--;
+	data->bottom--;
+	if ((*A)->n_index == (*A)->next->n_index - 1)
 	{
-		sa(A, data->top);
-		if ((*A)->n_index == (*A)->next->n_index - 1) // twee op juiste plek
-			check_third(data, A);
-		else if (data->bottom_stack->n_index == (*A)->next->n_index - 1) // niet twee juiste volgorde
-			get_second(data, A);
-		else // tweede was niet goed
-		     ra(A, data->top);
+		data->lower--;
+		data->bottom--;
+		data->bottom_stack = NULL;
 	}
-	else // tweede was niet goed, dus moet derde wel zijn
-		 get_third(data, A);
+	else
+	{
+		ra(A, data->top);
+		data->bottom_stack = find_bottom(*A);
+	}
+}
+
+#include <stdio.h>
+
+void	get_third(t_stats *data, t_node **A)
+{
+	printf("A EERST: %d\n", (*A)->n_index);
+	printf("A->next EERST: %d\n", (*A)->next->n_index);
+	printf("BOttom EERst; %d\n", data->bottom_stack->n_index);
+	if ((*A)->n_index == 445)
+		print_list(*A, 'A');
+	rra(A, data->top);
+	sa(A, data->top);
+	ra(A, data->top);
+	sa(A, data->top);
+
+//	rra(A, data->top); // alle 3 nu boven
+//	if (!((*A)->n_index == (*A)->next->n_index - 1))
+//		sa(A, 0);
+//	data->bottom_stack = NULL;
+//	data->bottom -= 2;
+//	data->lower -= 3;
+	printf("bottom VOOR: %d\n", data->bottom);
+	printf("lower VOOR: %d\n", data->lower);
+//	printf("bottom: %d\n", data->bottom);
+	data->bottom_stack = find_bottom(*A);
+	printf("a: %d\n", (*A)->n_index);
+	printf("a->next: %d\n", (*A)->next->n_index);
+	printf("bottom: %d\n", data->bottom_stack->n_index);
+	if ((*A)->n_index == (*A)->next->n_index - 1) // check if bottom fits too
+		funk(data, A);
+	else if (data->bottom_stack->n_index == (*A)->next->n_index - 1) // get
+																	 // bottom
+																	 // move 1
+																	 // down
+		fonk(data, A);
+	else
+	{
+		if ((*A)->n_index > data->bottom_stack->n_index)
+			data->bottom_stack = *A;
+		ra(A, data->top);
+	}
+	if (data->bottom == 1)
+		print_list(*A, 'A');
+	printf("bottom NA: %d\n", data->bottom);
+	printf("lower NA: %d\n", data->lower);
+	printf("a NA: %d\n", (*A)->n_index);
+	printf("a->next NA: %d\n", (*A)->next->n_index);
+	if (data->bottom)
+		printf("bottom NA: %d\n", data->bottom_stack->n_index);
 }

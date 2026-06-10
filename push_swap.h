@@ -1,4 +1,3 @@
-
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                            ::::::::        */
@@ -107,16 +106,16 @@ void	sort_unorganised(t_node **a, t_node **b, int half, int count);
 void	grow_list(t_stats *data, t_node **a, t_node **b, int group);
 void	sort_bottom_stack(t_stats *data, t_node **a, t_node **b, int group);
 void	grow_top(t_stats *data, t_node **a, t_node **b);
-void	add_lower(t_stats *data, t_node **a, t_node **b);
-void	add_new_lower(t_stats *data, t_node **a);
+void	add_one(t_stats *data, t_node **a);
+void	add_more(t_stats *data, t_node **a);
 void	grow_bottom(t_stats *data, t_node **a, t_node **b);
-void	more_bottom(t_stats *data, t_node **a);
+void	try_more(t_stats *data, t_node **a);
 t_node	*find_bottom(t_node *stack);
 t_node	*check_bottom(t_node *stack);
 void	get_third(t_stats *data, t_node **a);
-void	try_three(t_stats *data, t_node **a);
-void	try_two(t_stats *data, t_node **a);
-void	get_second(t_stats *data, t_node **a);
+void	try_third(t_stats *data, t_node **a);
+void	try_second(t_stats *data, t_node **a);
+void	add_third(t_stats *data, t_node **a);
 void	check_third(t_stats *data, t_node **a);
 void	funk(t_stats *data, t_node **a);
 void	fonk(t_stats *data, t_node **a);

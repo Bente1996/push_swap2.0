@@ -30,7 +30,6 @@ void	sort_half(t_node **a, t_node **b, int half, int count)
 	data = init_stats(a, b, half);
 	while (count)
 	{
-		group = 0;
 		group = is_group((*b)->n_index, data.lower, data.bottom);
 		if (group)
 		{
