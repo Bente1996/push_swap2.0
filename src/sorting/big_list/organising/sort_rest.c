@@ -27,11 +27,11 @@ void	groups_of_fifteen(t_node **a, t_node **b, int highest, int count)
 		rrb(b); // -31 tot -45 blijft in B
 		if ((*b)->n_index > highest - 16) // begin: -1 tot -15
 		{
-			pa(a, b, 0);
-			ra(a, 0);
+			pa(a, b);
+			ra(a);
 		}
 		else if ((*b)->n_index < highest - 15 && (*b)->n_index > highest - 31) // -16 tot -30
-			pa(a, b, 0);
+			pa(a, b);
 	}
 }
 
@@ -41,13 +41,13 @@ void	sort_fifteen_A(t_node **a, t_node **b, int highest, int count)
 	{
 		if ((*b)->n_index >= highest - 35) // -31 tot -35
 		{
-			pa(a, b, 0);
-			ra(a, 0);
+			pa(a, b);
+			ra(a);
 		}
 		else if ((*b)->n_index >=highest - 40) // -36 tot -40
-			rb(b, 0);
+			rb(b);
 		else // -41 tot -45
-		     pa(a, b, 0);
+		     pa(a, b);
 		count--;
 	}
 	while (count--)
@@ -58,7 +58,7 @@ void	sort_fifteen_A(t_node **a, t_node **b, int highest, int count)
 			rrb(b);
 		else             // -30 tot -35
 		{
-			rra(a, 0);
+			rra(a);
 			pb(a, b);
 		}
 	}
@@ -69,11 +69,11 @@ void	sort_fifteen_B(t_node **a, t_node **b, int highest, int count)
 	while (count > 10) // 15
 	{
 		if ((*a)->n_index >= highest - 20)  // -16 tot -20
-			ra(a, 0);
+			ra(a);
 		else if ((*a)->n_index >= highest - 25) // -21 tot -25
 		{
 			pb(a, b);
-			rb(b, 0);
+			rb(b);
 		}
 		else // -26 tot -30
 		     pb(a, b); // staat nu al goed
@@ -85,7 +85,7 @@ void	sort_fifteen_B(t_node **a, t_node **b, int highest, int count)
 			rrb(b);
 		else            // -16 tot -20 goed
 		{
-			rra(a, 0);
+			rra(a);
 			pb(a, b);
 		}
 	}
@@ -95,12 +95,12 @@ void	sort_fifteen_C(t_node **a, t_node **b, int highest, int count)
 {
 	while (count > 10) // 15
 	{
-		rra(a, 0); // -1 tot -5
+		rra(a); // -1 tot -5
 		if ((*a)->n_index < highest - 5) // -11 tot -15 gelijk goed
 		{
 			pb(a, b);
 			if ((*b)->n_index >= highest - 10) // -6 tot -10
-				rb(b, 0);
+				rb(b);
 		}
 		count--;
 	}

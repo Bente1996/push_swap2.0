@@ -16,7 +16,7 @@ void	sort_lowest_half(t_node **a, t_node **b, int half)
 {
 	t_stats data;
 
-	data = init_stats(a, b, half);
+	data = init_stats(half);
 	while (*b)
 	{
 		if ((*b)->n_index >= data.q 
@@ -26,8 +26,8 @@ void	sort_lowest_half(t_node **a, t_node **b, int half)
 		else if ((*b)->n_index <= data.h && (*b)->n_index >= data.h - 2) // 25-49
 			quarter_to_half(&data, a, b);
 		else
-			rb(b, 0);
+			rb(b);
 	}
 	while (data.quarter--)
-		rra(a, 0);
+		rra(a);
 }

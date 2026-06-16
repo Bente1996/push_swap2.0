@@ -26,7 +26,7 @@ void	organise_a(t_node **a, t_node **b, int all, int highest)
 		if ((*a)->n_index < highest)
 			pb(a, b);
 		else
-			ra(a, 0);
+			ra(a);
 	}
 	sort_a(a, b, highest, size);
 }

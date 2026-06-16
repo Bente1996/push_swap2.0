@@ -27,7 +27,6 @@ typedef struct s_node
 
 typedef struct s_stats
 {
-	int	top;
 	int	quarter;
 	int	q;
 	int	three_quarter;
@@ -42,7 +41,7 @@ typedef struct s_stats
 
 t_node	*make_list(int argc, char **argv, int *i, t_node **head);
 t_node	*append_node(t_node **head, int value, int index);
-t_stats	init_stats(t_node **a, t_node **b, int half);
+t_stats	init_stats(int half);
 int		make_number(char *argv, int *valid);
 int		convert(char *argv, int *valid);
 bool	is_overflow(char *argv, int value, int sign);
@@ -142,13 +141,13 @@ void	try_more_r(t_stats *data, t_node **b);
 
 
 void	pb(t_node **a, t_node **b);
-void	pa(t_node **a, t_node **b, int top);
-void	ra(t_node **a, int top);
-void	rb(t_node **b, int top);
+void	pa(t_node **a, t_node **b);
+void	ra(t_node **a);
+void	rb(t_node **b);
 void	rr(t_node **a, t_node **b);
 void	rrb(t_node **b);
-void	rra(t_node **a, int top);
-void	sa(t_node **a, int top);
+void	rra(t_node **a);
+void	sa(t_node **a);
 void	sb(t_node **b);
 
 #endif

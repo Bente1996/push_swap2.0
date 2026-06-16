@@ -56,7 +56,7 @@ static void	grow_and_swap_h(t_stats *data, t_node **a, t_node **b)
 
 static void	swap_two(t_stats *data, t_node **a, t_node **b)
 {
-	rb(b, 0);
+	rb(b);
 	if ((*b)->n_index == (*a)->n_index + 1)
 	{
 		pb(a, b);
@@ -65,7 +65,7 @@ static void	swap_two(t_stats *data, t_node **a, t_node **b)
 	}
 	else
 	{
-		rb(b, 0);
+		rb(b);
 		pb(a, b);
 		rrb(b);
 		rrb(b);

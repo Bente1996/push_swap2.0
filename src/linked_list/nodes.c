@@ -50,15 +50,13 @@ t_node	*append_node(t_node **head, int value, int index)
 	return (new);
 }
 
-t_stats	init_stats(t_node **A, t_node **B, int half)
+t_stats	init_stats(int half)
 {
 	t_stats	data;
 	int		all;
 
 	data = (t_stats){0};
 	all = half * 2;
-	if (!already_sorted(*A) && !already_sorted(*B))
-		data.top = 1;
 	data.quarter = half / 2;
 	data.lower = --half;
 	data.three_quarter = all - (half / 2) - 1;

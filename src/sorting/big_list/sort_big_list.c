@@ -30,8 +30,8 @@ void	sort_big_list(t_node **a, t_node **b, int all, int size)
 		sort_unorganised(a, b, all, half - size);
 	while (sorted--)                          // 500->430 sorted in A
 	{
-		pa(a, b, 0);
-		ra(a, 0);
+		pa(a, b);
+		ra(a);
 	}
 	sort_half(a, b, half + size, size);       // 250->500 sorted in A
 	sort_half(a, b, half, half);              // all sorted in A (2x sort half

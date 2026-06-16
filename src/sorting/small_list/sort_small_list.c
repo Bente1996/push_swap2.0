@@ -26,7 +26,7 @@ void	sort_small_list(t_node **a, t_node **b, int all)
 		all--;
 	}
 	while (*b)
-		pa(a, b, 0);
+		pa(a, b);
 }
 
 void	smallest_to_top(t_node **a)
@@ -40,7 +40,7 @@ void	smallest_to_top(t_node **a)
 	{
 		while (smallest_pos <= stack_size(*a))
 		{
-			rra(a, 0);
+			rra(a);
 			smallest_pos++;
 		}
 	}
@@ -48,7 +48,7 @@ void	smallest_to_top(t_node **a)
 	{
 		while (smallest_pos > 1)
 		{
-			ra(a, 0);
+			ra(a);
 			smallest_pos--;
 		}
 	}
@@ -84,17 +84,17 @@ void	sort_three(t_node **a)
 
 	if (one > two && one > three) // 3 1 2 || 3 2 1
 	{
-		ra(a, 0);
+		ra(a);
 		if (two > three)
-			sa(a, 0);
+			sa(a);
 	}
 	else if (one > two && one < three) // 2 1 3
-		sa(a, 0);
+		sa(a);
 	else if (one < two && one > three) // 2 3 1
-		rra(a, 0);
+		rra(a);
 	else if (one < two && one < three) // 1 3 2
 	{
-		rra(a, 0);
-		sa(a, 0);
+		rra(a);
+		sa(a);
 	}
 }

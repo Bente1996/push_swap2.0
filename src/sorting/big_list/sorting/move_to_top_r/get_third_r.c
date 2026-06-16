@@ -17,7 +17,7 @@ void	get_third_r(t_stats *data, t_node **b)
 {
 	rrb(b);
 	sb(b);
-	rb(b, 0);
+	rb(b);
 	sb(b);
 	data->bottom_stack = find_bottom(*b);
 	if ((*b)->n_index == (*b)->next->n_index - 1) // check if bottom fits too
@@ -55,7 +55,7 @@ void	one_correct_r(t_stats *data, t_node **b) // niet 2 op goede plek, maar 3e m
 		}
 		else
 		{
-			rb(b, 0);
+			rb(b);
 			data->bottom_stack = find_bottom(*b);
 		}
 	}
@@ -63,6 +63,6 @@ void	one_correct_r(t_stats *data, t_node **b) // niet 2 op goede plek, maar 3e m
 	{
 		if ((*b)->n_index > data->bottom_stack->n_index)
 			data->bottom_stack = *b;
-		rb(b, 0);
+		rb(b);
 	}
 }

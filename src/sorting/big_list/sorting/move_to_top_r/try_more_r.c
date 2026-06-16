@@ -62,7 +62,7 @@ void	try_third_r(t_stats *data, t_node **b)
 	}
 	if ((*b)->n_index != (*b)->next->n_index - 1)
 	{
-		rb(b, 0);
+		rb(b);
 		data->bottom_stack = find_bottom(*b);
 	}
 	else

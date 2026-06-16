@@ -29,7 +29,7 @@ bool	add_second(t_stats *data, t_node **a)
 {
 	if (data->bottom_stack->n_index == (*a)->n_index - 1) // tweede mag ook
 	{
-		rra(a, data->top);
+		rra(a);
 		data->bottom--;
 		data->lower--;
 		if (data->bottom)
@@ -38,7 +38,7 @@ bool	add_second(t_stats *data, t_node **a)
 			data->bottom_stack = NULL;
 		if (data->bottom && data->bottom_stack->n_index == (*a)->n_index - 1)
 		{
-			rra(a, data->top);
+			rra(a);
 			data->lower--;
 			data->bottom_stack = NULL;
 			data->bottom--;
@@ -54,15 +54,15 @@ void	try_third(t_stats *data, t_node **a)
 	data->bottom_stack = check_bottom(*a);
 	if (data->bottom_stack->n_index == (*a)->n_index - 1)
 	{
-		rra(a, data->top);
-		rra(a, data->top);
-		sa(a, data->top);
+		rra(a);
+		rra(a);
+		sa(a);
 		data->lower--;
 		data->bottom--;
 	}
 	if ((*a)->n_index != (*a)->next->n_index - 1)
 	{
-		ra(a, data->top);
+		ra(a);
 		data->bottom_stack = find_bottom(*a);
 	}
 	else
@@ -75,7 +75,7 @@ void	try_third(t_stats *data, t_node **a)
 
 void	try_second(t_stats *data, t_node **a)
 {
-	rra(a, data->top);
+	rra(a);
 	if (data->bottom == 2)
 		data->bottom_stack = find_bottom(*a);
 	else

@@ -17,7 +17,7 @@ void	sort_unorganised(t_node **a, t_node **b, int half, int count) // andersom
 	t_stats	data;
 	int		group;
 
-	data = init_stats(a, b, half);
+	data = init_stats(half);
 	while (count)
 	{
 		group = 0;
@@ -28,7 +28,7 @@ void	sort_unorganised(t_node **a, t_node **b, int half, int count) // andersom
 			count--;
 		}
 		else // rest
-			ra(a, 0); // moet dus andersom
+			ra(a); // moet dus andersom
 	}
 }
 

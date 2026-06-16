@@ -28,7 +28,7 @@ void	sort_half(t_node **a, t_node **b, int half, int count)
 	t_stats	data;
 	int		group;
 
-	data = init_stats(a, b, half);
+	data = init_stats(half);
 	while (count)
 	{
 		group = is_group((*b)->n_index, data.lower, data.bottom);
@@ -38,7 +38,7 @@ void	sort_half(t_node **a, t_node **b, int half, int count)
 			count--;
 		}
 		else // rest
-			rb(b, data.top);
+			rb(b);
 	}
 }
 

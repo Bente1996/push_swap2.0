@@ -15,13 +15,13 @@
 
 void	second_correct(t_stats *data, t_node **a)
 {
-	sa(a, data->top);
+	sa(a);
 	if ((*a)->n_index == (*a)->next->n_index - 1 && data->bottom) // twee op juiste plek
 		two_in_order(data, a);
 	else if (data->bottom_stack->n_index == (*a)->next->n_index - 1) // niet twee juiste volgorde
 		add_from_bottom(data, a);
 	else // tweede was niet goed
-		ra(a, data->top);
+		ra(a);
 }
 
 void	two_in_order(t_stats *data, t_node **a)
@@ -30,7 +30,7 @@ void	two_in_order(t_stats *data, t_node **a)
 	data->bottom--;
 	if (data->bottom_stack->n_index == (*a)->n_index - 1) // maak ff 1 statement
 	{
-		rra(a, data->top);
+		rra(a);
 		data->bottom--;
 		data->lower--;
 	}
@@ -39,8 +39,8 @@ void	two_in_order(t_stats *data, t_node **a)
 
 void	add_from_bottom(t_stats *data, t_node **a)
 {
-	rra(a, data->top);
-	sa(a, data->top);
+	rra(a);
+	sa(a);
 	data->lower--;
 	data->bottom--;
 	if ((*a)->n_index == (*a)->next->n_index - 1)
@@ -51,7 +51,7 @@ void	add_from_bottom(t_stats *data, t_node **a)
 	}
 	else
 	{
-		ra(a, data->top);
+		ra(a );
 		data->bottom_stack = find_bottom(*a);
 	}
 }

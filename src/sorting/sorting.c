@@ -19,7 +19,7 @@ void	sort_all(t_node **a, int all)
 
 	b = NULL;
 	if (all < 3)
-		sa(a, 0);
+		sa(a);
 	else if (all < 21)
 		sort_small_list(a, &b, all);
 	else if (all < 150)

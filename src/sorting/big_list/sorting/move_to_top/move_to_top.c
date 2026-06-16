@@ -15,7 +15,7 @@
 
 void	move_to_top(t_stats *data, t_node **a, t_node **b) // add_and_lower
 {
-	pa(a, b, data->top);
+	pa(a, b);
 	if ((*a)->n_index == data->lower - 1) // lower nog niet gevonden
 		data->swap++;
 	else
@@ -29,7 +29,7 @@ void	add_one(t_stats *data, t_node **a) //handle bottom
 	data->lower--;
 	if (data->swap)
 	{
-		sa(a, data->top);
+		sa(a);
 		data->swap = 0;
 		data->lower--;
 	}
@@ -37,7 +37,7 @@ void	add_one(t_stats *data, t_node **a) //handle bottom
 
 void	add_more(t_stats *data, t_node **a)
 {
-	rra(a, data->top); // 1 (van 3?) naar boven
+	rra(a); // 1 (van 3?) naar boven
 	data->bottom--;
 	data->lower--;
 	if (data->bottom)

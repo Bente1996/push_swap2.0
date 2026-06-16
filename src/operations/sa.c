@@ -13,18 +13,13 @@
 #include "push_swap.h"
 #include <stddef.h>
 
-void	sa(t_node **A, int top)
+void	sa(t_node **A)
 {
 	t_node	*first;
 	t_node	*second;
 
 	if (!*A || !(*A)->next)
 		return ;
-	if (top)
-	{
-		sb(A);
-		return ;
-	}
 	first = *A;
 	second = (*A)->next;
 	first->next = (*A)->next->next;

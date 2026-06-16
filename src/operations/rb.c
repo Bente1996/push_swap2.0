@@ -13,15 +13,13 @@
 #include "push_swap.h"
 #include <stddef.h>
 
-void	rb(t_node **B, int top)
+void	rb(t_node **B)
 {
 	t_node	*first;
 	t_node	*tmp;
 
 	if (!*B || !(*B)->next)
 		return ;
-	if (top)
-		return (ra(B, top - 1));
 	first = *B;
 	tmp = *B;
 	*B = (*B)->next;

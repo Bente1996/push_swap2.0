@@ -30,7 +30,7 @@ static void	grow_tq(t_stats *data, t_node **a, t_node **b)
 		pb(a, b);
 	else
 		grow_and_swap_tq(data, a, b);
-	rb(b, 0);
+	rb(b);
 	data->tq++;
 }
 
@@ -40,13 +40,13 @@ static void	grow_and_swap_tq(t_stats *data, t_node **a, t_node **b)
 		rrb(b);
 	rrb(b);
 	pb(a, b);
-	rb(b, 0);
+	rb(b);
 	data->bottom_stack = find_bottom(*b);
 	if (data->swap_rot == 2)
 	{
 		if ((*b)->n_index > (*b)->next->n_index)
 			sb(b);
-		rb(b, 0);
+		rb(b);
 		data->swap_rot -= 2;
 		data->tq += 2;
 	}
@@ -65,6 +65,6 @@ static void	add_to_bottom(t_stats *data, t_node **a, t_node **b)
 	if (!data->swap_rot || \
 (data->swap_rot == 1 && (*b)->n_index > data->bottom_stack->n_index))
 		data->bottom_stack = *b;
-	rb(b, 0);
+	rb(b);
 	data->swap_rot++;
 }

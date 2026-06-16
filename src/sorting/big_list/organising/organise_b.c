@@ -24,10 +24,10 @@ void	organise_b(t_node **a, t_node **b, int half, int size)
 			pb(a, b);
 			h--;
 			if (((*b)->n_index < half - size))
-					rb(b, 0);
+					rb(b);
 		}
 		else
-			ra(a, 0);
+			ra(a);
 	}
 	sort_b(a, b, half, size);
 }
@@ -41,7 +41,7 @@ void	sort_b(t_node **a, t_node **b, int half, int size)
 	if (size >= 135)
 	{
 		while (count--)
-			rb(b, 0);
+			rb(b);
 		sort_forty_five(a, b, half, size - 45); // 0-90 beneden
 	}
 	if (size == 180)

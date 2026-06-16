@@ -13,15 +13,13 @@
 #include "push_swap.h"
 #include <stddef.h>
 
-void	rra(t_node **A, int top)
+void	rra(t_node **A)
 {
 	t_node	*second_last;
 	t_node	*last;
 
 	if (!*A || !(*A)->next)
 		return ;
-	if (top)
-		return (rrb(A));
 	second_last = *A;
 	last = *A;
 	while (last->next)

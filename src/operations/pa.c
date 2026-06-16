@@ -13,14 +13,12 @@
 #include "push_swap.h"
 #include <stddef.h>
 
-void	pa(t_node **A, t_node **B, int top)
+void	pa(t_node **A, t_node **B)
 {
 	t_node	*tmp;
 
 	if (!*B)
 		return ;
-	if (top)
-		return (pb(B, A));
 	tmp = *B;
 	*B = (*B)->next;
 	tmp->next = NULL;

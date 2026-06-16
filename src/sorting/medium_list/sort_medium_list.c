@@ -25,7 +25,6 @@ void	sort_medium_list(t_node **a, t_node **b, int all)
 	else
 		sorted_to_a(a, b, half, half / 2);
 	sort_lowest_half(a, b, half);
-	/*print_list(*a, 'A');*/
 }
 
 void	split_list(t_node **a, t_node **b, int half)
@@ -42,13 +41,13 @@ void	split_list(t_node **a, t_node **b, int half)
 			pb(a, b);
 			if ((*b)->n_index < 3 || (*b)->n_index > half - 4)
 			{
-				rb(b, 0);
+				rb(b);
 				count++;
 			}
 			h--;
 		}
 		else
-			ra(a, 0);
+			ra(a);
 	}
 	while (count--)
 		rrb(b);
@@ -60,9 +59,9 @@ void	sorted_to_a(t_node **a, t_node **b, int half, int quarter)
 	while (half > quarter)
 	{
 		rrb(b);
-		pa(a, b, 0);
+		pa(a, b);
 		half--;
 	}
 	while (half--)
-		pa(a, b, 0);
+		pa(a, b);
 }

@@ -20,13 +20,13 @@ void	sort_forty_five(t_node **a, t_node **b, int half, int size)
 	while (count--)
 	{
 		if ((*b)->n_index > half - (size - 44)) // (115-250)
-			rb(b, 0);
+			rb(b);
 		else if ((*b)->n_index < half - (size - 30)) // (99-70)
-			pa(a, b, 0);
+			pa(a, b);
 		else                                             // (100-114)
 		{
-			pa(a,b, 0);
-			ra(a, 0);
+			pa(a,b);
+			ra(a);
 		}
 	}
 	sort_low(a, b, half - (size - 90), 60); 
@@ -39,12 +39,12 @@ void	sort_low(t_node **a, t_node **b, int highest, int count)
 	while (count > 30) // 30
 	{
 		if ((*a)->n_index > highest - 76) // -61 tot -75 onderaan A
-			ra(a, 0);
+			ra(a);
 		else                                       // -76 tot -90 bovenaan B
 		{
 			pb(a, b);
 			if ((*b)->n_index > highest - 86) // -76 tot -85 naar beneden, -86 tot -90 al goed!
-				rb(b, 0);
+				rb(b);
 		}
 		count--;
 	}
@@ -54,12 +54,12 @@ void	sort_low(t_node **a, t_node **b, int highest, int count)
 		{
 			rrb(b);
 			if ((*b)->n_index > highest - 81) // -76 tot -80 naar A
-				pa(a, b, 0);
+				pa(a, b);
 		}
 		else if (count >= 15) // -76 tot -80
 			pb(a, b);
 		else                  // alles naar boven
-			rra(a, 0);
+			rra(a);
 	}
 }
 
@@ -71,10 +71,10 @@ void	sort_medium(t_node **a, t_node **b, int highest, int count)
 		{
 			pb(a, b);
 			if ((*b)->n_index > highest - 71) // -66 tot -70 onderaan B, -71 tot -75 op goeie plek
-				rb(b, 0);
+				rb(b);
 		}
 		else // -61 tot -65 onderaan A
-		     ra(a, 0);
+		     ra(a);
 		count--;
 	}
 	while(count--)
@@ -83,7 +83,7 @@ void	sort_medium(t_node **a, t_node **b, int highest, int count)
 			rrb(b);
 		else              // -61 tot -65
 		{
-			rra(a, 0);
+			rra(a);
 			pb(a, b);
 		}
 	}
@@ -93,12 +93,12 @@ void	sort_high(t_node **a, t_node **b, int highest, int count)
 {
 	while (count > 10) // -46 tot -60 op goeie plek zetten
 	{
-		rra(a, 0); // alles naar boven
+		rra(a); // alles naar boven
 		if ((*a)->n_index < highest - 50) // -51 tot -60 op goeie plek zetten
 		{
 			pb(a, b); // -56 tot -60 staat goed
 			if ((*b)->n_index > highest - 56) // -51 tot -55 naar beneden
-				rb(b, 0);
+				rb(b);
 		}
 		count--;
 	}

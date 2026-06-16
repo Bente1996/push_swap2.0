@@ -21,7 +21,7 @@ void	second_correct_r(t_stats *data, t_node **b)
 	else if (data->bottom_stack->n_index == (*b)->next->n_index - 1) // niet twee juiste volgorde
 		add_from_bottom_r(data, b);
 	else // tweede was niet goed
-		rb(b, 0);
+		rb(b);
 }
 
 void	two_in_order_r(t_stats *data, t_node **b)
@@ -51,7 +51,7 @@ void	add_from_bottom_r(t_stats *data, t_node **b)
 	}
 	else
 	{
-		rb(b, 0);
+		rb(b);
 		data->bottom_stack = find_bottom(*b);
 	}
 }
