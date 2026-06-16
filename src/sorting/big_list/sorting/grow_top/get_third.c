@@ -13,38 +13,57 @@
 #include "push_swap.h"
 #include <stddef.h>
 
+void	get_third(t_stats *data, t_node **a)
+{
+	rra(a, data->top);
+	sa(a, data->top);
+	ra(a, data->top);
+	sa(a, data->top);
 
+	data->bottom_stack = find_bottom(*a);
+	if ((*a)->n_index == (*a)->next->n_index - 1) // check if bottom fits too
+		two_correct(data, a);
+	else
+		one_correct(data, a);
+}
 
-void	funk(t_stats *data, t_node **A)
+void	two_correct(t_stats *data, t_node **a) // nu 2 op goede plek, check 3e
 {
 	data->bottom--;
 	data->lower--;
-	if (data->bottom_stack->n_index == (*A)->n_index - 1)
+	if (data->bottom_stack->n_index == (*a)->n_index - 1)
 	{
-		rra(A, data->top);
+		rra(a, data->top);
 		data->bottom--;
 		data->lower--;
 		data->bottom_stack = NULL;
 	}
 }
 
-
-void	fonk(t_stats *data, t_node **A)
+void	one_correct(t_stats *data, t_node **a) // niet 2 op goede plek, maar 3e mag wel
 {
-	rra(A, data->top);
-	sa(A, data->top);
-	data->lower--;
-	data->bottom--;
-	if ((*A)->n_index == (*A)->next->n_index - 1)
+	if (data->bottom_stack->n_index == (*a)->next->n_index - 1)
 	{
-		data->bottom--;
+		rra(a, data->top);
+		sa(a, data->top);
 		data->lower--;
-		data->bottom_stack = NULL;
+		data->bottom--;
+		if ((*a)->n_index == (*a)->next->n_index - 1)
+		{
+			data->bottom--;
+			data->lower--;
+			data->bottom_stack = NULL;
+		}
+		else
+		{
+			ra(a, data->top);
+			data->bottom_stack = find_bottom(*a);
+		}
 	}
 	else
 	{
-		ra(A, data->top);
-		data->bottom_stack = find_bottom(*A);
+		if ((*a)->n_index > data->bottom_stack->n_index)
+			data->bottom_stack = *a;
+		ra(a, data->top);
 	}
 }
-

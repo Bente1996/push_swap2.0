@@ -37,44 +37,11 @@ void	add_one(t_stats *data, t_node **a) //handle bottom
 
 void	add_more(t_stats *data, t_node **a)
 {
-	rra(a, data->top);
+	rra(a, data->top); // 1 (van 3?) naar boven
 	data->bottom--;
 	data->lower--;
 	if (data->bottom)
-		try_more(data, a); // get more bottom if bottom
+		try_more(data, a); // get more bottom if bottom (bottom == 1-2)
 	else
 		data->bottom_stack = NULL;
-}
-
-void	try_more(t_stats *data, t_node **a)
-{
-	if ((*a)->n_index == data->lower + 1) // eerste was goed
-	{
-		data->bottom_stack = find_bottom(*a);
-		if (!add_second(data, a) && data->bottom == 2) // check tweede
-				try_third(data, a); // tweede mag niet, probeer derde
-	}
-	else // eerste was niet goed dus probeer tweede
-		 try_second(data, a);
-}
-
-void	try_second(t_stats *data, t_node **A)
-{
-	rra(A, data->top);
-	if (data->bottom == 2)
-		data->bottom_stack = find_bottom(*A);
-	else
-		data->bottom_stack = (*A)->next;
-	if ((*A)->n_index == (*A)->next->next->n_index - 1) // als tweede goed is
-	{
-		sa(A, data->top);
-		if ((*A)->n_index == (*A)->next->n_index - 1 && data->bottom) // twee op juiste plek
-			check_third(data, A);
-		else if (data->bottom_stack->n_index == (*A)->next->n_index - 1) // niet twee juiste volgorde
-			add_third(data, A);
-		else // tweede was niet goed
-		     ra(A, data->top);
-	}
-	else // tweede was niet goed, dus moet derde wel zijn
-		 get_third(data, A);
 }

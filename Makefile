@@ -28,11 +28,12 @@ SRC := main.c \
 		organise_b.c \
 		sort_forty_five.c \
 		sort_rest.c \
-		lowering.c \
-		lowering_utils.c \
+		grow_top.c \
+		try_more.c \
+		second_correct.c \
+		get_third.c \
 		sort_half.c \
 		sort_unorganised.c \
-		grow_top.c \
 		grow_bottom.c \
 
 VPATH = src/ \

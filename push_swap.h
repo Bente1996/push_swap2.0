@@ -115,10 +115,11 @@ t_node	*check_bottom(t_node *stack);
 void	get_third(t_stats *data, t_node **a);
 void	try_third(t_stats *data, t_node **a);
 void	try_second(t_stats *data, t_node **a);
-void	add_third(t_stats *data, t_node **a);
-void	check_third(t_stats *data, t_node **a);
-void	funk(t_stats *data, t_node **a);
-void	fonk(t_stats *data, t_node **a);
+void	second_correct(t_stats *data, t_node **a);
+void	two_in_order(t_stats *data, t_node **a);
+void	add_from_bottom(t_stats *data, t_node **a);
+void	two_correct(t_stats *data, t_node **a);
+void	one_correct(t_stats *data, t_node **a);
 bool	add_second(t_stats *data, t_node **a);
 
 
