@@ -13,32 +13,32 @@
 #include "push_swap.h"
 #include <stddef.h>
 
-void	try_more(t_stats *data, t_node **a)
+void	try_more_r(t_stats *data, t_node **b)
 {
-	if ((*a)->n_index == data->lower + 1) // eerste was goed
+	if ((*b)->n_index == data->lower + 1) // eerste was goed
 	{
-		data->bottom_stack = find_bottom(*a);
-		if (!add_second(data, a) && data->bottom == 2) // check tweede EN derde
-				try_third(data, a); // tweede mag niet, probeer derde
+		data->bottom_stack = find_bottom(*b);
+		if (!add_second_r(data, b) && data->bottom == 2) // check tweede EN derde
+			try_third_r(data, b); // tweede mag niet, probeer derde
 	}
 	else // eerste was niet goed dus probeer tweede
-		 try_second(data, a);
+		try_second_r(data, b);
 }
 
-bool	add_second(t_stats *data, t_node **a)
+bool	add_second_r(t_stats *data, t_node **b)
 {
-	if (data->bottom_stack->n_index == (*a)->n_index - 1) // tweede mag ook
+	if (data->bottom_stack->n_index == (*b)->n_index - 1) // tweede mag ook
 	{
-		rra(a, data->top);
+		rrb(b);
 		data->bottom--;
 		data->lower--;
 		if (data->bottom)
-			data->bottom_stack = find_bottom(*a);
+			data->bottom_stack = find_bottom(*b);
 		else
 			data->bottom_stack = NULL;
-		if (data->bottom && data->bottom_stack->n_index == (*a)->n_index - 1)
+		if (data->bottom && data->bottom_stack->n_index == (*b)->n_index - 1)
 		{
-			rra(a, data->top);
+			rrb(b);
 			data->lower--;
 			data->bottom_stack = NULL;
 			data->bottom--;
@@ -49,21 +49,21 @@ bool	add_second(t_stats *data, t_node **a)
 		return (false);
 }
 
-void	try_third(t_stats *data, t_node **a)
+void	try_third_r(t_stats *data, t_node **b)
 {
-	data->bottom_stack = check_bottom(*a);
-	if (data->bottom_stack->n_index == (*a)->n_index - 1)
+	data->bottom_stack = check_bottom(*b);
+	if (data->bottom_stack->n_index == (*b)->n_index - 1)
 	{
-		rra(a, data->top);
-		rra(a, data->top);
-		sa(a, data->top);
+		rrb(b);
+		rrb(b);
+		sb(b);
 		data->lower--;
 		data->bottom--;
 	}
-	if ((*a)->n_index != (*a)->next->n_index - 1)
+	if ((*b)->n_index != (*b)->next->n_index - 1)
 	{
-		ra(a, data->top);
-		data->bottom_stack = find_bottom(*a);
+		rb(b, 0);
+		data->bottom_stack = find_bottom(*b);
 	}
 	else
 	{
@@ -73,15 +73,15 @@ void	try_third(t_stats *data, t_node **a)
 	}
 }
 
-void	try_second(t_stats *data, t_node **A)
+void	try_second_r(t_stats *data, t_node **b)
 {
-	rra(A, data->top);
+	rrb(b);
 	if (data->bottom == 2)
-		data->bottom_stack = find_bottom(*A);
+		data->bottom_stack = find_bottom(*b);
 	else
-		data->bottom_stack = (*A)->next;
-	if ((*A)->n_index == (*A)->next->next->n_index - 1) // als tweede goed is
-		second_correct(data, A);
+		data->bottom_stack = (*b)->next;
+	if ((*b)->n_index == (*b)->next->next->n_index - 1) // als tweede goed is
+		second_correct_r(data, b);
 	else // tweede was niet goed, dus moet derde wel zijn
-		 get_third(data, A);
+		get_third_r(data, b);
 }

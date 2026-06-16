@@ -28,13 +28,17 @@ SRC := main.c \
 		organise_b.c \
 		sort_forty_five.c \
 		sort_rest.c \
-		grow_top.c \
+		move_to_top.c \
 		try_more.c \
 		second_correct.c \
 		get_third.c \
 		sort_half.c \
 		sort_unorganised.c \
-		grow_bottom.c \
+		move_to_bottom.c \
+		move_to_top_r.c \
+		try_more_r.c \
+		second_correct_r.c \
+		get_third_r.c
 
 VPATH = src/ \
 		src/linked_list \
@@ -45,7 +49,8 @@ VPATH = src/ \
 		src/sorting/big_list \
 		src/sorting/big_list/organising \
 		src/sorting/big_list/sorting \
-		src/sorting/big_list/sorting/grow_top
+		src/sorting/big_list/sorting/move_to_top \
+		src/sorting/big_list/sorting/move_to_top_r
 
 OBJDIR := bin/
 OBJ := $(addprefix $(OBJDIR), $(SRC:.c=.o))

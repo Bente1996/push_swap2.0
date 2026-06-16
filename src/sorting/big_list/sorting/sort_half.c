@@ -12,11 +12,12 @@
 
 #include "push_swap.h"
 
-static int	is_group(int n_index, int lower, int bottom) // find case
+int	is_group(int n_index, int lower, int bottom) // find case
 {
 	if (n_index == lower || n_index == lower - 1)
 		return (1);
-	else if ((n_index == lower - 2 || n_index == lower - 3 || n_index == lower - 4) && bottom < 3)
+	else if ( bottom < 3 && \
+(n_index == lower - 2 || n_index == lower - 3 || n_index == lower - 4))
 		return (2);
 	else
 		return (0);
@@ -25,7 +26,7 @@ static int	is_group(int n_index, int lower, int bottom) // find case
 void	sort_half(t_node **a, t_node **b, int half, int count)
 {
 	t_stats	data;
-	int	group;
+	int		group;
 
 	data = init_stats(a, b, half);
 	while (count)
@@ -44,28 +45,7 @@ void	sort_half(t_node **a, t_node **b, int half, int count)
 void	grow_list(t_stats *data, t_node **a, t_node **b, int group)
 {
 	if (group == 1)
-		grow_top(data, a, b);
+		move_to_top(data, a, b);
 	else if (group == 2)
-		grow_bottom(data, a, b);
+		move_to_bottom(data, a, b);
 }
-
-//void	grow_list(t_node **a, t_node **b, int half, int count) // oud
-//{
-//	t_stats	data;
-//	int	group; // pas namen aan
-//
-//	data = init_stats(a, b, half);
-//	while (count--)
-//	{
-//		group = find_case((*b)->n_index, data.lower, data.bottom); // is_group?
-//		if (group == 1)
-//			add_and_lower(&data, a, b);
-//		else if (group == 2) // for -2, -3 en -4 (bottom <3)
-//			add(&data, a, b);
-//		else // rest
-//		{
-//			rb(b, data.top);
-//			count++;
-//		}
-//	}
-//}

@@ -13,7 +13,7 @@
 #include "push_swap.h"
 #include <stddef.h>
 
-void	grow_top(t_stats *data, t_node **a, t_node **b) // add_and_lower
+void	move_to_top(t_stats *data, t_node **a, t_node **b) // add_and_lower
 {
 	pa(a, b, data->top);
 	if ((*a)->n_index == data->lower - 1) // lower nog niet gevonden

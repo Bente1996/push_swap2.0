@@ -23,11 +23,11 @@ void	sort_big_list(t_node **a, t_node **b, int all, int size)
 	organise_a(a, b, all, half + size);
 	if (all % 2)                              // all to B, (half - size sorted)
 	{
-		sort_unorganised(b, a, all, half - size + 1);
+		sort_unorganised(a, b, all, half - size + 1);
 		sorted++;
 	}
 	else
-		sort_unorganised(b, a, all, half - size);
+		sort_unorganised(a, b, all, half - size);
 	while (sorted--)                          // 500->430 sorted in A
 	{
 		pa(a, b, 0);

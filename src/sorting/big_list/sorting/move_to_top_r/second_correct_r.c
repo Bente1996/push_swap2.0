@@ -13,37 +13,37 @@
 #include "push_swap.h"
 #include <stddef.h>
 
-void	second_correct(t_stats *data, t_node **a)
+void	second_correct_r(t_stats *data, t_node **b)
 {
-	sa(a, data->top);
-	if ((*a)->n_index == (*a)->next->n_index - 1 && data->bottom) // twee op juiste plek
-		two_in_order(data, a);
-	else if (data->bottom_stack->n_index == (*a)->next->n_index - 1) // niet twee juiste volgorde
-		add_from_bottom(data, a);
+	sb(b);
+	if ((*b)->n_index == (*b)->next->n_index - 1 && data->bottom) // twee op juiste plek
+		two_in_order_r(data, b);
+	else if (data->bottom_stack->n_index == (*b)->next->n_index - 1) // niet twee juiste volgorde
+		add_from_bottom_r(data, b);
 	else // tweede was niet goed
-	     ra(a, data->top);
+		rb(b, 0);
 }
 
-void	two_in_order(t_stats *data, t_node **a)
+void	two_in_order_r(t_stats *data, t_node **b)
 {
 	data->lower--;
 	data->bottom--;
-	if (data->bottom_stack->n_index == (*a)->n_index - 1) // maak ff 1 statement
+	if (data->bottom_stack->n_index == (*b)->n_index - 1) // maak ff 1 statement
 	{
-		rra(a, data->top);
+		rrb(b);
 		data->bottom--;
 		data->lower--;
 	}
 	data->bottom_stack = NULL;
 }
 
-void	add_from_bottom(t_stats *data, t_node **a)
+void	add_from_bottom_r(t_stats *data, t_node **b)
 {
-	rra(a, data->top);
-	sa(a, data->top);
+	rrb(b);
+	sb(b);
 	data->lower--;
 	data->bottom--;
-	if ((*a)->n_index == (*a)->next->n_index - 1)
+	if ((*b)->n_index == (*b)->next->n_index - 1)
 	{
 		data->lower--;
 		data->bottom--;
@@ -51,7 +51,7 @@ void	add_from_bottom(t_stats *data, t_node **a)
 	}
 	else
 	{
-		ra(a, data->top);
-		data->bottom_stack = find_bottom(*a);
+		rb(b, 0);
+		data->bottom_stack = find_bottom(*b);
 	}
 }

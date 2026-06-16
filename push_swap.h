@@ -102,13 +102,14 @@ void	sort_fifteen_B(t_node **a, t_node **b, int highest, int count);
 void	sort_fifteen_C(t_node **a, t_node **b, int highest, int count);
 
 void	sort_half(t_node **a, t_node **b, int half, int count);
+int		is_group(int n_index, int lower, int bottom);
 void	sort_unorganised(t_node **a, t_node **b, int half, int count);
 void	grow_list(t_stats *data, t_node **a, t_node **b, int group);
 void	sort_bottom_stack(t_stats *data, t_node **a, t_node **b, int group);
-void	grow_top(t_stats *data, t_node **a, t_node **b);
+void	move_to_top(t_stats *data, t_node **a, t_node **b);
 void	add_one(t_stats *data, t_node **a);
 void	add_more(t_stats *data, t_node **a);
-void	grow_bottom(t_stats *data, t_node **a, t_node **b);
+void	move_to_bottom(t_stats *data, t_node **a, t_node **b);
 void	try_more(t_stats *data, t_node **a);
 t_node	*find_bottom(t_node *stack);
 t_node	*check_bottom(t_node *stack);
@@ -121,6 +122,22 @@ void	add_from_bottom(t_stats *data, t_node **a);
 void	two_correct(t_stats *data, t_node **a);
 void	one_correct(t_stats *data, t_node **a);
 bool	add_second(t_stats *data, t_node **a);
+
+
+void	get_third_r(t_stats *data, t_node **b);
+void	try_third_r(t_stats *data, t_node **b);
+void	try_second_r(t_stats *data, t_node **b);
+void	second_correct_r(t_stats *data, t_node **b);
+void	two_in_order_r(t_stats *data, t_node **b);
+void	add_from_bottom_r(t_stats *data, t_node **b);
+void	two_correct_r(t_stats *data, t_node **b);
+void	one_correct_r(t_stats *data, t_node **b);
+bool	add_second_r(t_stats *data, t_node **b);
+void	move_to_top_r(t_stats *data, t_node **a, t_node **b);
+void	add_one_r(t_stats *data, t_node **b);
+void	add_more_r(t_stats *data, t_node **b);
+void	move_to_bottom_r(t_stats *data, t_node **a, t_node **b);
+void	try_more_r(t_stats *data, t_node **b);
 
 
 

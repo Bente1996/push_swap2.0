@@ -13,42 +13,41 @@
 #include "push_swap.h"
 #include <stddef.h>
 
-void	get_third(t_stats *data, t_node **a)
+void	get_third_r(t_stats *data, t_node **b)
 {
-	rra(a, data->top);
-	sa(a, data->top);
-	ra(a, data->top);
-	sa(a, data->top);
-
-	data->bottom_stack = find_bottom(*a);
-	if ((*a)->n_index == (*a)->next->n_index - 1) // check if bottom fits too
-		two_correct(data, a);
+	rrb(b);
+	sb(b);
+	rb(b, 0);
+	sb(b);
+	data->bottom_stack = find_bottom(*b);
+	if ((*b)->n_index == (*b)->next->n_index - 1) // check if bottom fits too
+		two_correct_r(data, b);
 	else
-		one_correct(data, a);
+		one_correct_r(data, b);
 }
 
-void	two_correct(t_stats *data, t_node **a) // nu 2 op goede plek, check 3e
+void	two_correct_r(t_stats *data, t_node **b) // nu 2 op goede plek, check 3e
 {
 	data->bottom--;
 	data->lower--;
-	if (data->bottom_stack->n_index == (*a)->n_index - 1)
+	if (data->bottom_stack->n_index == (*b)->n_index - 1)
 	{
-		rra(a, data->top);
+		rrb(b);
 		data->bottom--;
 		data->lower--;
 		data->bottom_stack = NULL;
 	}
 }
 
-void	one_correct(t_stats *data, t_node **a) // niet 2 op goede plek, maar 3e mag wel
+void	one_correct_r(t_stats *data, t_node **b) // niet 2 op goede plek, maar 3e mag wel
 {
-	if (data->bottom_stack->n_index == (*a)->next->n_index - 1)
+	if (data->bottom_stack->n_index == (*b)->next->n_index - 1)
 	{
-		rra(a, data->top);
-		sa(a, data->top);
+		rrb(b);
+		sb(b);
 		data->lower--;
 		data->bottom--;
-		if ((*a)->n_index == (*a)->next->n_index - 1)
+		if ((*b)->n_index == (*b)->next->n_index - 1)
 		{
 			data->bottom--;
 			data->lower--;
@@ -56,14 +55,14 @@ void	one_correct(t_stats *data, t_node **a) // niet 2 op goede plek, maar 3e mag
 		}
 		else
 		{
-			ra(a, data->top);
-			data->bottom_stack = find_bottom(*a);
+			rb(b, 0);
+			data->bottom_stack = find_bottom(*b);
 		}
 	}
 	else
 	{
-		if ((*a)->n_index > data->bottom_stack->n_index)
-			data->bottom_stack = *a;
-		ra(a, data->top);
+		if ((*b)->n_index > data->bottom_stack->n_index)
+			data->bottom_stack = *b;
+		rb(b, 0);
 	}
 }
