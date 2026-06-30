@@ -11,8 +11,8 @@
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 
 int	free_list(t_node *head)
 {
@@ -26,23 +26,6 @@ int	free_list(t_node *head)
 		free (tmp);
 	}
 	return (1);
-}
-
-void	print_list(t_node *list, char stack)
-{
-	if (!list)
-		return ;
-	if (stack == 'A')
-		printf("\nStack A:\n");
-	if (stack == 'B')
-		printf("\nStack B:\n");
-	while (list)
-	{
-		printf("Value:%d\n", list->value);
-		//printf("Index:%d\n", list->index);
-		printf("Sorted index:%d\n", list->n_index);
-		list = list->next;
-	}
 }
 
 int	stack_size(t_node *stack)

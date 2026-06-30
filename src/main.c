@@ -25,9 +25,8 @@ static size_t	ft_strlen(const char *s)
 
 static int	usage(char **argv)
 {
-	int err;
+	int	err;
 
-	/*printf("Usage: %s INTEGER INTEGER...\n", argv[0]);*/ // ft_printf
 	err = write(STDERR_FILENO, "Usage: ", 7);
 	err = write(STDERR_FILENO, argv[0], ft_strlen(argv[0]));
 	err = write(STDERR_FILENO, " INTEGER INTEGER...\n", 20);
@@ -52,6 +51,7 @@ int	main(int argc, char **argv)
 	}
 	if (!already_sorted(a))
 		sort_all(&a, index);
+	count_operations("y");
 	free_list(a);
 	return (0);
 }

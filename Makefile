@@ -38,7 +38,8 @@ SRC := main.c \
 		move_to_top_r.c \
 		try_more_r.c \
 		second_correct_r.c \
-		get_third_r.c
+		get_third_r.c \
+		print_operations.c
 
 VPATH = src/ \
 		src/linked_list \

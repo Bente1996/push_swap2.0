@@ -25,6 +25,12 @@ typedef struct s_node
 	struct s_node	*next;
 }	t_node;
 
+typedef struct s_text_node
+{
+	const char			*text;
+	struct s_text_node	*next;
+}	t_text;
+
 typedef struct s_stats
 {
 	int	quarter;
@@ -149,5 +155,14 @@ void	rrb(t_node **b);
 void	rra(t_node **a);
 void	sa(t_node **a);
 void	sb(t_node **b);
+
+void	append_text(t_text **head, const char *op);
+t_text	*create_node(const char *text);
+int		check_rotate(t_text *before_last, t_text *last, const char *op);
+int		check_r_rotate(t_text *before_last, t_text *last, const char *op);
+int		check_swap(t_text *before_last, t_text *last, const char *op);
+int		check_push(t_text *before_last, t_text *last, const char *op);
+int		strcmp(const char *s1, const char *s2);
+
 
 #endif
