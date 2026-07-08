@@ -28,7 +28,9 @@ The only algorithm that I implemented was selection sort for lists that contain
 20 or less integers:
 https://www.geeksforgeeks.org/dsa/selection-sort-algorithm-2/
 
-Bigger lists are sorted by looking for small chunks of integers at a time:
+Bigger lists are sorted by looking for small chunks of integers at a time 
+(figured out this approach by wanting to limit the amount of "push" operations,
+the finalf result followed after a lot of paper sketches and trial and error):
 - medium sized lists (21-149) are sorted by splitting the list in half and then
 sorting those halfs by looking for six integers at a time (two groups of three: 
 e.g. 22 23 24 and 47 48 49), ordering them correctly
