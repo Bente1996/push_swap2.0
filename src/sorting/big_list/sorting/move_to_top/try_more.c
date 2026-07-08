@@ -15,19 +15,19 @@
 
 void	try_more(t_stats *data, t_node **a)
 {
-	if ((*a)->n_index == data->lower + 1) // eerste was goed
+	if ((*a)->n_index == data->lower + 1)
 	{
 		data->bottom_stack = find_bottom(*a);
-		if (!add_second(data, a) && data->bottom == 2) // check tweede EN derde
-			try_third(data, a); // tweede mag niet, probeer derde
+		if (!add_second(data, a) && data->bottom == 2)
+			try_third(data, a);
 	}
-	else // eerste was niet goed dus probeer tweede
+	else
 		try_second(data, a);
 }
 
 bool	add_second(t_stats *data, t_node **a)
 {
-	if (data->bottom_stack->n_index == (*a)->n_index - 1) // tweede mag ook
+	if (data->bottom_stack->n_index == (*a)->n_index - 1)
 	{
 		rra(a);
 		data->bottom--;
@@ -80,8 +80,8 @@ void	try_second(t_stats *data, t_node **a)
 		data->bottom_stack = find_bottom(*a);
 	else
 		data->bottom_stack = (*a)->next;
-	if ((*a)->n_index == (*a)->next->next->n_index - 1) // als tweede goed is
+	if ((*a)->n_index == (*a)->next->next->n_index - 1)
 		second_correct(data, a);
-	else // tweede was niet goed, dus moet derde wel zijn
+	else
 		get_third(data, a);
 }

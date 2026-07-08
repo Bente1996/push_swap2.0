@@ -12,8 +12,7 @@
 
 #include "push_swap.h"
 
-
-void	move_to_bottom(t_stats *data, t_node **a, t_node **b) // add
+void	move_to_bottom(t_stats *data, t_node **a, t_node **b)
 {
 	if (!data->bottom || data->bottom_stack->n_index < (*b)->n_index)
 	{

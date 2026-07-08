@@ -24,7 +24,7 @@ void	organise_b(t_node **a, t_node **b, int half, int size)
 			pb(a, b);
 			h--;
 			if (((*b)->n_index < half - size))
-					rb(b);
+				rb(b);
 		}
 		else
 			ra(a);
@@ -34,23 +34,23 @@ void	organise_b(t_node **a, t_node **b, int half, int size)
 
 void	sort_b(t_node **a, t_node **b, int half, int size)
 {
-	int count;
+	int	count;
 
 	count = half - size + 45;
-	sort_forty_five(a, b, half, size); // 0-135 beneden
+	sort_forty_five(a, b, half, size);
 	if (size >= 135)
 	{
 		while (count--)
 			rb(b);
-		sort_forty_five(a, b, half, size - 45); // 0-90 beneden
+		sort_forty_five(a, b, half, size - 45);
 	}
 	if (size == 180)
 	{
-		count = 90; // van 90 naar 89 gedaan voor 499
+		count = 90;
 		while (count--)
 			rrb(b);
-		sort_forty_five(a, b, half, 90); // 45 beneden
+		sort_forty_five(a, b, half, 90);
 	}
 	if (size >= 90)
-		sort_rest(a, b, half); // sorteert laatste
+		sort_rest(a, b, half);
 }

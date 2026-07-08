@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-void	sort_unorganised(t_node **a, t_node **b, int half, int count) // andersom
+void	sort_unorganised(t_node **a, t_node **b, int half, int count)
 {
 	t_stats	data;
 	int		group;
@@ -27,36 +27,15 @@ void	sort_unorganised(t_node **a, t_node **b, int half, int count) // andersom
 			sort_bottom_stack(&data, a, b, group);
 			count--;
 		}
-		else // rest
-			ra(a); // moet dus andersom
+		else
+			ra(a);
 	}
 }
-
-//void	sort_unorganised(t_node **a, t_node **b, int half, int count) // moet
-//																	  // andersom
-//{
-//	t_stats	data;
-//	int		group;
-//
-//	data = init_stats(a, b, half);
-//	while (count)
-//	{
-//		group = 0;
-//		group = is_group((*b)->n_index, data.lower, data.bottom);
-//		if (group)
-//		{
-//			sort_bottom_stack(&data, a, b, group);
-//			count--;
-//		}
-//		else // rest
-//			rb(b, data.top); // moet dus andersom
-//	}
-//}
 
 void	sort_bottom_stack(t_stats *data, t_node **a, t_node **b, int group)
 {
 	if (group == 1)
-		move_to_top_r(data, a, b); // omdraaien, andere func
+		move_to_top_r(data, a, b);
 	else if (group == 2)
-		move_to_bottom_r(data, a, b); // omdraaien, andere func
+		move_to_bottom_r(data, a, b);
 }

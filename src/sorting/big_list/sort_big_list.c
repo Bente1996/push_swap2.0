@@ -21,47 +21,18 @@ void	sort_big_list(t_node **a, t_node **b, int all, int size)
 	sorted = half - size;
 	organise_b(a, b, half, size);
 	organise_a(a, b, all, half + size);
-	if (all % 2)                              // all to B, (half - size sorted)
+	if (all % 2)
 	{
 		sort_unorganised(a, b, all, half - size + 1);
 		sorted++;
 	}
 	else
 		sort_unorganised(a, b, all, half - size);
-	while (sorted--)                          // 500->430 sorted in A
+	while (sorted--)
 	{
 		pa(a, b);
 		ra(a);
 	}
-	sort_half(a, b, half + size, size);       // 250->500 sorted in A
-	sort_half(a, b, half, half);              // all sorted in A (2x sort half
-											  // stack)
+	sort_half(a, b, half + size, size);
+	sort_half(a, b, half, half);
 }
-
-//void	sort_big_list(t_node **a, t_node **b, int all, int size)
-//{
-//	int	sorted;
-//	int	half;
-//
-//	half = all / 2;
-//	sorted = half - size;
-//	organise_b(a, b, half, size);
-//	organise_a(a, b, all, half + size);
-//	if (all % 2)                              // all to B, (half - size sorted)
-//	{
-//		grow_list(b, a, all, half - size + 1);
-//		sorted++;
-//	}
-//	else
-//		grow_list(b, a, all, half - size);
-//	while (sorted--)                          // 500->430 sorted in A
-//	{
-//		pa(a, b, 0);
-//		ra(a, 0);
-//	}
-//	grow_list(a, b, half + size, size);       // 250->500 sorted in A
-//	grow_list(a, b, half, half);              // all sorted in A (2x sort half
-//											  // stack)
-//	//print_list(*a, 'A');
-//	//print_list(*b, 'B');
-//}

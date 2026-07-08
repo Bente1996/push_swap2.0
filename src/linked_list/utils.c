@@ -26,7 +26,7 @@ static int	ft_strlen(const char *s)
 
 int	count_operations(char *operation)
 {
-	static int	operation_count;
+	static int		operation_count;
 	static t_text	*head;
 	t_text			*current;
 	t_text			*next;

@@ -33,25 +33,25 @@ void	organise_a(t_node **a, t_node **b, int all, int highest)
 
 void	sort_a(t_node **a, t_node **b, int highest, int size)
 {
-	int count;
+	int	count;
 
 	count = 90;
-	sort_forty_five(a, b, highest, size); // 0-135 beneden
+	sort_forty_five(a, b, highest, size);
 	if (size >= 135)
 	{
 		if (size == 180)
 			count += 45;
-		while (count--) // 135
+		while (count--)
 			rrb(b);
-		sort_forty_five(a, b, highest, size - 45); // 0-90 beneden
+		sort_forty_five(a, b, highest, size - 45);
 	}
 	if (size == 180)
 	{
 		count = 90;
-		while (count--) // 90
+		while (count--)
 			rrb(b);
-		sort_forty_five(a, b, highest, 90); // 45 beneden
+		sort_forty_five(a, b, highest, 90);
 	}
 	if (size >= 90)
-		sort_rest(a, b, highest); // sorteert laatste 45
+		sort_rest(a, b, highest);
 }

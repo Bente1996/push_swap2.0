@@ -22,10 +22,10 @@ void	ra(t_node **A)
 		return ;
 	first = *A;
 	tmp = *A;
-	*A = (*A)->next; //nieuwe hoofd
+	*A = (*A)->next;
 	while (tmp->next)
 		tmp = tmp->next;
 	tmp->next = first;
-	first->next = NULL;// bij uiteinde 
+	first->next = NULL;
 	count_operations("ra");
 }

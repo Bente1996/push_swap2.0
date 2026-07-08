@@ -22,7 +22,7 @@ void	half_to_tq(t_stats *data, t_node **a, t_node **b)
 		grow_h(data, a, b);
 	else if ((*a)->n_index == data->h + 1 || (*a)->n_index == data->h + 2)
 	{
-		if (!(data->swap < 2)) // positief maken
+		if (!(data->swap < 2))
 			return ;
 		pb(a, b);
 		data->swap++;

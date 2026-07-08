@@ -13,18 +13,18 @@
 #include "push_swap.h"
 #include <stddef.h>
 
-void	move_to_top_r(t_stats *data, t_node **a, t_node **b) // add_and_lower
+void	move_to_top_r(t_stats *data, t_node **a, t_node **b)
 {
 	pb(a, b);
-	if ((*b)->n_index == data->lower - 1) // lower nog niet gevonden
+	if ((*b)->n_index == data->lower - 1)
 		data->swap++;
 	else
-		add_one_r(data, b);           // lower wel gevonden
+		add_one_r(data, b);
 	if (data->bottom && data->bottom_stack->n_index == data->lower)
 		add_more_r(data, b);
 }
 
-void	add_one_r(t_stats *data, t_node **b) //handle bottom
+void	add_one_r(t_stats *data, t_node **b)
 {
 	data->lower--;
 	if (data->swap)
@@ -37,11 +37,11 @@ void	add_one_r(t_stats *data, t_node **b) //handle bottom
 
 void	add_more_r(t_stats *data, t_node **b)
 {
-	rrb(b); // 1 (van 3?) naar boven
+	rrb(b);
 	data->bottom--;
 	data->lower--;
 	if (data->bottom)
-		try_more_r(data, b); // get more bottom if bottom (bottom == 1-2)
+		try_more_r(data, b);
 	else
 		data->bottom_stack = NULL;
 }

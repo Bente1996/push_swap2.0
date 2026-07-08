@@ -20,7 +20,7 @@ void	pb(t_node **A, t_node **B)
 		return ;
 	tmp = *A;
 	*A = (*A)->next;
-	tmp->next = NULL; // losgekoppeld
+	tmp->next = NULL;
 	if (!*B)
 		*B = tmp;
 	else

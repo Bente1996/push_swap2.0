@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include <stdio.h>
 
 void	sort_medium_list(t_node **a, t_node **b, int all)
 {
@@ -20,7 +19,7 @@ void	sort_medium_list(t_node **a, t_node **b, int all)
 	half = all / 2;
 	split_list(a, b, all / 2);
 	sort_highest_half(a, b, half);
-	if (UNEVEN)
+	if (all % 2)
 		sorted_to_a(a, b, half + 1, half / 2);
 	else
 		sorted_to_a(a, b, half, half / 2);
@@ -34,7 +33,7 @@ void	split_list(t_node **a, t_node **b, int half)
 
 	h = half;
 	count = 0;
-	while (h) // push to B
+	while (h)
 	{
 		if ((*a)->n_index < half)
 		{

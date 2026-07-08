@@ -36,7 +36,7 @@ void	smallest_to_top(t_node **a)
 
 	smallest_pos = find_smallest(*a);
 	mid_stack = stack_size(*a) / 2;
-	if (mid_stack < smallest_pos) // van onderaan
+	if (mid_stack < smallest_pos)
 	{
 		while (smallest_pos <= stack_size(*a))
 		{
@@ -44,7 +44,7 @@ void	smallest_to_top(t_node **a)
 			smallest_pos++;
 		}
 	}
-	else // vanaf boven
+	else
 	{
 		while (smallest_pos > 1)
 		{
@@ -82,17 +82,17 @@ void	sort_three(t_node **a)
 	const int	two = (*a)->next->value;
 	const int	three = (*a)->next->next->value;
 
-	if (one > two && one > three) // 3 1 2 || 3 2 1
+	if (one > two && one > three)
 	{
 		ra(a);
 		if (two > three)
 			sa(a);
 	}
-	else if (one > two && one < three) // 2 1 3
+	else if (one > two && one < three)
 		sa(a);
-	else if (one < two && one > three) // 2 3 1
+	else if (one < two && one > three)
 		rra(a);
-	else if (one < two && one < three) // 1 3 2
+	else if (one < two && one < three)
 	{
 		rra(a);
 		sa(a);

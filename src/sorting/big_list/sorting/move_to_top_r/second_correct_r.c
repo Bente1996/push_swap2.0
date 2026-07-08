@@ -16,11 +16,11 @@
 void	second_correct_r(t_stats *data, t_node **b)
 {
 	sb(b);
-	if ((*b)->n_index == (*b)->next->n_index - 1 && data->bottom) // twee op juiste plek
+	if ((*b)->n_index == (*b)->next->n_index - 1 && data->bottom)
 		two_in_order_r(data, b);
-	else if (data->bottom_stack->n_index == (*b)->next->n_index - 1) // niet twee juiste volgorde
+	else if (data->bottom_stack->n_index == (*b)->next->n_index - 1)
 		add_from_bottom_r(data, b);
-	else // tweede was niet goed
+	else
 		rb(b);
 }
 
@@ -28,7 +28,7 @@ void	two_in_order_r(t_stats *data, t_node **b)
 {
 	data->lower--;
 	data->bottom--;
-	if (data->bottom_stack->n_index == (*b)->n_index - 1) // maak ff 1 statement
+	if (data->bottom_stack->n_index == (*b)->n_index - 1)
 	{
 		rrb(b);
 		data->bottom--;

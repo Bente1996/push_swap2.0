@@ -20,13 +20,13 @@ void	get_third(t_stats *data, t_node **a)
 	ra(a);
 	sa(a);
 	data->bottom_stack = find_bottom(*a);
-	if ((*a)->n_index == (*a)->next->n_index - 1) // check if bottom fits too
+	if ((*a)->n_index == (*a)->next->n_index - 1)
 		two_correct(data, a);
 	else
 		one_correct(data, a);
 }
 
-void	two_correct(t_stats *data, t_node **a) // nu 2 op goede plek, check 3e
+void	two_correct(t_stats *data, t_node **a)
 {
 	data->bottom--;
 	data->lower--;
@@ -39,7 +39,7 @@ void	two_correct(t_stats *data, t_node **a) // nu 2 op goede plek, check 3e
 	}
 }
 
-void	one_correct(t_stats *data, t_node **a) // niet 2 op goede plek, maar 3e mag wel
+void	one_correct(t_stats *data, t_node **a)
 {
 	if (data->bottom_stack->n_index == (*a)->next->n_index - 1)
 	{

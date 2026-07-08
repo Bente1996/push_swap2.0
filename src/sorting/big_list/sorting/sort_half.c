@@ -12,12 +12,14 @@
 
 #include "push_swap.h"
 
-int	is_group(int n_index, int lower, int bottom) // find case
+int	is_group(int n_index, int lower, int bottom)
 {
 	if (n_index == lower || n_index == lower - 1)
 		return (1);
-	else if ( bottom < 3 && \
-(n_index == lower - 2 || n_index == lower - 3 || n_index == lower - 4))
+	else if (bottom < 3
+		&& (n_index == lower - 2
+			|| n_index == lower - 3
+			|| n_index == lower - 4))
 		return (2);
 	else
 		return (0);
@@ -37,7 +39,7 @@ void	sort_half(t_node **a, t_node **b, int half, int count)
 			grow_list(&data, a, b, group);
 			count--;
 		}
-		else // rest
+		else
 			rb(b);
 	}
 }

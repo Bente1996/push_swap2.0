@@ -20,9 +20,9 @@ void	sort_highest_half(t_node **a, t_node **b, int half)
 	data.h++;
 	while (*a)
 	{
-		if ((*a)->n_index >= data.tq && (*a)->n_index <= data.tq + 2) //75->99
+		if ((*a)->n_index >= data.tq && (*a)->n_index <= data.tq + 2)
 			tq_to_all(&data, a, b);
-		else if ((*a)->n_index >= data.h && (*a)->n_index <= data.h + 2) //50->74
+		else if ((*a)->n_index >= data.h && (*a)->n_index <= data.h + 2)
 			half_to_tq(&data, a, b);
 		else
 			ra(a);

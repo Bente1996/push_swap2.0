@@ -18,7 +18,6 @@ int	free_list(t_node *head)
 {
 	t_node	*tmp;
 
-
 	while (head)
 	{
 		tmp = head;
@@ -44,7 +43,7 @@ int	stack_size(t_node *stack)
 t_node	*check_bottom(t_node *stack)
 {
 	while (stack->next->next)
-		stack = stack->next; // naar een na laatste
+		stack = stack->next;
 	return (stack);
 }
 
