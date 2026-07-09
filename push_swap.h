@@ -43,13 +43,13 @@ typedef struct s_stats
 	struct s_node	*bottom_stack;
 }	t_stats;
 
-t_node	*make_list(int argc, char **argv, int *i, t_node **head);
+t_node	*make_list(int argc, char const *const *argv, int *i, t_node **head);
 t_node	*append_node(t_node **head, int value, int index);
 t_stats	init_stats(int half);
-int		make_number(char *argv, int *valid);
-int		convert(char *argv, int *valid);
-bool	is_overflow(char *argv, int value, int sign);
-bool	is_number(char *argv);
+int		make_number(char const *argv, bool *valid);
+int		convert(char const *argv, bool *valid);
+bool	is_overflow(char const *argv, int value, int sign);
+bool	is_number(char const *argv);
 bool	is_duplicate(t_node *head, int value);
 t_node	*sort_indices(t_node **list);
 bool	already_sorted(t_node *stack);

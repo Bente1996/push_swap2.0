@@ -12,17 +12,16 @@
 
 #include "push_swap.h"
 
+// all % 2 needs to be added to half because of the fractional part in integer
+// division being truncated to 0
 void	sort_medium_list(t_node **a, t_node **b, int all)
 {
 	int		half;
 
 	half = all / 2;
-	split_list(a, b, all / 2);
+	split_list(a, b, half);
 	sort_highest_half(a, b, half);
-	if (all % 2)
-		sorted_to_a(a, b, half + 1, half / 2);
-	else
-		sorted_to_a(a, b, half, half / 2);
+	sorted_to_a(a, b, half + (all % 2), half / 2);
 	sort_lowest_half(a, b, half);
 }
 

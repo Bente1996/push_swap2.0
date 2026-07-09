@@ -6,14 +6,14 @@
 /*   By: bede-kon <bede-kon@student.codam.nl>              +#+                */
 /*                                                        +#+                 */
 /*   Created: 2026/03/12 20:16:17 by bede-kon            #+#    #+#           */
-/*   Updated: 2026/06/08 12:34:52 by bede-kon            ########   odam.nl   */
+/*   Updated: 2026/07/09 17:19:36 by bede-kon            ########   odam.nl   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 #include <unistd.h>
 
-static size_t	ft_strlen(const char *s)
+static size_t	ft_strlen(char const *s)
 {
 	size_t	i;
 
@@ -23,7 +23,8 @@ static size_t	ft_strlen(const char *s)
 	return (i);
 }
 
-static int	usage(char **argv)
+// compiler at home is stricter on checking write() returns
+static int	usage(char const *const *argv)
 {
 	int	err;
 
@@ -34,7 +35,7 @@ static int	usage(char **argv)
 	return (1);
 }
 
-int	main(int argc, char **argv)
+int	main(int argc, char const *const *argv)
 {
 	t_node	*a;
 	int		index;

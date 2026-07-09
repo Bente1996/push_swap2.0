@@ -13,16 +13,16 @@
 #include "push_swap.h"
 #include <stdlib.h>
 
-t_node	*make_list(int argc, char **argv, int *i, t_node **head)
+t_node	*make_list(int argc, char const *const *argv, int *i, t_node **head)
 {
 	t_node		*list;
 	int			value;
-	int			valid;
+	bool		valid;
 
 	list = NULL;
 	while (*i < argc - 1)
 	{
-		valid = 0;
+		valid = false;
 		value = make_number(argv[*i + 1], &valid);
 		if (!valid)
 		{
@@ -41,8 +41,7 @@ t_node	*make_list(int argc, char **argv, int *i, t_node **head)
 	return (*head);
 }
 
-int	make_number(char *argv, int *valid) // voeg is_duplicate toe en argc check,
-										// even meegeven
+int	make_number(char const *argv, bool *valid)
 {
 	int	value;
 
@@ -55,7 +54,7 @@ int	make_number(char *argv, int *valid) // voeg is_duplicate toe en argc check,
 	return (value);
 }
 
-int	convert(char *argv, int *valid)
+int	convert(char const *argv, bool *valid)
 {
 	int	value;
 	int	sign;
@@ -78,6 +77,6 @@ int	convert(char *argv, int *valid)
 				return (0);
 		}
 	}
-	*valid = 1;
+	*valid = true;
 	return (value * sign);
 }

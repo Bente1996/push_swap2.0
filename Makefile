@@ -53,7 +53,7 @@ VPATH = src/ \
 		src/sorting/big_list/sorting/move_to_top_r
 OBJDIR := bin/
 OBJ := $(addprefix $(OBJDIR), $(SRC:.c=.o))
-CFLAGS ?= -Wall -Wextra -Werror -I. -g 
+CFLAGS ?= -Wall -Wextra -Werror -I. -g
 
 all: $(NAME)
 
@@ -112,4 +112,5 @@ re:
 	$(MAKE) all
 
 .PHONY: clean fclean re clangd test
+.PRECIOUS = $(OBJDIR)
 .DEFAULT_GOAL = $(NAME) ## do this when just 'make', otherwise: first non-phony-rule

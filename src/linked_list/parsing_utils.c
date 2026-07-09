@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-bool	is_number(char *argv)
+bool	is_number(char const *argv)
 {
 	if (*argv == '-')
 		argv++;
@@ -25,7 +25,7 @@ bool	is_number(char *argv)
 	return (true);
 }
 
-bool	is_overflow(char *argv, int value, int sign)
+bool	is_overflow(char const *argv, int value, int sign)
 {
 	if (value < 214748364)
 		return (false);

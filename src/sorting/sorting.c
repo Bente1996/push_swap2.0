@@ -13,6 +13,8 @@
 #include "push_swap.h"
 #include <stddef.h>
 
+// magic numbers are derived from a bunch of trial and error. also the fact that
+// i group things by 5 / 15 / 45 a lot
 void	sort_all(t_node **a, int all)
 {
 	t_node	*b;
