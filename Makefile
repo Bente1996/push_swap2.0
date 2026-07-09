@@ -40,7 +40,6 @@ SRC := main.c \
 		second_correct_r.c \
 		get_third_r.c \
 		print_operations.c
-
 VPATH = src/ \
 		src/linked_list \
 		src/operations \
@@ -52,34 +51,55 @@ VPATH = src/ \
 		src/sorting/big_list/sorting \
 		src/sorting/big_list/sorting/move_to_top \
 		src/sorting/big_list/sorting/move_to_top_r
-
 OBJDIR := bin/
 OBJ := $(addprefix $(OBJDIR), $(SRC:.c=.o))
-
-$(OBJDIR)%.o: %.c $(HEADER_FILES) | $(OBJDIR)
-	$(CC) $(CFLAGS) -c -o $@ $<
-
 CFLAGS ?= -Wall -Wextra -Werror -I. -g 
 
 all: $(NAME)
 
-run: $(NAME)
-	./$(NAME) 1 2 3 4
-
-valgrind: $(NAME)
-	valgrind ./$(NAME) 1 2 3 4
-
-valgrind_full: $(NAME)
-	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes -s ./$(NAME) 1 2 3 4
-
 $(NAME): $(OBJ)
 	$(CC) $(OBJ) $(CFLAGS) -o $(NAME)
 
-# %.o: %.c $(HEADER_FILES) 
-# 	$(CC) $(CFLAGS) -c $< -o $@
+$(OBJDIR)%.o: %.c $(HEADER_FILES) | $(OBJDIR)
+	$(CC) $(CFLAGS) -c -o $@ $<
 
 %/ :
 	@mkdir -p $@
+
+test: run
+
+run: $(NAME)
+	@echo "=== No input ==="
+	./$(NAME) || : # should fail
+	@echo "=== Error ==="
+	./$(NAME) 6 7 "helo" || : # should fail
+	@echo "=== Identity ==="
+	./$(NAME) 1 2 3 4
+	@echo "=== Reverse ==="
+	./$(NAME) 4 3 2 1
+
+valgrind: $(NAME)
+	@echo "=== No input ==="
+	valgrind ./$(NAME) >/dev/null || : # should fail
+	@echo "=== Error ==="
+	valgrind ./$(NAME) 6 7 "helo" >/dev/null || : # should fail
+	@echo "=== Identity ==="
+	valgrind ./$(NAME) 1 2 3 4 >/dev/null
+	@echo "=== Reverse ==="
+	valgrind ./$(NAME) 4 3 2 1 >/dev/null
+
+valgrind_full: $(NAME)
+	@echo "=== No input ==="
+	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes -s ./$(NAME) >/dev/null || : # should fail
+	@echo "=== Error ==="
+	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes -s ./$(NAME) 6 7 "helo" >/dev/null || : # should fail
+	@echo "=== Identity ==="
+	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes -s ./$(NAME) 1 2 3 4 >/dev/null
+	@echo "=== Reverse ==="
+	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes -s ./$(NAME) 4 3 2 1 >/dev/null
+
+clangd:
+	type bear && bear $(MAKE) -B || intercept-build-15 $(MAKE) -B
 
 clean:
 	rm -rf $(OBJDIR)
@@ -91,4 +111,5 @@ re:
 	$(MAKE) fclean
 	$(MAKE) all
 
-.PHONY: clean fclean re
+.PHONY: clean fclean re clangd test
+.DEFAULT_GOAL = $(NAME) ## do this when just 'make', otherwise: first non-phony-rule

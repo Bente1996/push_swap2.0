@@ -144,10 +144,10 @@ void	sb(t_node **b);
 
 void	append_text(t_text **head, const char *op);
 t_text	*create_node(const char *text);
-int		check_rotate(t_text *before_last, t_text *last, const char *op);
-int		check_r_rotate(t_text *before_last, t_text *last, const char *op);
-int		check_swap(t_text *before_last, t_text *last, const char *op);
-int		check_push(t_text *before_last, t_text *last, const char *op);
+bool	check_rotate(t_text *before_last, t_text *last, const char *op);
+bool	check_r_rotate(t_text *before_last, t_text *last, const char *op);
+bool	check_swap(t_text *before_last, t_text *last, const char *op);
+bool	check_push(t_text *before_last, t_text *last, const char *op);
 int		strcmp(const char *s1, const char *s2);
 
 #endif

@@ -13,7 +13,7 @@
 #include <stdlib.h>
 #include "push_swap.h"
 
-int	check_rotate(t_text *before_last, t_text *last, const char *op)
+bool	check_rotate(t_text *before_last, t_text *last, const char *op)
 {
 	if ((!strcmp(op, "ra") && !strcmp(last->text, "rb"))
 		|| (!strcmp(op, "rb") && !strcmp(last->text, "ra")))
@@ -26,11 +26,11 @@ int	check_rotate(t_text *before_last, t_text *last, const char *op)
 		free(last);
 	}
 	else
-		return (0);
-	return (1);
+		return (false);
+	return (true);
 }
 
-int	check_r_rotate(t_text *before_last, t_text *last, const char *op)
+bool	check_r_rotate(t_text *before_last, t_text *last, const char *op)
 {
 	if ((!strcmp(op, "rra") && !strcmp(last->text, "rrb"))
 		|| (!strcmp(op, "rrb") && !strcmp(last->text, "rra")))
@@ -43,11 +43,11 @@ int	check_r_rotate(t_text *before_last, t_text *last, const char *op)
 		free(last);
 	}
 	else
-		return (0);
-	return (1);
+		return (false);
+	return (true);
 }
 
-int	check_swap(t_text *before_last, t_text *last, const char *op)
+bool	check_swap(t_text *before_last, t_text *last, const char *op)
 {
 	if ((!strcmp(op, "sa") && !strcmp(last->text, "sb"))
 		|| (!strcmp(op, "sb") && !strcmp(last->text, "sa")))
@@ -60,11 +60,11 @@ int	check_swap(t_text *before_last, t_text *last, const char *op)
 		free(last);
 	}
 	else
-		return (0);
-	return (1);
+		return (false);
+	return (true);
 }
 
-int	check_push(t_text *before_last, t_text *last, const char *op)
+bool	check_push(t_text *before_last, t_text *last, const char *op)
 {
 	if ((!strcmp(op, "pa") && !strcmp(last->text, "pb"))
 		|| (!strcmp(op, "pb") && !strcmp(last->text, "pa")))
@@ -73,6 +73,6 @@ int	check_push(t_text *before_last, t_text *last, const char *op)
 		free(last);
 	}
 	else
-		return (0);
-	return (1);
+		return (false);
+	return (true);
 }
